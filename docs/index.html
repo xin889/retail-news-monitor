@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>外部动态监控雷达 —— 大商超事业群</title>
+  <style>
+    :root {
+      --bg: #f8f6f5;
+      --panel: #ffffff;
+      --panel-soft: #fff4f2;
+      --ink: #241514;
+      --muted: #756865;
+      --line: #eadbd8;
+      --teal: #e1251b;
+      --teal-soft: #fff1f0;
+      --amber: #a16207;
+      --amber-soft: #fff4d6;
+      --red: #c8161d;
+      --red-soft: #feeceb;
+      --shadow: 0 8px 24px rgba(80, 20, 16, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 36px;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(225, 37, 27, 0.12), rgba(255, 179, 71, 0.10)),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 4px 9px;
+      border: 1px solid rgba(225, 37, 27, 0.26);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .brand-title {
+      margin: 9px 0 2px;
+      font-size: 30px;
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    .brand-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .mode-card {
+      min-width: 220px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .mode-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .mode-value {
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .source-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .kpi {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .kpi .value {
+      margin-top: 4px;
+      font-size: 21px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .toolbar,
+    .filters,
+    .list-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .search {
+      width: 100%;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: rgba(225, 37, 27, 0.55);
+      box-shadow: 0 0 0 3px rgba(225, 37, 27, 0.12);
+    }
+
+    select {
+      height: 38px;
+      padding: 0 34px 0 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .checkline {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 38px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .nav button,
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+    }
+
+    .nav button {
+      padding: 10px 16px;
+      font-weight: 800;
+    }
+
+    .chip {
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+
+    .nav button.active,
+    .chip.active {
+      border-color: rgba(225, 37, 27, 0.42);
+      background: var(--teal-soft);
+      color: #b91c1c;
+    }
+
+    .filters {
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .filter-row {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 8px;
+      align-items: start;
+      padding: 6px 0;
+    }
+
+    .filter-label {
+      padding-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .list-panel {
+      overflow: hidden;
+    }
+
+    .list-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .news-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .news-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .news-row:last-child {
+      border-bottom: 0;
+    }
+
+    .title-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .news-title {
+      min-width: 0;
+      overflow: hidden;
+      color: #14201a;
+      font-size: 15px;
+      font-weight: 760;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .news-title:hover {
+      color: var(--teal);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tag,
+    .importance {
+      display: inline-flex;
+      align-items: center;
+      min-height: 20px;
+      padding: 1px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .importance.high {
+      border-color: rgba(180, 35, 24, 0.24);
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    .importance.mid {
+      border-color: rgba(161, 98, 7, 0.22);
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-weight: 800;
+    }
+
+    .insight-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--teal);
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+
+    .tooltip {
+      position: absolute;
+      left: 14px;
+      top: calc(100% - 6px);
+      z-index: 5;
+      display: none;
+      width: min(620px, calc(100vw - 52px));
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .news-row:hover .tooltip {
+      display: block;
+    }
+
+    .tooltip strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .tooltip p {
+      margin: 0 0 8px;
+    }
+
+    .tooltip .fine {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .empty,
+    .error {
+      padding: 42px 16px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .error {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+    @media (max-width: 920px) {
+      .top,
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .mode-card {
+        min-width: 0;
+      }
+
+      .kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .filter-row {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-label {
+        padding-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 20px, 1440px);
+        padding-top: 12px;
+      }
+
+      .top {
+        padding: 18px;
+      }
+
+      .brand-title {
+        font-size: 24px;
+      }
+
+      .kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .nav button {
+        flex: 0 0 auto;
+      }
+
+      .title-line {
+        align-items: flex-start;
+      }
+
+      .news-title {
+        white-space: normal;
+      }
+
+      .insight-toggle {
+        display: inline-flex;
+      }
+
+      .news-row:hover .tooltip {
+        display: none;
+      }
+
+      .news-row.expanded .tooltip {
+        position: static;
+        display: block;
+        width: 100%;
+        margin-top: 6px;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div>
+        <div class="brand-mark">商分商超小诸葛 出品</div>
+        <h1 class="brand-title">外部动态监控雷达 —— 大商超事业群</h1>
+        <p class="brand-subtitle">平台竞对 × 零售商竞对 × 品类品牌动态</p>
+      </div>
+      <aside class="mode-card">
+        <div class="mode-label">当前 AI 模式</div>
+        <div class="mode-value" id="aiMode">规则版解读</div>
+        <div class="source-note" id="sourceNote">数据来源：RSS / Google News RSS / 官方公开页面 / 规则版解读</div>
+      </aside>
+    </header>
+
+    <section class="kpis" aria-label="KPI">
+      <div class="kpi"><div class="label">今日新增</div><div class="value" id="todayCount">0</div></div>
+      <div class="kpi"><div class="label">近 7 日新闻</div><div class="value" id="last7Count">0</div></div>
+      <div class="kpi"><div class="label">总新闻数</div><div class="value" id="totalCount">0</div></div>
+      <div class="kpi"><div class="label">最新刷新时间</div><div class="value" id="updatedAt">-</div></div>
+      <div class="kpi"><div class="label">当前筛选结果</div><div class="value" id="filteredCount">0</div></div>
+    </section>
+
+    <section class="toolbar" aria-label="全局工具">
+      <input class="search" id="searchInput" type="search" placeholder="搜索标题、摘要、来源、主体、标签、AI 解读">
+      <select id="sortSelect" aria-label="排序">
+        <option value="time">按发布时间倒序</option>
+        <option value="importance">按重要性排序</option>
+      </select>
+      <label class="checkline">
+        <input id="highOnly" type="checkbox">
+        只看重要性 ≥ 4
+      </label>
+    </section>
+
+    <nav class="nav" aria-label="主导航">
+      <button class="active" data-section="platform">平台竞对</button>
+      <button data-section="retailer">零售商</button>
+      <button data-section="category">品类洞察</button>
+    </nav>
+
+    <section class="filters" id="filters" aria-label="筛选条件"></section>
+
+    <section class="list-panel">
+      <div class="list-head">
+        <span id="listTitle">平台竞对新闻</span>
+        <span id="listHint">标题悬停查看解读</span>
+      </div>
+      <div id="status"></div>
+      <ul class="news-list" id="newsList"></ul>
+    </section>
+  </main>
+
+  <script>
+    const FILTERS = {
+      platform: {
+        title: "平台竞对新闻",
+        rows: [
+          { key: "entity", label: "平台", values: ["全部", "淘宝天猫", "抖音电商", "拼多多", "美团"] },
+          { key: "dimension", label: "维度", values: ["全部", "业务表现", "组织架构", "平台政策", "组织策略", "商家生态", "即时零售", "用户增长", "科技 / AI", "其他"] }
+        ]
+      },
+      retailer: {
+        title: "零售商新闻",
+        rows: [
+          { key: "entity", label: "零售商", values: ["全部", "Costco", "山姆", "小象超市", "朴朴超市", "叮咚买菜", "奥乐齐", "盒马 NB", "快乐猴", "盒马", "沃尔玛", "胖东来", "永辉", "Ole'", "大润发", "物美"] },
+          { key: "dimension", label: "维度", values: ["全部", "自有品牌", "会员 / 用户", "开店 / 拓店", "爆品与上新", "供应链", "营收利润/财报", "即时零售", "营销动作"] }
+        ]
+      },
+      category: {
+        title: "品类洞察新闻",
+        rows: [
+          { key: "entity", label: "品类", values: ["全部", "酒类", "母婴", "水饮冲调", "家庭清洁 / 纸品", "个人护理", "粮油调味", "玩具乐器", "休闲食品", "宠物"] },
+          { key: "subcategory", label: "类型", values: ["全部", "行业政策", "行业热点 / 新品趋势", "重点品牌动态"] }
+        ]
+      }
+    };
+
+    const CATEGORY_BRANDS = {
+      "酒类": ["贵州茅台", "茅台", "五粮液", "山西汾酒", "汾酒", "泸州老窖", "洋河", "古井贡酒", "剑南春", "习酒", "郎酒", "奔富", "华润啤酒", "青岛啤酒", "重庆啤酒", "燕京啤酒", "张裕A", "百润股份"],
+      "母婴": ["飞鹤", "合生元", "澳优", "贝因美", "babycare", "好奇", "帮宝适", "美素佳儿", "爱他美", "惠氏", "美赞臣", "a2", "贝亲", "十月结晶", "宜婴", "世喜", "英氏", "袋鼠妈妈", "贝德美", "丸丫", "好孩子", "孩子王", "爱婴室", "全棉时代", "润本", "海龟爸爸", "豪悦护理"],
+      "水饮冲调": ["农夫山泉", "怡宝", "东鹏饮料", "养元饮品", "伊利", "蒙牛", "光明", "新乳业", "康师傅", "统一", "香飘飘", "佳禾食品", "雀巢", "认养一头牛", "可口可乐", "君乐宝", "安佳"],
+      "家庭清洁 / 纸品": ["心相印", "维达", "洁柔", "清风", "蓝月亮", "立白", "滴露", "植护", "德佑", "活力28", "威露士", "得宝", "奥妙", "可心柔", "超能", "漫花", "老管家", "佳帮手", "沫檬", "水卫士", "景兴纸业", "朝云集团", "若羽臣", "可靠股份", "诺邦股份"],
+      "个人护理": ["云南白药", "上海家化", "拉芳家化", "登康口腔", "倍加洁", "两面针", "润本", "卡诗", "舒肤佳", "欧莱雅", "潘婷", "护舒宝", "参半", "海飞丝", "舒客", "妇炎洁", "苏菲", "施华蔻", "半亩花田", "吉列", "自由点", "高洁丝", "淘淘氧棉", "百亚股份", "豪悦护理"],
+      "粮油调味": ["海天", "安琪酵母", "中炬高新", "千禾味业", "恒顺醋业", "颐海国际", "天味食品", "涪陵榨菜", "金龙鱼", "十月稻田", "克明食品", "康师傅", "统一", "福临门", "鲁花", "白象"],
+      "玩具乐器": ["名创优品", "泡泡玛特", "奥飞娱乐", "星辉娱乐", "布鲁可", "实丰文化", "珠江钢琴", "海伦钢琴", "乐高", "迪士尼", "雅马哈"],
+      "休闲食品": ["三只松鼠", "良品铺子", "桃李面包", "卫龙", "洽洽食品", "盐津铺子", "甘源食品", "好想你", "绝味食品", "周黑鸭", "煌上煌", "香飘飘", "百草味", "旺旺", "雀巢", "白象"],
+      "宠物": ["乖宝宠物", "中宠股份", "天元宠物", "佩蒂股份", "依依股份", "源飞宠物", "路斯股份", "朗诺宠物", "麦富迪", "皇家", "鲜朗", "弗列加特", "蓝氏", "LEGENDSANDY"]
+    };
+
+    const state = {
+      section: "platform",
+      entity: "全部",
+      dimension: "全部",
+      subcategory: "全部",
+      search: "",
+      sort: "time",
+      highOnly: false
+    };
+
+    let newsData = { metadata: {}, items: [] };
+
+    const els = {
+      aiMode: document.getElementById("aiMode"),
+      sourceNote: document.getElementById("sourceNote"),
+      todayCount: document.getElementById("todayCount"),
+      last7Count: document.getElementById("last7Count"),
+      totalCount: document.getElementById("totalCount"),
+      updatedAt: document.getElementById("updatedAt"),
+      filteredCount: document.getElementById("filteredCount"),
+      searchInput: document.getElementById("searchInput"),
+      sortSelect: document.getElementById("sortSelect"),
+      highOnly: document.getElementById("highOnly"),
+      filters: document.getElementById("filters"),
+      listTitle: document.getElementById("listTitle"),
+      listHint: document.getElementById("listHint"),
+      status: document.getElementById("status"),
+      newsList: document.getElementById("newsList")
+    };
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function compact(value) {
+      return String(value ?? "").replace(/\s+/g, "").toLowerCase();
+    }
+
+    function formatDate(value, withTime = false) {
+      if (!value) return "-";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      const options = withTime
+        ? { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }
+        : { year: "numeric", month: "2-digit", day: "2-digit" };
+      return new Intl.DateTimeFormat("zh-CN", options).format(date);
+    }
+
+    function modeLabel(mode) {
+      return mode === "deepseek" ? "DeepSeek 解读" : "规则版解读";
+    }
+
+    function updateStaticKpis() {
+      const meta = newsData.metadata || {};
+      const mode = meta.ai_mode || "rule_based";
+      els.aiMode.textContent = modeLabel(mode);
+      els.sourceNote.textContent = `数据来源：RSS / Google News RSS / 官方公开页面 / ${modeLabel(mode)}`;
+      els.todayCount.textContent = meta.today_count ?? 0;
+      els.last7Count.textContent = meta.last_7_days_count ?? 0;
+      els.totalCount.textContent = meta.total ?? (newsData.items || []).length;
+      els.updatedAt.textContent = formatDate(meta.generated_at, true);
+    }
+
+    function renderFilters() {
+      const config = FILTERS[state.section];
+      els.listTitle.textContent = config.title;
+      els.filters.innerHTML = config.rows.map(row => `
+        <div class="filter-row">
+          <div class="filter-label">${escapeHTML(row.label)}</div>
+          <div class="chip-group" data-filter-row="${escapeHTML(row.key)}">
+            ${row.values.map(value => {
+              const active = (state[row.key] || "全部") === value ? " active" : "";
+              return `<button class="chip${active}" data-filter-key="${escapeHTML(row.key)}" data-filter-value="${escapeHTML(value)}">${escapeHTML(value)}</button>`;
+            }).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function categoryGroupOf(item) {
+      if (item.category_group) return item.category_group;
+      const text = `${item.entity || ""} ${item.title || ""} ${(item.matched_keywords || []).join(" ")}`;
+      for (const [group, brands] of Object.entries(CATEGORY_BRANDS)) {
+        if (compact(text).includes(compact(group))) return group;
+        if (brands.some(brand => compact(text).includes(compact(brand)))) return group;
+      }
+      return item.entity_type === "category" ? item.entity : "";
+    }
+
+    function dimensionMatches(item, filterValue) {
+      if (filterValue === "全部") return true;
+      const category = item.category || "";
+      const subcategory = item.subcategory || "";
+      const haystack = compact(`${category} ${subcategory} ${(item.matched_keywords || []).join(" ")} ${item.ai_insight || ""}`);
+      const value = compact(filterValue);
+      const aliases = {
+        "业务表现": ["业务规模", "GMV", "财报业绩"],
+        "组织策略": ["组织架构", "组织调整", "集团策略", "经营机制"],
+        "爆品与上新": ["爆品", "新品发布", "上新", "行业热点 / 新品趋势"],
+        "供应链": ["供应链能力", "履约", "前置仓"],
+        "营收利润/财报": ["财报业绩", "营收利润", "业务规模", "GMV"],
+        "营销动作": ["营销活动", "渠道动作"],
+        "策略": ["集团策略", "经营机制", "价格力策略", "平台政策"]
+      };
+      if (haystack.includes(value)) return true;
+      return (aliases[filterValue] || []).some(alias => haystack.includes(compact(alias)));
+    }
+
+    function entityMatches(item) {
+      if (state.entity === "全部") return true;
+      if (state.section === "category") {
+        return compact(categoryGroupOf(item)).includes(compact(state.entity));
+      }
+      const haystack = compact(`${item.entity || ""} ${item.title || ""} ${(item.matched_keywords || []).join(" ")}`);
+      return haystack.includes(compact(state.entity));
+    }
+
+    function subcategoryMatches(item) {
+      if (state.subcategory === "全部") return true;
+      const haystack = compact(`${item.subcategory || ""} ${item.category || ""} ${item.ai_insight || ""}`);
+      return haystack.includes(compact(state.subcategory));
+    }
+
+    function searchMatches(item) {
+      if (!state.search) return true;
+      const text = [
+        item.title,
+        item.summary,
+        item.source,
+        item.entity,
+        item.category,
+        item.subcategory,
+        item.ai_insight,
+        item.reason,
+        ...(item.matched_keywords || [])
+      ].join(" ");
+      return compact(text).includes(compact(state.search));
+    }
+
+    function filteredItems() {
+      let items = (newsData.items || []).filter(item => {
+        if (item.section !== state.section) return false;
+        if (!entityMatches(item)) return false;
+        if (state.section === "category" && !subcategoryMatches(item)) return false;
+        if (state.section !== "category" && !dimensionMatches(item, state.dimension)) return false;
+        if (state.highOnly && Number(item.importance || 0) < 4) return false;
+        return searchMatches(item);
+      });
+
+      items.sort((a, b) => {
+        if (state.sort === "importance") {
+          const score = Number(b.importance || 0) - Number(a.importance || 0);
+          if (score !== 0) return score;
+        }
+        return new Date(b.published || 0) - new Date(a.published || 0);
+      });
+      return items;
+    }
+
+    function importanceClass(score) {
+      if (Number(score) >= 4) return "high";
+      if (Number(score) === 3) return "mid";
+      return "";
+    }
+
+    function renderList() {
+      const items = filteredItems();
+      els.filteredCount.textContent = items.length;
+      els.newsList.innerHTML = "";
+      els.status.innerHTML = "";
+
+      if (!items.length) {
+        els.status.innerHTML = `<div class="empty">暂无匹配新闻，可调整筛选条件或等待下次刷新</div>`;
+        return;
+      }
+
+      els.newsList.innerHTML = items.map(item => {
+        const keywords = (item.matched_keywords || []).join("、") || "-";
+        const source = item.source || "未知来源";
+        const date = formatDate(item.published);
+        const category = item.subcategory || item.category || "其他";
+        const importance = Number(item.importance || 1);
+        const link = item.link || "#";
+        return `
+          <li class="news-row">
+            <div class="title-line">
+              <a class="news-title" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(item.ai_insight || "")}">${escapeHTML(item.title || "未命名新闻")}</a>
+              <button class="insight-toggle" type="button">解读</button>
+            </div>
+            <div class="meta">
+              <span>${escapeHTML(source)}</span>
+              <span>${escapeHTML(date)}</span>
+              <span class="tag">${escapeHTML(item.entity || categoryGroupOf(item) || "-")}</span>
+              <span class="tag">${escapeHTML(category)}</span>
+              <span class="importance ${importanceClass(importance)}">重要性 ${importance}</span>
+            </div>
+            <div class="tooltip">
+              <strong>AI 解读</strong>
+              <p>${escapeHTML(item.ai_insight || "暂无解读")}</p>
+              <p class="fine">判断依据：${escapeHTML(item.reason || "-")}</p>
+              <p class="fine">命中关键词：${escapeHTML(keywords)}</p>
+              <p class="fine">来源：${escapeHTML(source)} / 发布时间：${escapeHTML(formatDate(item.published, true))}</p>
+            </div>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function render() {
+      updateStaticKpis();
+      renderFilters();
+      renderList();
+      document.querySelectorAll(".nav button").forEach(button => {
+        button.classList.toggle("active", button.dataset.section === state.section);
+      });
+    }
+
+    document.querySelector(".nav").addEventListener("click", event => {
+      const button = event.target.closest("button[data-section]");
+      if (!button) return;
+      state.section = button.dataset.section;
+      state.entity = "全部";
+      state.dimension = "全部";
+      state.subcategory = "全部";
+      render();
+    });
+
+    els.filters.addEventListener("click", event => {
+      const button = event.target.closest("button[data-filter-key]");
+      if (!button) return;
+      state[button.dataset.filterKey] = button.dataset.filterValue;
+      render();
+    });
+
+    els.searchInput.addEventListener("input", event => {
+      state.search = event.target.value.trim();
+      renderList();
+    });
+
+    els.sortSelect.addEventListener("change", event => {
+      state.sort = event.target.value;
+      renderList();
+    });
+
+    els.highOnly.addEventListener("change", event => {
+      state.highOnly = event.target.checked;
+      renderList();
+    });
+
+    els.newsList.addEventListener("click", event => {
+      const button = event.target.closest(".insight-toggle");
+      if (!button) return;
+      const row = button.closest(".news-row");
+      row.classList.toggle("expanded");
+    });
+
+    async function loadNews() {
+      try {
+        const response = await fetch("./news.json", { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        newsData = await response.json();
+        if (!Array.isArray(newsData.items)) newsData.items = [];
+        render();
+      } catch (error) {
+        els.status.innerHTML = `<div class="error">news.json 加载失败：${escapeHTML(error.message)}。请确认 docs/news.json 存在，或通过本地静态服务 / GitHub Pages 打开页面。</div>`;
+      }
+    }
+
+    loadNews();
+  </script>
+</body>
+</html>
