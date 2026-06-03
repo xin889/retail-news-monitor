@@ -1,13 +1,85 @@
 {
   "metadata": {
-    "generated_at": "2026-06-03T03:12:16.882646Z",
-    "total": 854,
-    "today_count": 7,
-    "last_7_days_count": 305,
+    "generated_at": "2026-06-03T06:22:12.690314Z",
+    "total": 912,
+    "today_count": 12,
+    "last_7_days_count": 326,
     "ai_mode": "rule_based",
     "version": "1.0.0"
   },
   "items": [
+    {
+      "id": "26c7c0c06d259a82",
+      "title": "美团的估值，被外卖大战永久性压制了 - 凤凰网",
+      "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE4xYmFXVDNPVGtESlMwVU9HOE1KcWtHdjMyMkhKMm1jUmQ4a3BSUHJhSC03ZVhjRVVlMWxid0Y0TnJ2LTB4MjFsbA?oc=5",
+      "published": "2026-06-03T04:53:48Z",
+      "source": "凤凰网",
+      "summary": "美团的估值，被外卖大战永久性压制了 凤凰网",
+      "fetched_at": "2026-06-03T06:18:50.019370Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "美团 履约",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 1,
+      "display_title": "美团的估值，被外卖大战永久性压制了",
+      "ai_insight": "该动态与美团相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：美团；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "b080e81fcb75da3a",
+      "title": "外卖大战一年：美团回不去、阿里停不下 - thepaper.cn",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1EcUI4U2pneEZPLWRUN0Y3b0lYaVNJZUNPSHcxdHZvMmRIUkFOemRqWmh6LTRoNUdGbWNscUl0a0FSRUVxVkdyQ1dvVGY2SXpuZTYteGcwSFRXVEIxa1E?oc=5",
+      "published": "2026-06-03T04:53:00Z",
+      "source": "thepaper.cn",
+      "summary": "外卖大战一年：美团回不去、阿里停不下 thepaper.cn",
+      "fetched_at": "2026-06-03T06:18:47.846153Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "美团 即时零售",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 1,
+      "display_title": "外卖大战一年：美团回不去、阿里停不下",
+      "ai_insight": "该动态与美团相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：美团；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "43fb6de801f74bf7",
+      "title": "一边是净利润下滑15%，一边是2亿欧元罚单，拼多多的焦虑藏在财报与罚单里 - Donews",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5wZXhDMkFTMHN3ZFN0NWNSZUpDRTU5M1B1Z1M2UDdIR1ZhaGY2YkpwdDROa2swRjRBeEZDSE9RYzQtQ3pPSG5lcnFGMmdrUTZXcHozcDMtRkdRejBzTlpobjZSYTk?oc=5",
+      "published": "2026-06-03T03:29:43Z",
+      "source": "Donews",
+      "summary": "一边是净利润下滑15%，一边是2亿欧元罚单，拼多多的焦虑藏在财报与罚单里 Donews",
+      "fetched_at": "2026-06-03T06:18:41.200050Z",
+      "section": "platform",
+      "entity": "拼多多",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "业务规模 & GMV表现",
+      "subcategory": "",
+      "matched_query": "拼多多 低价",
+      "matched_keywords": [
+        "拼多多"
+      ],
+      "importance": 5,
+      "display_title": "拼多多经营表现变化值得关注",
+      "ai_insight": "该动态与拼多多的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：拼多多；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
+    },
     {
       "id": "f92738948ef32169",
       "title": "三天近500次“卜给”应援，物美俱乐部强势撬动京城粉丝经济 - 中华网",
@@ -54,6 +126,31 @@
       "display_title": "盒马营销动作影响用户转化",
       "ai_insight": "该新闻体现盒马在渠道或营销侧的动作，建议关注其对流量获取、品牌触达和货架转化的影响。",
       "reason": "命中关键词：盒马；按规则归类为「营销活动」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "07dbf944ca3fb7ac",
+      "title": "盒马CEO向蒋凡汇报，阿里人事调整背后：即时零售大战才刚开始 - 财经号",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE53UVNYX3M0YVliNHE0V1RnVUpvTFlVSnFRSTByUTg5bElZNEVORVZiVDBvWDE2OVduRTdrbGZ5SDZSTUQ4LVN6Y0IzTE5EMkZWUFluMnhhXzhBeXhVc25adnJybWtwbHdqNWNn?oc=5",
+      "published": "2026-06-03T01:49:21Z",
+      "source": "财经号",
+      "summary": "盒马CEO向蒋凡汇报，阿里人事调整背后：即时零售大战才刚开始 财经号",
+      "fetched_at": "2026-06-03T06:19:09.726167Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "组织调整",
+      "subcategory": "",
+      "matched_query": "盒马 调改",
+      "matched_keywords": [
+        "盒马",
+        "即时零售"
+      ],
+      "importance": 5,
+      "display_title": "盒马组织变化影响后续经营节奏",
+      "ai_insight": "该动态涉及盒马组织或管理变化，可能影响后续业务优先级、协同效率和竞争打法。",
+      "reason": "命中关键词：盒马、即时零售；按规则归类为「组织调整」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -177,6 +274,31 @@
       "reason": "命中关键词：永辉、永辉超市；按规则归类为「并购合作」。",
       "analysis_mode": "rule_based",
       "display_title": "永辉合作动作可能改变竞争格局"
+    },
+    {
+      "id": "8cd9e393bab7fc94",
+      "title": "消费需求疲软，大润发母公司高鑫零售2026财年亏损3.19亿元，同比盈转亏。#大润发 #零售 #消费 - 搜狐网",
+      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBTOUN4b0hwSzhBbjVRYzItYVdNRFZDYW9qRURyX2dvNDgwVS03U1JFYlFRQ2E0TGNkczFIQVBZOWx4VDV4Z0RkYVV3WDZaalhFemV2MmRn?oc=5",
+      "published": "2026-06-02T20:16:53Z",
+      "source": "搜狐网",
+      "summary": "消费需求疲软，大润发母公司高鑫零售2026财年亏损3.19亿元，同比盈转亏。#大润发 #零售 #消费 搜狐网",
+      "fetched_at": "2026-06-03T06:20:15.899328Z",
+      "section": "retailer",
+      "entity": "大润发",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "大润发",
+      "matched_keywords": [
+        "大润发",
+        "高鑫零售"
+      ],
+      "importance": 1,
+      "display_title": "大润发高鑫零售动态值得关注",
+      "ai_insight": "该动态与大润发相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：大润发、高鑫零售；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "81041928c2c4c922",
@@ -708,6 +830,30 @@
       "display_title": "美团经营表现变化值得关注"
     },
     {
+      "id": "10691615d713a8da",
+      "title": "权重科技股集体爆发，美团、腾讯涨超8%！两大巨头携手推进AI生态合作 - mrjjxw.com",
+      "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ITmM0UFhCckVZRHQ5MF8xc2psOGtQN2pvZEozTmlaeEFzWElBM3p1RkdvUUJITWNHMXV0OW5GWEk0MEJ5UWV0T2FBbjhaZXdtMS1JMXRjc1p4Zk9GUU1DRkNxaFg1UQ?oc=5",
+      "published": "2026-06-02T05:56:00Z",
+      "source": "mrjjxw.com",
+      "summary": "权重科技股集体爆发，美团、腾讯涨超8%！两大巨头携手推进AI生态合作 mrjjxw.com",
+      "fetched_at": "2026-06-03T06:18:50.019526Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "并购合作",
+      "subcategory": "",
+      "matched_query": "美团 履约",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 5,
+      "display_title": "美团合作动作可能改变竞争格局",
+      "ai_insight": "该动态涉及美团合作或资本动作，可能改变资源配置、渠道覆盖或行业竞争格局。",
+      "reason": "命中关键词：美团；按规则归类为「并购合作」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "d58987ba8a42ec97",
       "title": "ByteDance’s Doubao to launch paid plans in late June, link with Douyin E-commerce push - TechNode",
       "link": "",
@@ -1118,6 +1264,30 @@
       "display_title": "MEITUAN-W(03690.HK)RisesOver4%asCiti"
     },
     {
+      "id": "127c7cbeaadec397",
+      "title": "美团财报大洗澡？亏损藏着大玄机#美团#涨知识 - 财富号",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE96MTQwTHdkUkdZak9oMldqRFoyNi0xNkJkWGFNOUZuT0Fqb094M1ZaQ1lCUmR5MGZnY05oNFU1MWhUSUxHYy10SkVHTG5Ob0stRkxLei03TGVrdVpxZXlOcFJpNnhCc3B0ZU5F?oc=5",
+      "published": "2026-06-02T00:19:00Z",
+      "source": "财富号",
+      "summary": "美团财报大洗澡？亏损藏着大玄机#美团#涨知识 财富号",
+      "fetched_at": "2026-06-03T06:18:50.502637Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "业务规模 & GMV表现",
+      "subcategory": "",
+      "matched_query": "美团 财报",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 5,
+      "display_title": "美团经营表现变化值得关注",
+      "ai_insight": "该动态与美团的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：美团；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "c59277167058b12d",
       "title": "百川智能与美团医药健康放弃独立APP 将AI医疗助手嵌入微信生态 - 虎嗅",
       "link": "",
@@ -1262,6 +1432,31 @@
       "reason": "命中关键词：Meituan；按规则归类为「价格力策略」。",
       "analysis_mode": "rule_based",
       "display_title": "美团价格力动作影响竞争格局"
+    },
+    {
+      "id": "bd0b659474fc3838",
+      "title": "网络餐饮新规实施首日 淘宝闪购完成首批外卖商户打标 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOaFphcjYxMnVvc29DVzRURmU1aWpVU25yT2xTcmdnRWNlXy0wOFczY0hrYk9LR1ZYSTZwSjZBejljSTF6SUtJMUUtMktOb3NwaXlPWnhmaTRwamktbTFCdGd0WHBZY2h1QkxwSjN2dmkxQTNMY2VPdElFQ2lJTW51WEhrcVMzYVNweFZqbnAyeVcyZTh1UEY2dkV1SkFCSFc5UzhzMmVpOGJuck13YU0wb3FkdE1sbVlwb3NtTXVNSnEybTdnSDkwX1ZUa3Z3Q1c0R0puNlh3QW1WNG9HNjBCVWVHU3NXVmZQRTFNbXhn?oc=5",
+      "published": "2026-06-01T21:00:00Z",
+      "source": "新浪财经",
+      "summary": "网络餐饮新规实施首日 淘宝闪购完成首批外卖商户打标 新浪财经",
+      "fetched_at": "2026-06-03T06:18:29.182844Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "即时零售",
+      "subcategory": "",
+      "matched_query": "淘宝 闪购",
+      "matched_keywords": [
+        "淘宝",
+        "淘宝闪购"
+      ],
+      "importance": 4,
+      "display_title": "淘宝天猫即时零售布局影响到家竞争",
+      "ai_insight": "该动态涉及淘宝天猫供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。",
+      "reason": "命中关键词：淘宝、淘宝闪购；按规则归类为「即时零售」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "9edcecc2cfceba03",
@@ -1552,6 +1747,30 @@
       "reason": "命中关键词：TikTok Shop；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "TikTokShopPartnersWithERGONEXTtoOffe"
+    },
+    {
+      "id": "e93255c5bf316767",
+      "title": "Costco just broke gas station sales records — but a $65 membership might not save you as much as you think - Yahoo Finance",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQMnRya2drZDFLSjZnMTVsd2VpZ3dTbFFTSXdnSmdxczIyeU1KclhoNzRpY3ZCaEIwdktIcW5rODdNZ0QwRnRQT2R6Q25hVDVmMkJMb19fYzR3SzlhcFVGbWl0MmJVdWlyeHJkd2htTUs0ZUpIQkhIR0VQaTRRUHVzZkNsbUxXTEc5LVpHMDV4b1VYU25DOEh1cUdn?oc=5",
+      "published": "2026-06-01T13:00:00Z",
+      "source": "Yahoo Finance",
+      "summary": "Costco just broke gas station sales records — but a $65 membership might not save you as much as you think Yahoo Finance",
+      "fetched_at": "2026-06-03T06:18:54.344314Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "财报业绩",
+      "subcategory": "",
+      "matched_query": "Costco membership",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 5,
+      "display_title": "Costco营收利润表现释放经营信号",
+      "ai_insight": "该动态与Costco的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：Costco；按规则归类为「财报业绩」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "b4d68b71711af199",
@@ -2405,6 +2624,31 @@
       "display_title": "淘宝天猫天猫动态值得关注"
     },
     {
+      "id": "8cac8385f4bc0804",
+      "title": "天猫超市上线香港 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBpSmRwVUVKekpEUGtXQXVpY0Nab0tFSm45NVZpaUtFc0Fpa2pvT1lrVVZ2YkhuVC1HQmpuN18wT0x5d20tX0Z0bGJBbGpzNnNDNWtHaHJaV2ZCTlVZUlpfQjhaMU1KSW96dUhBZWVOMlh1QmJxem9QMg?oc=5",
+      "published": "2026-06-01T03:59:00Z",
+      "source": "新浪财经",
+      "summary": "天猫超市上线香港 新浪财经",
+      "fetched_at": "2026-06-03T06:18:29.625176Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "天猫超市",
+      "matched_keywords": [
+        "天猫",
+        "天猫超市"
+      ],
+      "importance": 1,
+      "display_title": "淘宝天猫天猫动态值得关注",
+      "ai_insight": "该动态与淘宝天猫相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：天猫、天猫超市；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "c35b2c694c9f6794",
       "title": "天猫超市正式进驻香港市场 - 物流指闻",
       "link": "",
@@ -2645,6 +2889,30 @@
       "reason": "命中关键词：Costco；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "Costco本周日清仓实拍!三丽鸥玩、乐高等超全！儿童节礼物现在就备上>"
+    },
+    {
+      "id": "ecc32323694444bc",
+      "title": "美团发布2026年Q1财报 核心本地商业经营亏损收窄至20亿元 - 潮新闻",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE03QXJOQjNXeUFBUFFOR2tSeFdyVFVEb2RvNjl5UlQ5UkJldlY0MFBjenVEX29HUnU1T3lOSlFPNFZHUG1DTndzUWNoZUExRU9fRzl3NTBsSDhtRWVocE9JSGJhc041S2V3aVlSSkV5VUo1azhsb2c?oc=5",
+      "published": "2026-05-31T18:27:00Z",
+      "source": "潮新闻",
+      "summary": "美团发布2026年Q1财报 核心本地商业经营亏损收窄至20亿元 潮新闻",
+      "fetched_at": "2026-06-03T06:18:50.502858Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "业务规模 & GMV表现",
+      "subcategory": "",
+      "matched_query": "美团 财报",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 5,
+      "display_title": "美团经营表现变化值得关注",
+      "ai_insight": "该动态与美团的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：美团；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "1644a34c496c8e1c",
@@ -3128,6 +3396,30 @@
       "reason": "命中关键词：胖东来；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "新包装矿泉水停止销售，胖东来：系设计方面重大失误，正重新设计"
+    },
+    {
+      "id": "ba337406ff29573d",
+      "title": "5月30日晚8点大降价！淘宝京东618开门红开启，红包补贴领不停，刚需好物入手正当时 - 手机新浪网",
+      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQcjVUOUs0U0ZGMnFwZjQxRGpic3dYRnpQT0s5QkJ2Z0J5NUZ6MXVuRzc2MkdiZ3dYRlJQdkRyS1E1bms2RzZLNFhqQTRXYjQ5MnF1d0doaHZOR0dGMGhHbnJNMl9TRGQ2VDFHNTdLcDF4bFg1NkI4YTM5V01aSG4zQmVPNk45V29kRU5POHNGNHRJRW9KTndCUkNOT1VyVFQ1cFhTcHdweHBqUjdoLXFhLUtBWFhqYk9kTVRSem9tUWJMb2IyLWh0R0RnX2ZZcG5xaFYxUm9oWnoxUC05Z0d3X3NpME15MzVicWRnbF9Xdl9lZmRB?oc=5",
+      "published": "2026-05-30T08:24:54Z",
+      "source": "手机新浪网",
+      "summary": "5月30日晚8点大降价！淘宝京东618开门红开启，红包补贴领不停，刚需好物入手正当时 手机新浪网",
+      "fetched_at": "2026-06-03T06:18:28.161943Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "价格力策略",
+      "subcategory": "",
+      "matched_query": "淘宝 价格力",
+      "matched_keywords": [
+        "淘宝"
+      ],
+      "importance": 4,
+      "display_title": "淘宝天猫价格力动作影响竞争格局",
+      "ai_insight": "该动态与淘宝天猫价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。",
+      "reason": "命中关键词：淘宝；按规则归类为「价格力策略」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "028a1a8f55017301",
@@ -3712,6 +4004,31 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "3891a5e65e7d80ca",
+      "title": "永辉超市副总裁罗雯霞拟减持8.16万股 - 观点网",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE4wY0FVVDl0YTFsMFN5VlFLbUFzVmJjc2JQY0doMzlXZ2pyVlF1ZXc3STRUMkZkaEdvWXZRakhIVURFZ2VjNHAyOGw5VTVOdTRJdWEyR0NiSUZ3TU8zLTRNT0dB?oc=5",
+      "published": "2026-05-29T10:52:06Z",
+      "source": "观点网",
+      "summary": "永辉超市副总裁罗雯霞拟减持8.16万股 观点网",
+      "fetched_at": "2026-06-03T06:19:28.285565Z",
+      "section": "retailer",
+      "entity": "永辉",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "永辉 超市",
+      "matched_keywords": [
+        "永辉",
+        "永辉超市"
+      ],
+      "importance": 1,
+      "display_title": "永辉永辉超市动态值得关注",
+      "ai_insight": "该动态与永辉相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：永辉、永辉超市；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "186991febb58f86c",
       "title": "永辉超市累计已处置红旗连锁3.96%股份 成交金额3.1亿元 - 观点网",
       "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5aNW8yS1lrUGFIOG9ocUxJZWlVSHl6U2FmZFRyeXpuLTFkSHphRE1HLWg1QnlMQnQtQlNwSnMxVDJVbDk5eTRJMmYwVkxFUQ?oc=5",
@@ -4221,6 +4538,31 @@
       "display_title": "Costco营收利润表现释放经营信号"
     },
     {
+      "id": "c9625b1e01b3e47c",
+      "title": "从千亿神话到包装翻车！侯毅与盒马鲜生的软肋，这次藏不住了？ - 风闻",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9za2p0TjZuWm51MGFkdVFISVBFWi11YzZKcTdRcGw1MGhicTNVSmVRUHFPVEV0empLWUljX1dzbzdXQzlQakNCa0NaNHBWRlRTRTl5d2Jjcm5FZmc?oc=5",
+      "published": "2026-05-29T03:28:18Z",
+      "source": "风闻",
+      "summary": "从千亿神话到包装翻车！侯毅与盒马鲜生的软肋，这次藏不住了？ 风闻",
+      "fetched_at": "2026-06-03T06:19:14.406029Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马鲜生",
+      "matched_keywords": [
+        "盒马",
+        "盒马鲜生"
+      ],
+      "importance": 1,
+      "display_title": "盒马盒马鲜生动态值得关注",
+      "ai_insight": "该动态与盒马相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：盒马、盒马鲜生；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "83270174814593ad",
       "title": "三大巨头竞购朴朴？即时零售迈入寡头时代 - yemacaijing.com",
       "link": "",
@@ -4460,6 +4802,30 @@
       "reason": "命中关键词：Costco；按规则归类为「财报业绩」。",
       "analysis_mode": "rule_based",
       "display_title": "Costco营收利润表现释放经营信号"
+    },
+    {
+      "id": "e126e37b9e9230de",
+      "title": "不黑也不吹，只剩 2.5% 增长的拼多多还好吗？ - Longbridge",
+      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBEb2c2WWhEMFdueHdSTUY4Vk5lcGN6OENRVFU0UnNxUHJGOGxJRUJBT3RPR3diQVpwbVZkUzhTUmNFeW5uajM3WDZRTkE2eVZhV0FNWURnaw?oc=5",
+      "published": "2026-05-28T22:05:00Z",
+      "source": "Longbridge",
+      "summary": "不黑也不吹，只剩 2.5% 增长的拼多多还好吗？ Longbridge",
+      "fetched_at": "2026-06-03T06:18:40.721523Z",
+      "section": "platform",
+      "entity": "拼多多",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "拼多多 GMV",
+      "matched_keywords": [
+        "拼多多"
+      ],
+      "importance": 1,
+      "display_title": "不黑也不吹，只剩2.5%增长的拼多多还好吗？",
+      "ai_insight": "该动态与拼多多相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：拼多多；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "b428a659f43a0e22",
@@ -4919,6 +5285,30 @@
       "display_title": "欧盟罚拼多多（Temu）2亿欧元指其放任非法商品销售"
     },
     {
+      "id": "97cb8dc032b050ff",
+      "title": "拼多多最新财报：营收稳增11%，“重仓供应链”换十年长坡 - QQ News",
+      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1CaEV2dDRvRDVnMEdDbFJZZ3hTcnRGcC1kWllMQ1ozU1pYdzgwMFZPRFEzaHpua2hkSFF4czhSSFFUTFNzeEpNNkhMSllHN28waDJueGFn?oc=5",
+      "published": "2026-05-28T13:24:00Z",
+      "source": "QQ News",
+      "summary": "拼多多最新财报：营收稳增11%，“重仓供应链”换十年长坡 QQ News",
+      "fetched_at": "2026-06-03T06:18:41.882538Z",
+      "section": "platform",
+      "entity": "拼多多",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "业务规模 & GMV表现",
+      "subcategory": "",
+      "matched_query": "拼多多 产业带",
+      "matched_keywords": [
+        "拼多多"
+      ],
+      "importance": 5,
+      "display_title": "拼多多经营表现变化值得关注",
+      "ai_insight": "该动态与拼多多的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：拼多多；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "ec56b2c438dd880d",
       "title": "Walmart leads but Costco and Dollar General are gaining ground with shoppers - FoodNavigator-USA.com",
       "link": "",
@@ -5159,6 +5549,30 @@
       "reason": "命中关键词：Temu；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "ChineseonlineretailerTemuhitwith$232"
+    },
+    {
+      "id": "c0c81a19276f6dba",
+      "title": "叮咚买菜上线“无笼好蛋” 主推非笼养鸡蛋 - 潮新闻",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1pMFpWTnVKUnJPLTZ4aG1lbVNKMzYxaGFnSEdpamI5SFNZWURjQ3NLSkoybVlFSmd1djhqaXF4Z09nWUsza21SM21xM0s3WjFzYl9FZzhDWXo2a3ZPLXNTZmJBelpkZ0VUNU5KSUN6RFlWN3lBMlE?oc=5",
+      "published": "2026-05-28T12:12:00Z",
+      "source": "潮新闻",
+      "summary": "叮咚买菜上线“无笼好蛋” 主推非笼养鸡蛋 潮新闻",
+      "fetched_at": "2026-06-03T06:19:42.796812Z",
+      "section": "retailer",
+      "entity": "叮咚买菜",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "叮咚买菜",
+      "matched_keywords": [
+        "叮咚买菜"
+      ],
+      "importance": 1,
+      "display_title": "叮咚买菜上线“无笼好蛋”主推非笼养鸡蛋",
+      "ai_insight": "该动态与叮咚买菜相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：叮咚买菜；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "57d191feaff10914",
@@ -5429,6 +5843,31 @@
       "display_title": "淘宝天猫即时零售布局影响到家竞争"
     },
     {
+      "id": "de4f4be474be95c5",
+      "title": "美团、淘宝闪购、京东外卖被行政指导 - 观察者",
+      "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBNV2tzZ0lnRm9iLXN4RURpeVdEZXdtWDhPZ0lTMG5rVXA3T2labi0tS2pZdVdQV3VNanJGRFcwRTZQM04zRGpiay1OQlVIaW9vT3JSNXNhQ0xEOE0wUGkycEpxaGRjdw?oc=5",
+      "published": "2026-05-28T09:13:00Z",
+      "source": "观察者",
+      "summary": "美团、淘宝闪购、京东外卖被行政指导 观察者",
+      "fetched_at": "2026-06-03T06:18:29.182974Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "即时零售",
+      "subcategory": "",
+      "matched_query": "淘宝 闪购",
+      "matched_keywords": [
+        "淘宝",
+        "淘宝闪购"
+      ],
+      "importance": 4,
+      "display_title": "淘宝天猫即时零售布局影响到家竞争",
+      "ai_insight": "该动态涉及淘宝天猫供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。",
+      "reason": "命中关键词：淘宝、淘宝闪购；按规则归类为「即时零售」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "775662c807e663e2",
       "title": "PDD Short Interest Triples as Earnings Miss Sends Stock Toward 52-Week Low: Short Seller Tracker - Moomoo",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQS2tlZ05PclhLTWFuci1OTU5yZmxEYjZseFhOelNJOVJGYzNDN3lHOFVCNzF6Z2luS3pjSXRnR1VKRVN5d1JoaVdVZzBweVpaQlo1Q3k0WmVrVGZjOHpVREVwZi1ETkp0VDR5Z24tT1Z6ejJkYzJqR0w4Yk1odDZna0RLTkJYMlZ1ODlMdWtBZDNYS215NjdBcC14MFQ5Wmg4ZUVyWklkanVxTUYyMHd4QmxtYU5hQUE?oc=5",
@@ -5450,6 +5889,55 @@
       "display_title": "拼多多经营表现变化值得关注",
       "ai_insight": "该动态与拼多多的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
       "reason": "命中关键词：PDD；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "5d4880881e1facf8",
+      "title": "拼多多空头持仓激增两倍，因财报不及预期致股价逼近52周低点：空头追踪 - Moomoo",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQM2hKcDFqUm9vVHhfYVBhQnZLWFhYbGM4VmdsRFNKZkxaSkpGMG01bGl4endNUFVKMGo5ZC1WUWlxVDV4ckFUME45aFJFUFg5RzEyRUhmekZGV1lWOFo2cGxMY01NOVpsazE3Q1dScHd3RFJhRE1vMEszU0NYSlFaTGxoSklhMEZ0b21yU2ZsTXV4ZFdmQ19ZWGJ6dXNNMTg5aFdYNkZCZUN1cFQzVktZcXFfSF9ZR00tbDdXeQ?oc=5",
+      "published": "2026-05-28T09:02:49Z",
+      "source": "Moomoo",
+      "summary": "拼多多空头持仓激增两倍，因财报不及预期致股价逼近52周低点：空头追踪 Moomoo",
+      "fetched_at": "2026-06-03T06:18:45.660457Z",
+      "section": "platform",
+      "entity": "拼多多",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "业务规模 & GMV表现",
+      "subcategory": "",
+      "matched_query": "PDD earnings",
+      "matched_keywords": [
+        "拼多多"
+      ],
+      "importance": 5,
+      "display_title": "拼多多经营表现变化值得关注",
+      "ai_insight": "该动态与拼多多的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：拼多多；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "7fd073185416c33d",
+      "title": "淘宝闪购骑士“随手拍”机制已拓展至全国48城 - 物流指闻",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE40UTg4TXVoaWxBYW9FczFOR21KWk1qSV82VEpwMzFRNnh0eHJfZURNY1ZXUXJTaVppUjU3aDRVM2hyUnZWY29oXzFSS29XaXgwcGRKT2tQcVRPLUNKSFktTEVyZ1E?oc=5",
+      "published": "2026-05-28T08:49:15Z",
+      "source": "物流指闻",
+      "summary": "淘宝闪购骑士“随手拍”机制已拓展至全国48城 物流指闻",
+      "fetched_at": "2026-06-03T06:18:29.183039Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "即时零售",
+      "subcategory": "",
+      "matched_query": "淘宝 闪购",
+      "matched_keywords": [
+        "淘宝",
+        "淘宝闪购"
+      ],
+      "importance": 4,
+      "display_title": "淘宝天猫即时零售布局影响到家竞争",
+      "ai_insight": "该动态涉及淘宝天猫供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。",
+      "reason": "命中关键词：淘宝、淘宝闪购；按规则归类为「即时零售」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -5961,6 +6449,30 @@
       "display_title": "拼多多1000亿豪赌新拼姆，跨境电商变天？"
     },
     {
+      "id": "4bc463fd4125b4cb",
+      "title": "警惕618新型诈骗！有人寄送抖音618专属金卡诱骗 抖音公告：11起案件被侦破 - 驱动之家",
+      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE44cTV3NG9IYzdYVWo0TzQ5RE4zWUJaZXp2OHZGa0RwRmU0VzNqSm1DLTA5cmJBek9VcHpjZUdFcktCNVBoRi1ZSGwtX2RCR3pkVUFOMWJSM3Q?oc=5",
+      "published": "2026-05-27T23:44:00Z",
+      "source": "驱动之家",
+      "summary": "警惕618新型诈骗！有人寄送抖音618专属金卡诱骗 抖音公告：11起案件被侦破 驱动之家",
+      "fetched_at": "2026-06-03T06:18:34.148468Z",
+      "section": "platform",
+      "entity": "抖音电商",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "大促专栏",
+      "subcategory": "",
+      "matched_query": "抖音商城",
+      "matched_keywords": [
+        "抖音"
+      ],
+      "importance": 4,
+      "display_title": "抖音电商抖音动态值得关注",
+      "ai_insight": "该动态与抖音电商相关，当前重要性为4分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：抖音；按规则归类为「大促专栏」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "4486a67bca4e396b",
       "title": "美团收购叮咚后 朴朴超市成为大厂下一个即时零售争夺目标 - 虎嗅",
       "link": "",
@@ -6278,6 +6790,30 @@
       "reason": "命中关键词：PDD、Temu；按规则归类为「业务规模 & GMV表现」。",
       "analysis_mode": "rule_based",
       "display_title": "拼多多经营表现变化值得关注"
+    },
+    {
+      "id": "171a6db763e2fa25",
+      "title": "拼多多电话会：三年、千亿、“再造拼多多”，走到哪了？ - 华尔街见闻",
+      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8xd2NXSHNaTDRYNC1kRVRDSkFqOEd2UU9jXzRzclZVclB1SFdsWnhja29uTUVQcU43Sy1wTVBvbE1iNkJraEpzbFBGTzktaHUzRWhr?oc=5",
+      "published": "2026-05-27T14:41:41Z",
+      "source": "华尔街见闻",
+      "summary": "拼多多电话会：三年、千亿、“再造拼多多”，走到哪了？ 华尔街见闻",
+      "fetched_at": "2026-06-03T06:18:41.200261Z",
+      "section": "platform",
+      "entity": "拼多多",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "拼多多 低价",
+      "matched_keywords": [
+        "拼多多"
+      ],
+      "importance": 1,
+      "display_title": "拼多多电话会：三年、千亿、“再造拼多多”，走到哪了？",
+      "ai_insight": "该动态与拼多多相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：拼多多；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "fa50eeccd7c35744",
@@ -6737,6 +7273,30 @@
       "reason": "命中关键词：山姆；按规则归类为「会员 / 用户」。",
       "analysis_mode": "rule_based",
       "display_title": "山姆会员经营动作强化用户粘性"
+    },
+    {
+      "id": "213294cefd4b0ec7",
+      "title": "“大润发之父”去世|北京市|台北市|台湾省|门店|商超 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMi4gJBVV95cUxPTnJIcTVJX1l6bXpnT1dCOEh1TVI5WjFzN2h5a1ZxOXo3dkluTDN2RmphNnFlSDdSNHZzQl9QaEhzb0tHZHZKSDFKV0Y0ZGpJdGJ1T3hWOHcyY2tUcmZNaHZoRDN5ck50bVNwVHVBLWxMaHRHR1RwbDVGWkxfNi10RU9pQzVYZVA2d3lnNHRiWmljLWp2d0dPbnlkTWZ5QkFSc3k5Qm9NV3NCcmR0bE1CaGVoWFJfQ3FFN3BQNklkWGRPWlRlb0MzaE1Lb2VZMlhrR0VOcTlRdUEwcFFteEh2ZDRpRGlvbXRuRXNJei1EYUJ1cDQxVzNOeUV0cUJ5VTRfVXB2ekxFeWw2ZGpaYVlqY1Zvamo0dmpoNW1RcEtnWGx6QXZQd2xQVnJYMHE5ZlA1UTNLZVZkdkNxWUcweDRlOG92TUhxeFc0SzRDbkpqdlRzTmtZRUt4a1BpNkt5RDdEOWc?oc=5",
+      "published": "2026-05-27T09:47:57Z",
+      "source": "新浪财经",
+      "summary": "“大润发之父”去世|北京市|台北市|台湾省|门店|商超 新浪财经",
+      "fetched_at": "2026-06-03T06:20:15.899278Z",
+      "section": "retailer",
+      "entity": "大润发",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "开店 / 拓店",
+      "subcategory": "",
+      "matched_query": "大润发",
+      "matched_keywords": [
+        "大润发"
+      ],
+      "importance": 2,
+      "display_title": "大润发拓店动作影响区域竞争",
+      "ai_insight": "该动态与大润发门店扩张或调改相关，建议关注区域布局、坪效模型和竞争半径变化。",
+      "reason": "命中关键词：大润发；按规则归类为「开店 / 拓店」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "9a46d0d11576c7b5",
@@ -8124,6 +8684,30 @@
       "display_title": "大润发创始人尹衍樑逝世，享年76岁"
     },
     {
+      "id": "e16b50f059ff0c31",
+      "title": "排队2小时、山东人挤爆山姆，济南、青岛双店同开，家家悦和全福元该着急了 - Moomoo",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1lY3ZzNFk1SXZNbjVyU1k3MzVFeGJGNTZDXzMxWVZ6eWp6NThHakxRUm9wTUZUTkVnWENFSGZTSlVhZzVXaEdOa2w0bGFYWkplV3JtNEVvMzBxZw?oc=5",
+      "published": "2026-05-26T14:28:47Z",
+      "source": "Moomoo",
+      "summary": "排队2小时、山东人挤爆山姆，济南、青岛双店同开，家家悦和全福元该着急了 Moomoo",
+      "fetched_at": "2026-06-03T06:19:04.857450Z",
+      "section": "retailer",
+      "entity": "山姆",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "山姆 价格",
+      "matched_keywords": [
+        "山姆"
+      ],
+      "importance": 1,
+      "display_title": "排队2小时、山东人挤爆山姆，济南、青岛双店同开，家家悦和全福元该着急了",
+      "ai_insight": "该动态与山姆相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：山姆；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "fd01a5872ba93a7e",
       "title": "Walmart ties expected tariff refunds to price strategy amid cost pressures - Retail Dive",
       "link": "",
@@ -8442,6 +9026,30 @@
       "display_title": "产品遭网友吐槽低俗擦边？盒马郑重道歉：已下架"
     },
     {
+      "id": "6f5f274614eb93ce",
+      "title": "罚款198元与下架的粉木耳：盒马正在透支消费者最后一丝信任 - QQ News",
+      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1pU2lkTk9CUy03UThRcFFzTUFzQzAyQk16VEM1VHhxS1dTbThiZnlHRU5BM05SS1BhWm1ud0lUUVJUempuVUctMUhtYnYtZkx3QWhhTkt3?oc=5",
+      "published": "2026-05-26T10:09:00Z",
+      "source": "QQ News",
+      "summary": "罚款198元与下架的粉木耳：盒马正在透支消费者最后一丝信任 QQ News",
+      "fetched_at": "2026-06-03T06:19:13.047485Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马 新品",
+      "matched_keywords": [
+        "盒马"
+      ],
+      "importance": 1,
+      "display_title": "罚款198元与下架的粉木耳：盒马正在透支消费者最后一丝信任",
+      "ai_insight": "该动态与盒马相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：盒马；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "9e2f36bb1fba7466",
       "title": "盒马GMV破千亿珀莱雅收购花知晓| 邦小白日报- 栏目 - 亿邦动力网",
       "link": "",
@@ -8729,6 +9337,30 @@
       "reason": "命中关键词：美团；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "美团把零售业配送“卷上天”"
+    },
+    {
+      "id": "2e7bca06f8681599",
+      "title": "盒马道歉：全部下架！ - 珠海网",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE92eVJ2MTJhV190TlVJcUtlOUIyQnBFVjNFblFGQXJ0M05PbDVMX3RnS3BxdTRGS2l1dTYwR2tfWVYtbE85bjNZV3FlTVV4UFFZQXZEWnlGa1B1SzZndFZsa0Z4ekhSQ0tHbG00NW0xTVRaQVVhdncw?oc=5",
+      "published": "2026-05-26T06:06:00Z",
+      "source": "珠海网",
+      "summary": "盒马道歉：全部下架！ 珠海网",
+      "fetched_at": "2026-06-03T06:19:13.979562Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马",
+      "matched_keywords": [
+        "盒马"
+      ],
+      "importance": 1,
+      "display_title": "盒马道歉：全部下架！",
+      "ai_insight": "该动态与盒马相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：盒马；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "96543a158462998f",
@@ -9118,6 +9750,30 @@
       "reason": "命中关键词：盒马；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "盒马就“粉木耳标签设计”郑重道歉：已全部下架-观察者网"
+    },
+    {
+      "id": "c93746ba75d6ef12",
+      "title": "盒马就“粉木耳标签设计”郑重道歉：已全部下架 - 观察者",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9WXy0xSmdwdkluOWJvMDdJUlMtODFzODlCalliSEFubVZIVVMzLWNIdGxWam5MT1dYbHhFMURkeEhZd2RPdElZUk1ad2d4T1ptcVZydUFMUXBKRS1hQUQxV2ctZw?oc=5",
+      "published": "2026-05-26T00:04:00Z",
+      "source": "观察者",
+      "summary": "盒马就“粉木耳标签设计”郑重道歉：已全部下架 观察者",
+      "fetched_at": "2026-06-03T06:19:13.979341Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马",
+      "matched_keywords": [
+        "盒马"
+      ],
+      "importance": 1,
+      "display_title": "盒马就“粉木耳标签设计”郑重道歉：已全部下架",
+      "ai_insight": "该动态与盒马相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：盒马；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "7111ebc5ccddfb9e",
@@ -9776,6 +10432,31 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "f77a2c1fcd563391",
+      "title": "阿里京东美团被曝同时竞购朴朴超市 20亿到50亿美元到手或只是一张门票 - 驱动之家",
+      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5yczdZWHJKdFNyM09aSmFrcEJuczBKaThHSFp6Ul80LUFISElLeklxeU5FM0FFWmQ1Z3dmYlRySjNFQUpjdXpQc3ZMUVNVSUZmNDB2a3hhenQ?oc=5",
+      "published": "2026-05-25T07:00:00Z",
+      "source": "驱动之家",
+      "summary": "阿里京东美团被曝同时竞购朴朴超市 20亿到50亿美元到手或只是一张门票 驱动之家",
+      "fetched_at": "2026-06-03T06:19:37.987777Z",
+      "section": "retailer",
+      "entity": "朴朴超市",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "朴朴超市",
+      "matched_keywords": [
+        "朴朴超市",
+        "朴朴"
+      ],
+      "importance": 1,
+      "display_title": "朴朴超市朴朴动态值得关注",
+      "ai_insight": "该动态与朴朴超市相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：朴朴超市、朴朴；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "d3c80c8705c84989",
       "title": "扛不住物价上涨，美国中产涌入沃尔玛 - 21财经",
       "link": "",
@@ -10333,6 +11014,30 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "6983f15a0d1cfe1c",
+      "title": "盒马大数据杀熟_新浪新闻 - 新浪网",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9pclNLXzZKcElidWtqWm5sRWp4MERjY2UtZks2Qzc1aGZrTlhNYi1Gc0hqMFRTamEyNGNqaTFRVzlsNVJRY1VhZ3NMaHhEMkhDZHAwOElXckVUcnlscWtkekZRdw?oc=5",
+      "published": "2026-05-24T07:00:00Z",
+      "source": "新浪网",
+      "summary": "盒马大数据杀熟_新浪新闻 新浪网",
+      "fetched_at": "2026-06-03T06:19:11.247244Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马 会员",
+      "matched_keywords": [
+        "盒马"
+      ],
+      "importance": 1,
+      "display_title": "盒马大数据杀熟_新浪新闻",
+      "ai_insight": "该动态与盒马相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：盒马；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "0b6eb81ffec51bb2",
       "title": "向王健林等追债36亿！永辉「胖改」裁掉3万人，CEO却悄悄涨薪？ - 新浪财经",
       "link": "",
@@ -10573,6 +11278,54 @@
       "display_title": "5CostcoSalmonProductsToBuyAnd2ToSkip"
     },
     {
+      "id": "64ca5a7ceb31783c",
+      "title": "京东引入Costco开店_新浪新闻 - 新浪网",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1XdDhET2dLRDJISVJ2SUZXekRsalljOUExYnMxUkRsaXF1aUc0OU1hVzZHc0RVcWNaM0FXVkluZzdEMVQ4TjhBakxTTzVEVVBUQ1BUSVpONVkzaFhNc25Ea2tUVQ?oc=5",
+      "published": "2026-05-23T07:00:00Z",
+      "source": "新浪网",
+      "summary": "京东引入Costco开店_新浪新闻 新浪网",
+      "fetched_at": "2026-06-03T06:19:00.244986Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "开店 / 拓店",
+      "subcategory": "",
+      "matched_query": "开市客 开店",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 5,
+      "display_title": "Costco拓店动作影响区域竞争",
+      "ai_insight": "该动态与Costco门店扩张或调改相关，建议关注区域布局、坪效模型和竞争半径变化。",
+      "reason": "命中关键词：Costco；按规则归类为「开店 / 拓店」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "50ff36dec31963f9",
+      "title": "沃尔玛两高管离任，马凯思携雀巢全业务线负责人团队访小红书，淡马锡披露瑞幸咖啡直接持股，库迪拟开拓更多美国市场，Arla迎来3位新董事 - 小食代",
+      "link": "https://news.google.com/rss/articles/CBMi2AJBVV95cUxPdHBwbVF1dEpXOUdHb20tdUdYOUtuMU1tdzBFdk9oaWN6YklOblFXLVZlejZ2RUtDSjN1aGtvLXYzTUM0NFZzVU14QVpDVHFtYUJHVTNQRGVHamFkS3M0aW1seldrNGt2UHkzemIxMGZCeTVQdEVwTGhCV1EtUVhiREp3M1RGVjd6T3Z1c0V3eV9za3QxSkpteHU2NkV3M1lDREJQQ3hnSXlKc3hJODZFLVpJS052V0xhQUtCZzRuQjBYS0FoSEJ1VzVOSllEZmpMUk8td2dBTTdTSkQ1QXUzX1phQ2ZqWFVWWTAwQkZFMUF2Uld1LXE4VXFZTV9KQTRQUEdMMXVqRU9nV0hvQXBCa0dZd215cVhpTlNEaHVJdnFJaVpka0N0OUZKamxaMDFUY19CLV8tV2R3elRuclFhWnM5SEh2NWV3aFIxeWlzeVFfNjFwZG1qUQ?oc=5",
+      "published": "2026-05-23T07:00:00Z",
+      "source": "小食代",
+      "summary": "沃尔玛两高管离任，马凯思携雀巢全业务线负责人团队访小红书，淡马锡披露瑞幸咖啡直接持股，库迪拟开拓更多美国市场，Arla迎来3位新董事 小食代",
+      "fetched_at": "2026-06-03T06:19:16.572108Z",
+      "section": "retailer",
+      "entity": "沃尔玛",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "组织调整",
+      "subcategory": "",
+      "matched_query": "沃尔玛 开店",
+      "matched_keywords": [
+        "沃尔玛"
+      ],
+      "importance": 5,
+      "display_title": "沃尔玛组织变化影响后续经营节奏",
+      "ai_insight": "该动态涉及沃尔玛组织或管理变化，可能影响后续业务优先级、协同效率和竞争打法。",
+      "reason": "命中关键词：沃尔玛；按规则归类为「组织调整」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "e9212ad9600b5412",
       "title": "盒马旗下“超盒算NB”进驻温州！首批7家门店即将同步开业，位于…… - 新浪财经",
       "link": "",
@@ -10619,6 +11372,30 @@
       "reason": "命中关键词：Meituan；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "Meituan,Alibaba,JD.comBattleinChinaf"
+    },
+    {
+      "id": "f9aaf6601b639a2a",
+      "title": "硬折扣开始卷向美妆护肤了：奥特乐携双品牌FHC、JECE登场！ - 中华网",
+      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5ZdVBpdTJyX29haHdXdGVLaW00blJXS3JKVlhGeWltUVRlT24yVE5ZS2FwQlBzaUY2SEpod0pYM1U4VVg2VmxFczZSejdka0pEXzdIUFRhaW5vUW0xemxZOThUWlZjV1pHYzRHVQ?oc=5",
+      "published": "2026-05-23T04:19:20Z",
+      "source": "中华网",
+      "summary": "硬折扣开始卷向美妆护肤了：奥特乐携双品牌FHC、JECE登场！ 中华网",
+      "fetched_at": "2026-06-03T06:20:02.744421Z",
+      "section": "retailer",
+      "entity": "快乐猴",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "价格变化",
+      "subcategory": "",
+      "matched_query": "硬折扣",
+      "matched_keywords": [
+        "硬折扣"
+      ],
+      "importance": 4,
+      "display_title": "快乐猴价格波动引发渠道关注",
+      "ai_insight": "该动态与快乐猴价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。",
+      "reason": "命中关键词：硬折扣；按规则归类为「价格变化」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "9401350066ce1c9d",
@@ -11321,6 +12098,79 @@
       "display_title": "沃尔玛组织变化影响后续经营节奏",
       "ai_insight": "该动态涉及沃尔玛组织或管理变化，可能影响后续业务优先级、协同效率和竞争打法。",
       "reason": "命中关键词：Walmart；按规则归类为「组织调整」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "37726d9018edf573",
+      "title": "山東兩山姆店開業現混亂 偷食事件引熱議 - 大纪元",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBwYkM4YTU0d2loOEFtcmpkc1VmR09ubzlmZlBUck1XMzJwRjBrOC15OHlNMENWQWpsckZYZnN6dVA4eFhlVXpFWHhCa0M4MXYzUVQtTnVKblVGc0VLVG9Sd9IBZkFVX3lxTE1NSGR0TGxNbzR2MnBwalJEZy1iY3gtWmdLMkxlT1lrZHMycVgyTlVpaHF1ZHZnVFRCdlBoMzBXRHhISHZvck1yT29ZM2xYc1NYMEdmX2kzMHZ1X1hRRGZNTWoyZVJFQQ?oc=5",
+      "published": "2026-05-22T07:00:00Z",
+      "source": "大纪元",
+      "summary": "山東兩山姆店開業現混亂 偷食事件引熱議 大纪元",
+      "fetched_at": "2026-06-03T06:19:03.646237Z",
+      "section": "retailer",
+      "entity": "山姆",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "山姆 开店",
+      "matched_keywords": [
+        "山姆"
+      ],
+      "importance": 1,
+      "display_title": "山東兩山姆店開業現混亂偷食事件引熱議",
+      "ai_insight": "该动态与山姆相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：山姆；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "87989866540d86c1",
+      "title": "最新！永辉超市披露向王健林、孙喜双等追债超36亿元进展：法院决定立案执行 - thepaper.cn",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBvbllDNXBUTlN1M0FGLThwN1VkUVdJdHRqMl9pazhWaDh0VENYOWZsM0tQS1I3MUluWUpWc0ZCMU9mbXB1VzVjOElKX2IyWDZjMjQ5V0ZrTHQ4MzdYN1E?oc=5",
+      "published": "2026-05-22T07:00:00Z",
+      "source": "thepaper.cn",
+      "summary": "最新！永辉超市披露向王健林、孙喜双等追债超36亿元进展：法院决定立案执行 thepaper.cn",
+      "fetched_at": "2026-06-03T06:19:27.764555Z",
+      "section": "retailer",
+      "entity": "永辉",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "永辉 财报",
+      "matched_keywords": [
+        "永辉",
+        "永辉超市"
+      ],
+      "importance": 1,
+      "display_title": "永辉永辉超市动态值得关注",
+      "ai_insight": "该动态与永辉相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：永辉、永辉超市；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "65d5df9a137b9e07",
+      "title": "[doge][doge][doge]在奥乐齐超市便宜也能有好货✌️ - 新浪网",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFB0LUtpemdCQXpYekF0VGltM09NOWJGNWVNM3pNM0JabGZaTTdMa2k2cWpKc2U5NFcyams4bVBhclZLUDVLX1pZdHM0b0ZkLVVlZlZ4OXI3SDBFNWZFTkdiV1EwSQ?oc=5",
+      "published": "2026-05-22T07:00:00Z",
+      "source": "新浪网",
+      "summary": "[doge][doge][doge]在奥乐齐超市便宜也能有好货✌️ 新浪网",
+      "fetched_at": "2026-06-03T06:19:53.515929Z",
+      "section": "retailer",
+      "entity": "奥乐齐",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "奥乐齐",
+      "matched_keywords": [
+        "奥乐齐"
+      ],
+      "importance": 1,
+      "display_title": "[doge][doge][doge]在奥乐齐超市便宜也能有好货✌️",
+      "ai_insight": "该动态与奥乐齐相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：奥乐齐；按规则归类为「其他」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -12977,6 +13827,30 @@
       "display_title": "大润发组织变化影响后续经营节奏"
     },
     {
+      "id": "41a3d6851a510418",
+      "title": "Walmart - statistics & facts - Statista",
+      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFAwMnFSak5WTEZFZ1V5YkZpS1VSdC1LbXV2cWpTWG9BMk55OUp0dEpuTGNHTGxmSmhadElYNUtQQS1QMFQwZ2xEYno3bTBCM1g0MWtDcjlmd0E?oc=5",
+      "published": "2026-05-20T07:00:00Z",
+      "source": "Statista",
+      "summary": "Walmart - statistics & facts Statista",
+      "fetched_at": "2026-06-03T06:19:18.791144Z",
+      "section": "retailer",
+      "entity": "沃尔玛",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "Walmart retail strategy",
+      "matched_keywords": [
+        "Walmart"
+      ],
+      "importance": 1,
+      "display_title": "Walmart-statistics&facts",
+      "ai_insight": "该动态与沃尔玛相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：Walmart；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "c176bba7cd996b6b",
       "title": "天猫超市卡回收综合实力靠前的平台推荐 - e0734.com",
       "link": "",
@@ -13122,6 +13996,30 @@
       "reason": "命中关键词：高鑫零售；按规则归类为「财报业绩」。",
       "analysis_mode": "rule_based",
       "display_title": "大润发营收利润表现释放经营信号"
+    },
+    {
+      "id": "762e8f1f96b102b0",
+      "title": "2026年京东淘宝618活动从5月12日正式开始到6月20日结束，附最便宜购买时间节点、红包领取口令、国补叠加满减规则优惠全部拉满! - e0734.com",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9nczFkMVVGcF9pOFl5ZkJaSXk1OWRNdlFXcmxhVjgtUDBxcU1vZld4LWpmZ0VabmR2cnJYWm1vOTFZRHJhWDRGcmV5U3hqQ1dYX1FlcWNLRzViWFZRYnhOY21qMjU?oc=5",
+      "published": "2026-05-19T07:25:51Z",
+      "source": "e0734.com",
+      "summary": "2026年京东淘宝618活动从5月12日正式开始到6月20日结束，附最便宜购买时间节点、红包领取口令、国补叠加满减规则优惠全部拉满! e0734.com",
+      "fetched_at": "2026-06-03T06:18:28.161657Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "平台政策",
+      "subcategory": "",
+      "matched_query": "淘宝 价格力",
+      "matched_keywords": [
+        "淘宝"
+      ],
+      "importance": 4,
+      "display_title": "淘宝天猫平台规则变化影响商家经营",
+      "ai_insight": "该新闻涉及平台政策，需关注其对经营合规、商家准入、品类管理和供应链标准的影响。",
+      "reason": "命中关键词：淘宝；按规则归类为「平台政策」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "b53a5c91f344bfe3",
@@ -13537,6 +14435,30 @@
       "display_title": "BaseballTakesDownNo.17OleMissinFirst"
     },
     {
+      "id": "cdf029e66702a917",
+      "title": "山姆 朴朴 盒马，都有都有，雨露均沾。 ​ - 新浪网",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE15RTk4a3NlV1hIc3BJVlRLQkl5cF9EWVhYcGhnaDNuazhfaWIwT0VhaEVXWWllYnFGNGF6TFB4Q21MRjJWUmlvV1JUb3Y4cGU1RXo4M0lvd3MyVWJmclA5eGNxTQ?oc=5",
+      "published": "2026-05-19T07:00:00Z",
+      "source": "新浪网",
+      "summary": "山姆 朴朴 盒马，都有都有，雨露均沾。 ​ 新浪网",
+      "fetched_at": "2026-06-03T06:19:11.247290Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马 会员",
+      "matched_keywords": [
+        "盒马"
+      ],
+      "importance": 1,
+      "display_title": "山姆朴朴盒马，都有都有，雨露均沾。​",
+      "ai_insight": "该动态与盒马相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：盒马；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "81425feac25a1b01",
       "title": "经调整EBITDA逾 31 亿元，高鑫零售经营韧性充分凸显 - 中华网",
       "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE05TkRucGpTQmtwUTZ4bHRCYTdDdEF1QXFlV0xPUmdmblQxS1VsbEpBaU5QcXJFVXNNQmxjOFMzbXlOMW5lZlBuOEU1QVA3V0Z2TUp3b0pOajNqVTZ1TXRJaFF5amdYNHd0QjI0RGFB?oc=5",
@@ -13899,6 +14821,30 @@
       "display_title": "大润发营收利润表现释放经营信号"
     },
     {
+      "id": "53684d3bc1e39241",
+      "title": "高鑫零售转型：生鲜推联采，中超现金流转正，到家业务占比计划到半 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBJMVFhaERTSDYxYVdMLU4tNlhmZm1GUF8ySjdtdEZCN21OYTdpMjVCRUNGS2xoV3MtSnlsZU5BZ0gwUDRZekdxeUc2TDRIQzYwdFJPbV9KeXU5dlBuX0dSdDZuYm5qSjZ0bVk3ejRrcmxVeG5vdGc?oc=5",
+      "published": "2026-05-18T07:00:00Z",
+      "source": "新浪财经",
+      "summary": "高鑫零售转型：生鲜推联采，中超现金流转正，到家业务占比计划到半 新浪财经",
+      "fetched_at": "2026-06-03T06:20:13.845651Z",
+      "section": "retailer",
+      "entity": "大润发",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "即时零售",
+      "subcategory": "",
+      "matched_query": "高鑫零售",
+      "matched_keywords": [
+        "高鑫零售"
+      ],
+      "importance": 4,
+      "display_title": "大润发即时零售布局影响到家竞争",
+      "ai_insight": "该动态涉及大润发供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。",
+      "reason": "命中关键词：高鑫零售；按规则归类为「即时零售」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "a75fbece4dbc2c59",
       "title": "深圳龙华沃尔玛社区店开业 - 观点网",
       "link": "",
@@ -14066,6 +15012,30 @@
       "display_title": "美团即时零售布局影响到家竞争",
       "ai_insight": "该动态涉及美团供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。",
       "reason": "命中关键词：美团、闪购；按规则归类为「即时零售」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "4d65c40ec0268578",
+      "title": "零食主业遇冷！万辰押注硬折扣 - thepaper.cn",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5qc0dhdkVoMzRRZ1ZYSzJpRjhzazVoc1JxVlJ6SE1xblhDQU1ua2ZkTkZaQzRlTnJtMUVZR0VoQzJ0dHlsc3k3VmNqOFFkQ2tfV3hsVEh0QU5uY0FyV2c?oc=5",
+      "published": "2026-05-17T07:00:00Z",
+      "source": "thepaper.cn",
+      "summary": "零食主业遇冷！万辰押注硬折扣 thepaper.cn",
+      "fetched_at": "2026-06-03T06:20:01.540748Z",
+      "section": "retailer",
+      "entity": "快乐猴",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "价格变化",
+      "subcategory": "",
+      "matched_query": "快乐猴 自有品牌",
+      "matched_keywords": [
+        "硬折扣"
+      ],
+      "importance": 4,
+      "display_title": "快乐猴价格波动引发渠道关注",
+      "ai_insight": "该动态与快乐猴价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。",
+      "reason": "命中关键词：硬折扣；按规则归类为「价格变化」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -14330,6 +15300,30 @@
       "display_title": "TerriersRun-RuleMarist,10-2,toEarnRe",
       "ai_insight": "该动态与Ole'相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
       "reason": "命中关键词：Ole；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "706c42d3763db7fb",
+      "title": "Assessing Meituan (SEHK:3690) Valuation After Recent Share Price Weakness And Ongoing Losses - Yahoo Finance",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxORkNkTTU3c3NneHFSV2FEcGUzdGdueGpVeVVtMHhaZkVQRDZhVmEzX2NHelM5Xy1EbUU4RE5vWjBqOGFXeVBlRkd1NkJmOHU0YzVQRlFPLXVuckpKTUhHZ3JsTlN5WUhLc19xZHR3SlcxZ3c0MnVGRWR0bHQzZERmUlZDZldCdXFZZUNzcEp6TkxqSEt3YzZfMjNJckhxQ0VjYk1Tbg?oc=5",
+      "published": "2026-05-16T07:00:00Z",
+      "source": "Yahoo Finance",
+      "summary": "Assessing Meituan (SEHK:3690) Valuation After Recent Share Price Weakness And Ongoing Losses Yahoo Finance",
+      "fetched_at": "2026-06-03T06:18:52.702407Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "价格力策略",
+      "subcategory": "",
+      "matched_query": "Meituan earnings",
+      "matched_keywords": [
+        "Meituan"
+      ],
+      "importance": 4,
+      "display_title": "美团价格力动作影响竞争格局",
+      "ai_insight": "该动态与美团价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。",
+      "reason": "命中关键词：Meituan；按规则归类为「价格力策略」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -14932,6 +15926,55 @@
       "display_title": "AMmarketsneedtoknow:PutintovisitChin",
       "ai_insight": "该动态与沃尔玛相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
       "reason": "命中关键词：Walmart；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "1f679542f49442d6",
+      "title": "浣熊食堂、松鼠便利、歪马送酒 美团三大即时零售品牌将亮相第66届中国特许加盟展 - Jiemian.com",
+      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1YNHd4MXVzcG9BcS1TMUdtZ3kxNElvMjNIbjNvOXZURGxTUVRSNmdqT1ppcVVfZ3gycHpxdVNBM2stRmc1dS1BTlUtVG9yNkQxR2lvVVUtNmg?oc=5",
+      "published": "2026-05-15T07:00:00Z",
+      "source": "Jiemian.com",
+      "summary": "浣熊食堂、松鼠便利、歪马送酒 美团三大即时零售品牌将亮相第66届中国特许加盟展 Jiemian.com",
+      "fetched_at": "2026-06-03T06:18:47.846253Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "即时零售",
+      "subcategory": "",
+      "matched_query": "美团 即时零售",
+      "matched_keywords": [
+        "美团",
+        "即时零售"
+      ],
+      "importance": 4,
+      "display_title": "美团即时零售布局影响到家竞争",
+      "ai_insight": "该动态涉及美团供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。",
+      "reason": "命中关键词：美团、即时零售；按规则归类为「即时零售」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "d7b8d08120729ef1",
+      "title": "由外卖到本地生活：美团用AI技术重构消费新逻辑 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE56aWp0S01OY2FXMlh0b0h3d29pU2VMZkl0UUc2UG81eVZ4Q040eVpmRUdkWkM2Vm5iWnRicVp0UlVTbUNpZzZ4MW5XazVlUlM0MUZxM3l5THd5TE5fc3lZeG1JMmpnRTVaVGxvV3hGMl9jN2s4cUhwZQ?oc=5",
+      "published": "2026-05-15T07:00:00Z",
+      "source": "新浪财经",
+      "summary": "由外卖到本地生活：美团用AI技术重构消费新逻辑 新浪财经",
+      "fetched_at": "2026-06-03T06:18:49.607862Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "美团 本地生活",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 1,
+      "display_title": "由外卖到本地生活：美团用AI技术重构消费新逻辑",
+      "ai_insight": "该动态与美团相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：美团；按规则归类为「其他」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -15973,6 +17016,78 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "157d66714774832c",
+      "title": "2026年淘宝京东618活动时间已确定：从5月12日晚8点正式开启至6月20日结束 - 中华网",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1FUk5hb3pXQW9CRTI2RHZQbnpTcE1HX05QamFQcXNscTRqWGlRUnRXcDktTzVrYmQ4YkZHVFYtd3phTVVGb1Vpb2VPMm5FYWhyZkloU05paml4ZjJrRU1oMEJn?oc=5",
+      "published": "2026-05-13T07:00:00Z",
+      "source": "中华网",
+      "summary": "2026年淘宝京东618活动时间已确定：从5月12日晚8点正式开启至6月20日结束 中华网",
+      "fetched_at": "2026-06-03T06:18:28.667706Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "大促专栏",
+      "subcategory": "",
+      "matched_query": "天猫 大促",
+      "matched_keywords": [
+        "淘宝"
+      ],
+      "importance": 4,
+      "display_title": "淘宝天猫淘宝动态值得关注",
+      "ai_insight": "该动态与淘宝天猫相关，当前重要性为4分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：淘宝；按规则归类为「大促专栏」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "00feaeaaf8f4a858",
+      "title": "押注永辉巨亏后，名创优品靠AI投资翻盘 - thepaper.cn",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE55My1ING8wMlhjOG1KUGJqOHI0NW53QmUwdHRzTWpfWk41LUxWYkNBZHcwdnBZcHlDMlJPS0d6ckxXQS1xQzdEZnVOX0JxWFp2T3FFWTRnUWFHcUo5bnc?oc=5",
+      "published": "2026-05-13T07:00:00Z",
+      "source": "thepaper.cn",
+      "summary": "押注永辉巨亏后，名创优品靠AI投资翻盘 thepaper.cn",
+      "fetched_at": "2026-06-03T06:19:27.764642Z",
+      "section": "retailer",
+      "entity": "永辉",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "并购合作",
+      "subcategory": "",
+      "matched_query": "永辉 财报",
+      "matched_keywords": [
+        "永辉"
+      ],
+      "importance": 5,
+      "display_title": "永辉合作动作可能改变竞争格局",
+      "ai_insight": "该动态涉及永辉合作或资本动作，可能改变资源配置、渠道覆盖或行业竞争格局。",
+      "reason": "命中关键词：永辉；按规则归类为「并购合作」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "b9c662c2c482045e",
+      "title": "三江自有品牌好物_新浪新闻 - 新浪网",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9MRzhOVmM4a0Rxdi1xTE9jekp2eHRDWHdYZkZfcGtvMDZlS1luS3dEZnluUUNBRFM5amVlLUZrY2liYjhtR0lRb3RFckxHd3MtTG5qU21JaHdZQnFYQXFWNE9LYw?oc=5",
+      "published": "2026-05-13T07:00:00Z",
+      "source": "新浪网",
+      "summary": "三江自有品牌好物_新浪新闻 新浪网",
+      "fetched_at": "2026-06-03T06:19:56.605329Z",
+      "section": "retailer",
+      "entity": "盒马 NB",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "自有品牌",
+      "subcategory": "",
+      "matched_query": "盒马NB 自有品牌",
+      "matched_keywords": [
+        "自有品牌"
+      ],
+      "importance": 4,
+      "display_title": "盒马NB自有品牌动作强化差异供给",
+      "ai_insight": "该新闻涉及盒马 NB自有品牌，可能影响差异化商品供给、会员粘性和采购议价空间。",
+      "reason": "命中关键词：自有品牌；按规则归类为「自有品牌」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "9001bec05e785d1b",
       "title": "亚马逊放大招！DoorDash、UPS 和沃尔玛都要瑟瑟发抖？ - NAI500",
       "link": "",
@@ -16528,6 +17643,30 @@
       "display_title": "First200customerstogetgiftcardsasnew",
       "ai_insight": "该动态与奥乐齐相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
       "reason": "命中关键词：ALDI；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "62cf661cec422f78",
+      "title": "济青山姆首店还未开，“二店”就要来了？-腾讯新闻 - QQ News",
+      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFB5U1Zoa0R6M0MtaElOWnhONzE4VThlSXN0QlRkRzloVkZjb19ncm9uRVo4M3N1QU9tQUtxRlNydnJfcTNUTUxtSVJtcFdPcGczZTByTEN3?oc=5",
+      "published": "2026-05-12T07:00:00Z",
+      "source": "QQ News",
+      "summary": "济青山姆首店还未开，“二店”就要来了？-腾讯新闻 QQ News",
+      "fetched_at": "2026-06-03T06:19:03.223970Z",
+      "section": "retailer",
+      "entity": "山姆",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "山姆 新品",
+      "matched_keywords": [
+        "山姆"
+      ],
+      "importance": 1,
+      "display_title": "济青山姆首店还未开，“二店”就要来了？-腾讯新闻",
+      "ai_insight": "该动态与山姆相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：山姆；按规则归类为「其他」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -17433,6 +18572,30 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "ad0b101d41cae470",
+      "title": "$37M Costco near San Antonio partially opens as grand debut nears - MySA",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNN1VsWm1BVHBKUlBBM2E1ekNDTTQtWWpLWnFUWHBmTFNVU2ZIU3pkTk5aYTJNbU1BUjJ2Y1pIcXprR3Qyb0Rocm50LWxKTWpnNDNoSVFsTndIc0czQkl0OWl3dC04TWlUZmtWYUN4dEoyMnozNVY5dEt6cHNjRWQ2ek9HVnJMZThCWjR5dUE1RHA?oc=5",
+      "published": "2026-05-11T07:00:00Z",
+      "source": "MySA",
+      "summary": "$37M Costco near San Antonio partially opens as grand debut nears MySA",
+      "fetched_at": "2026-06-03T06:18:58.138428Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "Costco store opening",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 1,
+      "display_title": "$37MCostconearSanAntoniopartiallyope",
+      "ai_insight": "该动态与Costco相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：Costco；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "c6bd4ec880c4bd05",
       "title": "Alibaba Pushes AI Deeper Into Commerce With Qwen-Taobao Integration in Bid to Reinvent Online Shopping - Tekedia",
       "link": "",
@@ -17822,6 +18985,54 @@
       "display_title": "PoliceinvestigatingSaturdaynightshoo",
       "ai_insight": "该动态与沃尔玛相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
       "reason": "命中关键词：Walmart；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "2503e118be418273",
+      "title": "The Unexpected Topping You'll Find On Costco's Pizza In China - AOL.com",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPeXRSSEVtZXM3M2dUM1NETEtvWTM0T20wbmFGZDhnYXNXRlpUVTcza2lXZ2w3OXB4dEtYNjBCV2xKeVdpYUFmY1NIRzBndFZ1UnFmX0RQVGVZNGlCVWY4aEhKMW9BaThyek1iZWtYaHJJQ3hwRUUzYjRKMDdiSmtEYUpvQVdfbzg4OVNz?oc=5",
+      "published": "2026-05-10T07:00:00Z",
+      "source": "AOL.com",
+      "summary": "The Unexpected Topping You'll Find On Costco's Pizza In China AOL.com",
+      "fetched_at": "2026-06-03T06:18:55.358246Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "Costco China",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 1,
+      "display_title": "TheUnexpectedToppingYou'llFindOnCost",
+      "ai_insight": "该动态与Costco相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：Costco；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "887fc526e3934e62",
+      "title": "Costco前员工分享：每周必囤这8样食品养全家 - 温哥华港湾",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1qZm1sZkRoM2s4VTZNTzB1NmhMYUNESU5RU1F2VTdRMThwNjVDLWFLaWlZaUt6Qk1TSzJseEY2bGg0YnRabWNYZVRrM05hTlFBQWVBWjB0WnhzYVZ4ZWl6cUozSE1ubDY5UEVzYUVUTQ?oc=5",
+      "published": "2026-05-10T07:00:00Z",
+      "source": "温哥华港湾",
+      "summary": "Costco前员工分享：每周必囤这8样食品养全家 温哥华港湾",
+      "fetched_at": "2026-06-03T06:18:56.281722Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "Costco Kirkland",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 1,
+      "display_title": "Costco前员工分享：每周必囤这8样食品养全家",
+      "ai_insight": "该动态与Costco相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：Costco；按规则归类为「其他」。",
       "analysis_mode": "rule_based"
     },
     {
@@ -18364,6 +19575,30 @@
       "reason": "命中关键词：叮咚买菜；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "叮咚买菜集中资源发力叮咚V5，叮咚全新升级该咋看？"
+    },
+    {
+      "id": "1ada31246be88341",
+      "title": "胖东来否认国补空调价格欺诈、套取国补资金 - 东方财富",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBQVlZJWXlnekhSMTMtNWZ2ZlpzYnpRYm15Zms1Y0RUeU5tS05oZlpLZnFfb1k2aW1BMlBjSTFOdGNvZGd5VVdMYS00YXUxRU4yaEVjM01ZdXZiYTJWNXU2Ug?oc=5",
+      "published": "2026-05-08T13:26:32Z",
+      "source": "东方财富",
+      "summary": "胖东来否认国补空调价格欺诈、套取国补资金 东方财富",
+      "fetched_at": "2026-06-03T06:19:22.158947Z",
+      "section": "retailer",
+      "entity": "胖东来",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "价格变化",
+      "subcategory": "",
+      "matched_query": "胖东来",
+      "matched_keywords": [
+        "胖东来"
+      ],
+      "importance": 2,
+      "display_title": "胖东来价格波动引发渠道关注",
+      "ai_insight": "该动态与胖东来价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。",
+      "reason": "命中关键词：胖东来；按规则归类为「价格变化」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "2f46d3d9deee71e2",
@@ -19779,6 +21014,55 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "d8190912d6def1fd",
+      "title": "美国Costco这些爆款\"神物\"，加拿大Costco竟然不卖 - VanPeople",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBjbnZzSTRzLXhyajBySl9BNFRGSlFna2VTVkg2bGFRV3l3MWVCbjR0b3pZamlkTld2VVFmbWhDZ3RfbzRHMFRDQ1FYQmdSb3Fq?oc=5",
+      "published": "2026-05-07T07:00:00Z",
+      "source": "VanPeople",
+      "summary": "美国Costco这些爆款\"神物\"，加拿大Costco竟然不卖 VanPeople",
+      "fetched_at": "2026-06-03T06:18:56.281567Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "爆品",
+      "subcategory": "",
+      "matched_query": "Costco Kirkland",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 2,
+      "display_title": "Costco爆品表现带动商品策略关注",
+      "ai_insight": "该动态与Costco相关，当前重要性为2分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：Costco；按规则归类为「爆品」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "17d2222323f92d47",
+      "title": "永辉超市“讨债难”，针对“万达系”38亿元欠款将申请强制执行；公司去年亏损25亿元，为补充资金多次套现 - thepaper.cn",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1ONnB3a0ktRzZIQkxNVU9lWnVBZzJqUTA4N2pHeFpzUVM0aXNlck9DOWNTN2h0S1FYRjZxMzFfTFRwb1JzU2NDcllFQnoyYnhNSVltaDg5dTJ2RXNCVGc?oc=5",
+      "published": "2026-05-07T07:00:00Z",
+      "source": "thepaper.cn",
+      "summary": "永辉超市“讨债难”，针对“万达系”38亿元欠款将申请强制执行；公司去年亏损25亿元，为补充资金多次套现 thepaper.cn",
+      "fetched_at": "2026-06-03T06:19:27.764512Z",
+      "section": "retailer",
+      "entity": "永辉",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "永辉 财报",
+      "matched_keywords": [
+        "永辉",
+        "永辉超市"
+      ],
+      "importance": 1,
+      "display_title": "永辉永辉超市动态值得关注",
+      "ai_insight": "该动态与永辉相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：永辉、永辉超市；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "39b00702895b7b9f",
       "title": "沃尔玛全球电商新卖家入驻全流程 - 雨果跨境",
       "link": "",
@@ -20259,6 +21543,78 @@
       "display_title": "#5TennesseeFallstoOleMiss,4-1,inSECT"
     },
     {
+      "id": "1c2e3e3094aa90a3",
+      "title": "618“硝烟”起：平台与家电品牌打响服务“前哨战”|百亿补贴|京东|闪购|天猫|格力_手机新浪网 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9EVGV3QVhGY3VlRVRwWFVVZm50ODRucmtKcGFCQVAtNTN6SFJ2Q25mUzlTNVBzel9qZ0pncFBvWWZ1c2pWOGtJWk9weVVkQnRpVDRzc1JZcTBNOHFyM3hIdTlJSWVYR2pLQmV2aVJPWlZzQ3A0RlZEaFRWUTVIMFU?oc=5",
+      "published": "2026-05-06T07:00:00Z",
+      "source": "新浪财经",
+      "summary": "618“硝烟”起：平台与家电品牌打响服务“前哨战”|百亿补贴|京东|闪购|天猫|格力_手机新浪网 新浪财经",
+      "fetched_at": "2026-06-03T06:18:48.319018Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "价格力策略",
+      "subcategory": "",
+      "matched_query": "美团闪购",
+      "matched_keywords": [
+        "闪购"
+      ],
+      "importance": 4,
+      "display_title": "美团价格力动作影响竞争格局",
+      "ai_insight": "该动态与美团价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。",
+      "reason": "命中关键词：闪购；按规则归类为「价格力策略」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "06633e4ed286700a",
+      "title": "胖东来今年首次民主评议结果出炉 19人被降级 1人被免职 - 新京报",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFA2bUF1T0NIdHJGY19PMHltWEhCU0gzX0Q3MmNaVGxGVVc4YjFhbGhYUFJZWFI0WXUtUl9iQzNtUDJvYVNIaXdEdW9FU0pWc1pjRWxETWpyTDI4NEFkRTdKOXhB?oc=5",
+      "published": "2026-05-06T07:00:00Z",
+      "source": "新京报",
+      "summary": "胖东来今年首次民主评议结果出炉 19人被降级 1人被免职 新京报",
+      "fetched_at": "2026-06-03T06:19:22.159306Z",
+      "section": "retailer",
+      "entity": "胖东来",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "胖东来",
+      "matched_keywords": [
+        "胖东来"
+      ],
+      "importance": 1,
+      "display_title": "胖东来今年首次民主评议结果出炉19人被降级1人被免职",
+      "ai_insight": "该动态与胖东来相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：胖东来；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "c70837d9d3bdf699",
+      "title": "买菜做饭，先来奥乐齐！尽享当季“头茬”品质鲜货 - 搜狐网",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE12LW93Uk9kc1VFQU94OHJnQTBzeXNuVDRtVm10YnZPR2pySkp3cXdLVFJyYUxiZ2tvRUlycUlWWEJ1OTRhUVlHX2VLMDlZQy1IZ0xIcjR4Zk9iTXdxLWJ3ck5xczJPTE9yMmI0?oc=5",
+      "published": "2026-05-06T07:00:00Z",
+      "source": "搜狐网",
+      "summary": "买菜做饭，先来奥乐齐！尽享当季“头茬”品质鲜货 搜狐网",
+      "fetched_at": "2026-06-03T06:19:52.327240Z",
+      "section": "retailer",
+      "entity": "奥乐齐",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "奥乐齐 硬折扣",
+      "matched_keywords": [
+        "奥乐齐"
+      ],
+      "importance": 1,
+      "display_title": "买菜做饭，先来奥乐齐！尽享当季“头茬”品质鲜货",
+      "ai_insight": "该动态与奥乐齐相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：奥乐齐；按规则归类为「其他」。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "8090b45365137122",
       "title": "VMS brands double down on e-commerce, Douyin in China - NutraIngredients.com",
       "link": "",
@@ -20450,6 +21806,30 @@
       "reason": "命中关键词：ALDI；按规则归类为「其他」。",
       "analysis_mode": "rule_based",
       "display_title": "Aldiisquietlychangingitsstores.Here’"
+    },
+    {
+      "id": "1768ec4760215cb8",
+      "title": "Discovery Commerce: How to Scale Your Sales on TikTok Shop - Mexico Business News",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQNFNZcjVwSnZxcl9kNksta2dYdmVyVklHYk14MUctZTAzTmY3LV92bnc0VTUzVEpSNDJweER3eHoxUkdTMGVxN3kyVkF6a0N2N2h5OGJ4M2s1QUZjTDNIbE04X2tkNS1DLUl2ekx0bU4wMzlkUVpEOWVvcjExaDg0OFMyZGNKbTBHX3FrVl9VMlJHSEdVMGJpX3VPZ0VwUWtISGFHUw?oc=5",
+      "published": "2026-05-05T07:00:00Z",
+      "source": "Mexico Business News",
+      "summary": "Discovery Commerce: How to Scale Your Sales on TikTok Shop Mexico Business News",
+      "fetched_at": "2026-06-03T06:18:38.581193Z",
+      "section": "platform",
+      "entity": "抖音电商",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "业务规模 & GMV表现",
+      "subcategory": "",
+      "matched_query": "TikTok Shop retail",
+      "matched_keywords": [
+        "TikTok Shop"
+      ],
+      "importance": 2,
+      "display_title": "抖音电商经营表现变化值得关注",
+      "ai_insight": "该动态与抖音电商的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。",
+      "reason": "命中关键词：TikTok Shop；按规则归类为「业务规模 & GMV表现」。",
+      "analysis_mode": "rule_based"
     },
     {
       "id": "b076e18a6e06906b",
@@ -20717,6 +22097,30 @@
       "display_title": "奥乐齐拓店动作影响区域竞争",
       "ai_insight": "该动态与奥乐齐门店扩张或调改相关，建议关注区域布局、坪效模型和竞争半径变化。",
       "reason": "命中关键词：ALDI；按规则归类为「开店 / 拓店」。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "cecced077bb98aba",
+      "title": "First Costco store in Milwaukee County to break ground this week - WISN",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNNXU3ZWY1TlRaYXJQU21EOE1KZEFUYWMxMGtlSnJlUWZxYkxFYzQ2VHphUUdvSElQU0tRMlJIWFB3V21KUlkwdnFLTWI4aVhQTE5heXRkeTdORWhPNU1BZWhwSkJqdkdjUEtOSkIxYkJMck96NXpBOTJ3NHBxd3RkR3B3cHB2V25ZbzJVQm9WYU9QOGJEaHNvanFBNlJ1ZTRaMEtQUg?oc=5",
+      "published": "2026-05-04T07:00:00Z",
+      "source": "WISN",
+      "summary": "First Costco store in Milwaukee County to break ground this week WISN",
+      "fetched_at": "2026-06-03T06:18:58.138471Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "Costco store opening",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 1,
+      "display_title": "FirstCostcostoreinMilwaukeeCountytob",
+      "ai_insight": "该动态与Costco相关，当前重要性为1分，建议结合命中关键词判断是否纳入后续重点跟踪。",
+      "reason": "命中关键词：Costco；按规则归类为「其他」。",
       "analysis_mode": "rule_based"
     }
   ]
