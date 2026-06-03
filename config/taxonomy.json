@@ -211,6 +211,83 @@
     "黄牛",
     "网盘"
   ],
+  "preferred_sources": [
+    {
+      "name": "36氪",
+      "domain": "36kr.com",
+      "tags": ["商业", "科技", "消费", "平台"]
+    },
+    {
+      "name": "IT桔子",
+      "domain": "itjuzi.com",
+      "tags": ["投融资", "创业", "消费"]
+    },
+    {
+      "name": "虎嗅网",
+      "domain": "huxiu.com",
+      "tags": ["商业", "科技", "消费"]
+    },
+    {
+      "name": "创业邦",
+      "domain": "cyzone.cn",
+      "tags": ["创业", "消费", "品牌"]
+    },
+    {
+      "name": "极客公园",
+      "domain": "geekpark.net",
+      "tags": ["科技", "AI", "平台"]
+    },
+    {
+      "name": "TechCrunch",
+      "domain": "techcrunch.com",
+      "tags": ["国际", "科技", "平台"]
+    },
+    {
+      "name": "TechCrunch 中文站",
+      "domain": "techcrunch.cn",
+      "tags": ["国际", "科技", "平台"]
+    },
+    {
+      "name": "i黑马",
+      "domain": "iheima.com",
+      "tags": ["创业", "消费", "品牌"]
+    },
+    {
+      "name": "人民网",
+      "domain": "people.com.cn",
+      "tags": ["政策", "监管", "行业"]
+    },
+    {
+      "name": "北京商报",
+      "domain": "bbtnews.com.cn",
+      "tags": ["商业", "消费", "零售"]
+    },
+    {
+      "name": "亿邦动力",
+      "domain": "ebrun.com",
+      "tags": ["电商", "零售", "平台"]
+    },
+    {
+      "name": "联商网",
+      "domain": "linkshop.com",
+      "tags": ["零售", "商超", "线下"]
+    },
+    {
+      "name": "职业零售网",
+      "domain": "",
+      "tags": ["零售", "商超", "线下"]
+    },
+    {
+      "name": "酒类商业协会",
+      "domain": "",
+      "tags": ["酒类", "协会", "监管"]
+    },
+    {
+      "name": "行业协会网站",
+      "domain": "",
+      "tags": ["协会", "政策", "监管"]
+    }
+  ],
   "source_quality_rules": {
     "high_quality_sources": [
       "公司公告",
