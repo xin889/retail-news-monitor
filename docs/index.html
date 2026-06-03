@@ -420,6 +420,338 @@
       background: var(--red-soft);
     }
 
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .nav button {
+      position: relative;
+      min-height: 78px;
+      border-radius: var(--radius);
+      padding: 15px 18px;
+      text-align: left;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(80, 20, 16, 0.06);
+    }
+
+    .nav button::after {
+      content: attr(data-desc);
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .nav button[data-section="platform"] {
+      --tab-color: #e1251b;
+      --tab-soft: #fff1ee;
+    }
+
+    .nav button[data-section="retailer"] {
+      --tab-color: #4f46e5;
+      --tab-soft: #f1f0ff;
+    }
+
+    .nav button[data-section="category"] {
+      --tab-color: #0f8f78;
+      --tab-soft: #eafaf5;
+    }
+
+    .nav button.active {
+      border-color: color-mix(in srgb, var(--tab-color) 42%, white);
+      background: linear-gradient(135deg, var(--tab-soft), #fff);
+      color: var(--tab-color);
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--tab-color) 16%, transparent);
+    }
+
+    .nav button.active::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--tab-color);
+    }
+
+    .jd-summary {
+      margin-bottom: 12px;
+      padding: 16px 18px;
+      border: 1px solid rgba(225, 37, 27, 0.18);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #fff7f5, #ffffff 58%, #fffaf0);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .summary-head h2 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .summary-mode {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .summary-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      align-items: start;
+      color: #35201f;
+    }
+
+    .judgment {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--judge-color);
+      background: var(--judge-bg);
+    }
+
+    .judge-opportunity { --judge-color: #057a55; --judge-bg: #dff8ec; }
+    .judge-warning { --judge-color: #b54708; --judge-bg: #fff0d8; }
+    .judge-action { --judge-color: #175cd3; --judge-bg: #e8f1ff; }
+    .judge-watch { --judge-color: #5b4ab5; --judge-bg: #f0edff; }
+
+    .chip {
+      --chip-bg: #f6f4f3;
+      --chip-color: #4b4643;
+      --chip-border: #e5ddd9;
+      --chip-active-bg: #e1251b;
+      --chip-active-color: #fff;
+      border-color: var(--chip-border);
+      background: var(--chip-bg);
+      color: var(--chip-color);
+      font-weight: 720;
+      box-shadow: 0 2px 8px rgba(70, 39, 34, 0.04);
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(70, 39, 34, 0.08);
+    }
+
+    .chip.active {
+      border-color: var(--chip-active-bg);
+      background: var(--chip-active-bg);
+      color: var(--chip-active-color);
+      box-shadow: 0 8px 18px color-mix(in srgb, var(--chip-active-bg) 20%, transparent);
+    }
+
+    .list-panel {
+      border: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .list-head {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+    }
+
+    .news-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .news-row {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 5px 16px rgba(80, 20, 16, 0.05);
+    }
+
+    .news-row.high-priority {
+      border-color: rgba(225, 37, 27, 0.28);
+      box-shadow: 0 8px 22px rgba(225, 37, 27, 0.10);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .title-line {
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .news-title {
+      font-size: 18px;
+      line-height: 1.35;
+      color: #211817;
+      white-space: normal;
+    }
+
+    .brief {
+      display: -webkit-box;
+      margin-top: 8px;
+      overflow: hidden;
+      color: #514946;
+      font-size: 14px;
+      line-height: 1.72;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(225, 37, 27, 0.22);
+      color: var(--teal);
+      background: #fff8f7;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .source-link.disabled {
+      border-color: var(--line);
+      color: #8a8581;
+      background: #f6f4f3;
+      cursor: default;
+    }
+
+    .tooltip {
+      width: min(700px, calc(100vw - 52px));
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .insight-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 16px 36px rgba(44, 31, 28, 0.16);
+    }
+
+    .insight-card h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .insight-section {
+      padding-top: 10px;
+      margin-top: 10px;
+      border-top: 1px solid #f0e8e5;
+    }
+
+    .insight-label {
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .insight-core {
+      margin: 0;
+      color: #241514;
+      font-size: 14px;
+      line-height: 1.65;
+      font-weight: 680;
+    }
+
+    .keyword-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .keyword-tag {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #f6f2f1;
+      color: #665b57;
+      font-size: 12px;
+    }
+
+    .word-cloud-panel {
+      margin-top: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .word-cloud-panel h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .word-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 12px;
+      align-items: center;
+      min-height: 58px;
+    }
+
+    .word-chip {
+      border: 0;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: linear-gradient(135deg, #fff1f0, #fff);
+      color: #7f1d1d;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      box-shadow: 0 3px 10px rgba(80, 20, 16, 0.06);
+    }
+
+    .word-chip:hover {
+      transform: translateY(-1px);
+      color: #e1251b;
+    }
+
     @media (max-width: 920px) {
       .top,
       .toolbar {
@@ -532,10 +864,12 @@
     </section>
 
     <nav class="nav" aria-label="主导航">
-      <button class="active" data-section="platform">平台竞对</button>
-      <button data-section="retailer">零售商</button>
-      <button data-section="category">品类洞察</button>
+      <button class="active" data-section="platform" data-desc="平台策略、政策、即时零售与商家生态">平台竞对</button>
+      <button data-section="retailer" data-desc="会员店、商超、硬折扣与前置仓动态">零售商</button>
+      <button data-section="category" data-desc="政策监管、新品趋势与重点品牌动作">品类洞察</button>
     </nav>
+
+    <section class="jd-summary" id="jdSummary" aria-label="京东视角关键判断"></section>
 
     <section class="filters" id="filters" aria-label="筛选条件"></section>
 
@@ -546,6 +880,11 @@
       </div>
       <div id="status"></div>
       <ul class="news-list" id="newsList"></ul>
+    </section>
+
+    <section class="word-cloud-panel" aria-label="当前页面热点词云">
+      <h2>当前页面热点词云</h2>
+      <div class="word-cloud" id="wordCloud"></div>
     </section>
   </main>
 
@@ -609,12 +948,49 @@
       searchInput: document.getElementById("searchInput"),
       sortSelect: document.getElementById("sortSelect"),
       highOnly: document.getElementById("highOnly"),
+      jdSummary: document.getElementById("jdSummary"),
       filters: document.getElementById("filters"),
       listTitle: document.getElementById("listTitle"),
       listHint: document.getElementById("listHint"),
       status: document.getElementById("status"),
-      newsList: document.getElementById("newsList")
+      newsList: document.getElementById("newsList"),
+      wordCloud: document.getElementById("wordCloud")
     };
+
+    const CHIP_COLORS = {
+      "全部": ["#f4f2f1", "#514946", "#ded6d2", "#e1251b", "#fff"],
+      "淘宝天猫": ["#fff3e0", "#b45309", "#ffd8a8", "#f97316", "#fff"],
+      "抖音电商": ["#f0f2f4", "#111827", "#d0d5dd", "#111827", "#fff"],
+      "拼多多": ["#feeceb", "#b91c1c", "#fecaca", "#e1251b", "#fff"],
+      "美团": ["#fff7cc", "#8a5b00", "#ffe58a", "#f2b705", "#2b2110"],
+      "Costco": ["#edf4ff", "#1d4ed8", "#bcd7ff", "#1d4ed8", "#fff"],
+      "山姆": ["#edf4ff", "#1e40af", "#bcd7ff", "#2563eb", "#fff"],
+      "盒马": ["#eafaf0", "#067647", "#b7ebc6", "#16a34a", "#fff"],
+      "盒马 NB": ["#eafaf0", "#067647", "#b7ebc6", "#16a34a", "#fff"],
+      "奥乐齐": ["#f0edff", "#4c1d95", "#d8ccff", "#6d28d9", "#fff"],
+      "快乐猴": ["#fff2df", "#9a3412", "#ffd2a8", "#ea580c", "#fff"],
+      "胖东来": ["#fff0e5", "#9a3412", "#ffc9a8", "#f97316", "#fff"],
+      "永辉": ["#fff7d6", "#854d0e", "#fde68a", "#d97706", "#fff"],
+      "沃尔玛": ["#eaf3ff", "#1d4ed8", "#bcd7ff", "#2563eb", "#fff"],
+      "酒类": ["#fce7ef", "#9f1239", "#fbcfe8", "#be123c", "#fff"],
+      "母婴": ["#fff0f7", "#be185d", "#fbcfe8", "#db2777", "#fff"],
+      "水饮冲调": ["#e0f2fe", "#0369a1", "#bae6fd", "#0284c7", "#fff"],
+      "家庭清洁 / 纸品": ["#e6fffb", "#0f766e", "#99f6e4", "#0d9488", "#fff"],
+      "个人护理": ["#f3e8ff", "#7e22ce", "#e9d5ff", "#9333ea", "#fff"],
+      "粮油调味": ["#fff3e0", "#9a3412", "#fed7aa", "#c2410c", "#fff"],
+      "玩具乐器": ["#fff7cc", "#a16207", "#fde68a", "#d97706", "#fff"],
+      "休闲食品": ["#fff1db", "#b45309", "#fed7aa", "#f59e0b", "#fff"],
+      "宠物": ["#ecfdf3", "#047857", "#bbf7d0", "#059669", "#fff"]
+    };
+
+    const DIMENSION_COLORS = [
+      ["#fff1f0", "#b91c1c", "#fecaca", "#e1251b", "#fff"],
+      ["#eef4ff", "#1d4ed8", "#c7d7fe", "#2563eb", "#fff"],
+      ["#f0fdf4", "#047857", "#bbf7d0", "#059669", "#fff"],
+      ["#f5f3ff", "#6d28d9", "#ddd6fe", "#7c3aed", "#fff"],
+      ["#fff7ed", "#c2410c", "#fed7aa", "#ea580c", "#fff"],
+      ["#ecfeff", "#0e7490", "#a5f3fc", "#0891b2", "#fff"]
+    ];
 
     function escapeHTML(value) {
       return String(value ?? "")
@@ -641,6 +1017,48 @@
 
     function hasValidLink(value) {
       return /^https?:\/\//i.test(String(value || "").trim());
+    }
+
+    function chipStyle(value, key, index) {
+      const palette = CHIP_COLORS[value] || DIMENSION_COLORS[index % DIMENSION_COLORS.length];
+      return `--chip-bg:${palette[0]};--chip-color:${palette[1]};--chip-border:${palette[2]};--chip-active-bg:${palette[3]};--chip-active-color:${palette[4]};`;
+    }
+
+    function judgmentClass(type) {
+      if (type === "机会") return "judge-opportunity";
+      if (type === "预警") return "judge-warning";
+      if (type === "动作") return "judge-action";
+      return "judge-watch";
+    }
+
+    function judgmentTypeOf(item) {
+      const category = item.category || "";
+      const importance = Number(item.importance || 1);
+      if (importance >= 5 || ["食品安全", "行业政策", "监管合规", "平台政策"].includes(category)) return "预警";
+      if (["新品发布", "行业热点 / 新品趋势", "自有品牌", "爆品", "会员 / 用户"].includes(category)) return "机会";
+      if (["开店 / 拓店", "即时零售", "供应链能力", "渠道动作", "营销活动"].includes(category)) return "动作";
+      return "关注";
+    }
+
+    function bodyTextOf(item) {
+      const combined = [item.brief_body, item.ai_insight, item.summary].filter(Boolean).join(" ");
+      return combined || "暂无摘要，可查看原文或等待下次刷新补充。";
+    }
+
+    function firstSentences(text, limit = 2) {
+      const parts = String(text || "").split(/[。！？!?]\s*/).map(x => x.trim()).filter(Boolean);
+      return parts.slice(0, limit).join("。") + (parts.length ? "。" : "");
+    }
+
+    function jdFocusOf(item) {
+      if (item.brief_body) return firstSentences(item.brief_body, 2);
+      const text = `${item.category || ""} ${item.subcategory || ""} ${item.ai_insight || ""}`;
+      if (/价格|低价|补贴|折扣/.test(text)) return "关注京东超市价格心智与毛利平衡。";
+      if (/自有品牌|爆品|新品/.test(text)) return "关注差异化货盘、会员粘性与爆品孵化。";
+      if (/即时零售|履约|前置仓|供应链/.test(text)) return "关注小时达场景、履约成本和稳定体验。";
+      if (/政策|监管|合规|食品安全/.test(text)) return "关注平台合规、商家准入和品类经营风险。";
+      if (/趋势|上新|联名/.test(text)) return "关注新品首发、趋势货盘和爆品孵化。";
+      return "关注该动态对京东商超用户心智、商品供给和运营节奏的影响。";
     }
 
     function itemSectionOf(item) {
@@ -675,13 +1093,62 @@
         <div class="filter-row">
           <div class="filter-label">${escapeHTML(row.label)}</div>
           <div class="chip-group" data-filter-row="${escapeHTML(row.key)}">
-            ${row.values.map(value => {
+            ${row.values.map((value, index) => {
               const active = (state[row.key] || "全部") === value ? " active" : "";
-              return `<button class="chip${active}" data-filter-key="${escapeHTML(row.key)}" data-filter-value="${escapeHTML(value)}">${escapeHTML(value)}</button>`;
+              return `<button class="chip${active}" style="${chipStyle(value, row.key, index)}" data-filter-key="${escapeHTML(row.key)}" data-filter-value="${escapeHTML(value)}">${escapeHTML(value)}</button>`;
             }).join("")}
           </div>
         </div>
       `).join("");
+    }
+
+    function fallbackSummaryForSection(section, sourceItems) {
+      const defaults = {
+        platform: [
+          { type: "预警", text: "抖音、美团等平台持续加码即时零售，需要关注其对京东超市小时达场景和履约心智的分流。" },
+          { type: "机会", text: "低价竞争持续强化，京东可在确定性品质、正品心智和品牌合作上形成差异化表达。" },
+          { type: "动作", text: "建议持续跟踪平台政策、大促资源分配和商家生态变化，判断品牌预算是否向内容场迁移。" }
+        ],
+        retailer: [
+          { type: "预警", text: "会员店和硬折扣持续强化爆品、自有品牌与精选 SKU，可能抬高用户对差异化货盘的期待。" },
+          { type: "机会", text: "京东可在自营超市中强化高性价比爆品池、家庭囤货场景和稳定履约体验。" },
+          { type: "关注", text: "线下商超调改与服务体验升级值得持续观察，其变化会影响用户对商超渠道的信任心智。" }
+        ],
+        category: [
+          { type: "机会", text: "健康化、功能化和家庭场景趋势持续出现，适合沉淀趋势货盘和新品首发机会。" },
+          { type: "预警", text: "食品安全、功效宣称、儿童用品等监管动态需持续关注，避免影响平台品类经营合规。" },
+          { type: "动作", text: "重点品牌新品和渠道动作可作为京东判断爆品孵化、品牌合作和营销资源倾斜的信号。" }
+        ]
+      };
+      if (!sourceItems.length) return defaults[section] || [];
+      const top = sourceItems.slice().sort((a, b) => Number(b.importance || 0) - Number(a.importance || 0))[0];
+      return [
+        { type: judgmentTypeOf(top), text: `${top.entity || categoryGroupOf(top) || "外部主体"}的${top.category || "经营"}信号值得关注，可能影响京东商超的货盘、价格或履约策略。` },
+        { type: "动作", text: "建议结合高重要性新闻持续跟踪价格、供给、履约和渠道动作，识别可复制机会与防守风险。" },
+        { type: "关注", text: "若同一主体或同一维度连续出现，可纳入业务例会的竞对观察和品类策略复盘。" }
+      ];
+    }
+
+    function renderJdSummary(sectionItems) {
+      const summary = newsData.summaries && newsData.summaries[state.section];
+      const bullets = summary && Array.isArray(summary.bullets) && summary.bullets.length
+        ? summary.bullets
+        : fallbackSummaryForSection(state.section, sectionItems);
+      const mode = summary ? modeLabel(summary.analysis_mode || "rule_based") : "规则版解读";
+      els.jdSummary.innerHTML = `
+        <div class="summary-head">
+          <h2>京东视角 · 关键判断</h2>
+          <span class="summary-mode">${escapeHTML(mode)}</span>
+        </div>
+        <ul class="summary-list">
+          ${bullets.slice(0, 5).map(bullet => `
+            <li class="summary-item">
+              <span class="judgment ${judgmentClass(bullet.type)}">${escapeHTML(bullet.type || "关注")}</span>
+              <span>${escapeHTML(bullet.text || "")}</span>
+            </li>
+          `).join("")}
+        </ul>
+      `;
     }
 
     function categoryGroupOf(item) {
@@ -752,10 +1219,15 @@
         item.category,
         item.subcategory,
         item.ai_insight,
+        item.brief_body,
         item.reason,
         ...(item.matched_keywords || [])
       ].join(" ");
       return compact(text).includes(compact(state.search));
+    }
+
+    function sectionItems() {
+      return (newsData.items || []).filter(item => itemSectionOf(item) === state.section);
     }
 
     function filteredItems() {
@@ -778,6 +1250,55 @@
       return items;
     }
 
+    const WORD_STOP = new Set("新闻 动态 平台 品牌 公司 相关 关注 影响 表示 发布 市场 进行 以及 通过 当前 可以 建议 业务 用户 行业 方面 京东 商超 一个 可能 需要 持续 外部 经营 情报 视角".split(" "));
+
+    function addWord(counter, word, weight = 1) {
+      word = String(word || "").trim();
+      if (!word || word.length < 2 || WORD_STOP.has(word)) return;
+      if (/^\d+$/.test(word)) return;
+      counter.set(word, (counter.get(word) || 0) + weight);
+    }
+
+    function extractWordsFromText(text, counter) {
+      const clean = String(text || "").replace(/[^\u4e00-\u9fffA-Za-z0-9/ ]+/g, " ");
+      const cjkChunks = clean.match(/[\u4e00-\u9fff]{2,8}/g) || [];
+      cjkChunks.forEach(chunk => {
+        if (chunk.length <= 4) {
+          addWord(counter, chunk);
+        } else {
+          for (let i = 0; i <= chunk.length - 2; i += 2) addWord(counter, chunk.slice(i, i + 4));
+        }
+      });
+      const enWords = clean.match(/[A-Za-z][A-Za-z0-9-]{2,}/g) || [];
+      enWords.forEach(word => addWord(counter, word.toLowerCase()));
+    }
+
+    function renderWordCloud(items) {
+      if (!items.length) {
+        els.wordCloud.innerHTML = `<div class="empty" style="padding:18px 0;">当前筛选结果为空，暂无热点词云</div>`;
+        return;
+      }
+      const counter = new Map();
+      items.forEach(item => {
+        (item.matched_keywords || []).forEach(word => addWord(counter, word, 4));
+        [item.display_title, item.category, item.entity, item.category_group, item.ai_insight, item.brief_body].forEach(text => extractWordsFromText(text, counter));
+      });
+      const words = [...counter.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 40);
+      if (!words.length) {
+        els.wordCloud.innerHTML = `<div class="empty" style="padding:18px 0;">暂无可展示热词</div>`;
+        return;
+      }
+      const max = Math.max(...words.map(([, count]) => count));
+      const min = Math.min(...words.map(([, count]) => count));
+      els.wordCloud.innerHTML = words.map(([word, count]) => {
+        const ratio = max === min ? 0.5 : (count - min) / (max - min);
+        const size = 12 + Math.round(ratio * 14);
+        return `<button class="word-chip" style="font-size:${size}px" data-word="${escapeHTML(word)}">${escapeHTML(word)}</button>`;
+      }).join("");
+    }
+
     function importanceClass(score) {
       if (Number(score) >= 4) return "high";
       if (Number(score) === 3) return "mid";
@@ -791,12 +1312,18 @@
       els.status.innerHTML = "";
 
       if (!items.length) {
-        els.status.innerHTML = `<div class="empty">暂无匹配新闻，可调整筛选条件或等待下次刷新</div>`;
+        const categoryTotal = (newsData.items || []).filter(item => itemSectionOf(item) === "category").length;
+        const diagnostic = state.section === "category"
+          ? `<div style="margin-top:8px;font-size:12px;">当前 news.json 中 category 新闻数：${categoryTotal}；当前筛选后数量：0</div>`
+          : "";
+        els.status.innerHTML = `<div class="empty">暂无匹配新闻，可调整筛选条件或等待下次刷新${diagnostic}</div>`;
+        renderWordCloud(items);
         return;
       }
 
       els.newsList.innerHTML = items.map(item => {
         const keywords = (item.matched_keywords || []).join("、") || "-";
+        const keywordTags = (item.matched_keywords || []).slice(0, 10).map(word => `<span class="keyword-tag">${escapeHTML(word)}</span>`).join("") || `<span class="keyword-tag">暂无关键词</span>`;
         const source = item.source || "未知来源";
         const date = formatDate(item.published);
         const category = item.subcategory || item.category || "其他";
@@ -804,38 +1331,69 @@
         const link = String(item.link || "").trim();
         const displayTitle = itemDisplayTitle(item);
         const originalTitle = item.title || displayTitle;
+        const brief = bodyTextOf(item);
+        const judge = judgmentTypeOf(item);
         const titleNode = hasValidLink(link)
-          ? `<a class="news-title" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(item.ai_insight || "")}">${escapeHTML(displayTitle)}</a>`
-          : `<span class="news-title no-link" title="${escapeHTML(item.ai_insight || "")}">${escapeHTML(displayTitle)}</span><span class="no-link-badge">无原文链接</span>`;
+          ? `<a class="news-title" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer">${escapeHTML(displayTitle)}</a>`
+          : `<span class="news-title no-link">${escapeHTML(displayTitle)}</span>`;
+        const sourceNode = hasValidLink(link)
+          ? `<a class="source-link" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer">查看原文</a>`
+          : `<span class="source-link disabled">无原文链接</span>`;
         return `
-          <li class="news-row">
+          <li class="news-row ${importance >= 4 ? "high-priority" : ""}">
+            <div class="card-top">
+              <div class="card-tags">
+                <span class="tag">${escapeHTML(item.entity || categoryGroupOf(item) || "-")}</span>
+                <span class="tag">${escapeHTML(category)}</span>
+                <span class="importance ${importanceClass(importance)}">重要性 ${importance}</span>
+                ${item.analysis_mode === "deepseek" ? `<span class="tag">AI解读</span>` : ""}
+              </div>
+              <span class="judgment ${judgmentClass(judge)}">${escapeHTML(judge)}</span>
+            </div>
             <div class="title-line">
               ${titleNode}
               <button class="insight-toggle" type="button">解读</button>
             </div>
+            <div class="brief">${escapeHTML(brief)}</div>
             <div class="meta">
-              <span>${escapeHTML(source)}</span>
               <span>${escapeHTML(date)}</span>
-              <span class="tag">${escapeHTML(item.entity || categoryGroupOf(item) || "-")}</span>
-              <span class="tag">${escapeHTML(category)}</span>
-              <span class="importance ${importanceClass(importance)}">重要性 ${importance}</span>
+              <span>${escapeHTML(source)}</span>
+              <span>主体：${escapeHTML(item.entity || categoryGroupOf(item) || "-")}</span>
             </div>
+            <div class="card-footer">${sourceNode}</div>
             <div class="tooltip">
-              <strong>AI 解读</strong>
-              <p>${escapeHTML(item.ai_insight || "暂无解读")}</p>
-              <p class="fine">原始标题：${escapeHTML(originalTitle)}</p>
-              <p class="fine">判断依据：${escapeHTML(item.reason || "-")}</p>
-              <p class="fine">命中关键词：${escapeHTML(keywords)}</p>
-              <p class="fine">来源：${escapeHTML(source)} / 发布时间：${escapeHTML(formatDate(item.published, true))}</p>
+              <div class="insight-card">
+                <h3>AI 解读</h3>
+                <div><span class="judgment ${judgmentClass(judge)}">${escapeHTML(judge)}</span></div>
+                <div class="insight-section">
+                  <div class="insight-label">核心判断</div>
+                  <p class="insight-core">${escapeHTML(item.ai_insight || "暂无解读")}</p>
+                </div>
+                <div class="insight-section">
+                  <div class="insight-label">京东关注点</div>
+                  <p>${escapeHTML(jdFocusOf(item))}</p>
+                </div>
+                <div class="insight-section">
+                  <div class="insight-label">命中关键词</div>
+                  <div class="keyword-tags">${keywordTags}</div>
+                </div>
+                <div class="insight-section fine">
+                  <p>原始标题：${escapeHTML(originalTitle)}</p>
+                  <p>来源：${escapeHTML(source)} / 发布时间：${escapeHTML(formatDate(item.published, true))}</p>
+                  <p>判断依据：${escapeHTML(item.reason || "-")}</p>
+                </div>
+              </div>
             </div>
           </li>
         `;
       }).join("");
+      renderWordCloud(items);
     }
 
     function render() {
       updateStaticKpis();
       renderFilters();
+      renderJdSummary(sectionItems());
       renderList();
       document.querySelectorAll(".nav button").forEach(button => {
         button.classList.toggle("active", button.dataset.section === state.section);
@@ -879,6 +1437,15 @@
       if (!button) return;
       const row = button.closest(".news-row");
       row.classList.toggle("expanded");
+    });
+
+    els.wordCloud.addEventListener("click", event => {
+      const button = event.target.closest(".word-chip");
+      if (!button) return;
+      const word = button.dataset.word || "";
+      state.search = word;
+      els.searchInput.value = word;
+      renderList();
     });
 
     async function loadNews() {
