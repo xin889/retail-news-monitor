@@ -1039,20 +1039,44 @@
 
     const BODY_BAD_PHRASES = ["建议关注", "从经营情报看", "对京东商超而言", "该动态涉及", "需持续关注", "当前重要性", "按规则归类", "建议结合命中关键词"];
 
-    function cleanBodyCandidate(value) {
+    function cleanNarrativeCandidate(value) {
       const text = String(value || "").replace(/\s+/g, " ").trim();
       if (!text) return "";
       if (BODY_BAD_PHRASES.some(phrase => text.includes(phrase))) return "";
       return text;
     }
 
+    function signalLength(value) {
+      const text = String(value || "");
+      const cjk = (text.match(/[\u4e00-\u9fff]/g) || []).length;
+      const latin = (text.match(/[A-Za-z0-9]/g) || []).length;
+      return cjk + Math.floor(latin / 4);
+    }
+
+    function tooSimilarText(a, b) {
+      const left = compact(a);
+      const right = compact(b);
+      if (!left || !right) return false;
+      if (left === right) return true;
+      const shorter = left.length <= right.length ? left : right;
+      const longer = left.length > right.length ? left : right;
+      return shorter.length >= 10 && longer.includes(shorter);
+    }
+
+    function cleanCardBodyCandidate(value, item) {
+      const text = cleanNarrativeCandidate(value);
+      if (!text || signalLength(text) < 20) return "";
+      if (tooSimilarText(text, item.title || "") || tooSimilarText(text, item.display_title || "")) return "";
+      return text;
+    }
+
     function bodyTextOf(item) {
       const candidates = [item.source_excerpt, item.summary, item.brief_body, item.title];
       for (const candidate of candidates) {
-        const text = cleanBodyCandidate(candidate);
+        const text = cleanCardBodyCandidate(candidate, item);
         if (text) return text;
       }
-      return itemDisplayTitle(item);
+      return "";
     }
 
     function firstSentences(text, limit = 2) {
@@ -1091,15 +1115,15 @@
     }
 
     function motiveOf(item) {
-      return cleanBodyCandidate(item.insight_motive) || fallbackMotiveOf(item);
+      return cleanNarrativeCandidate(item.insight_motive) || fallbackMotiveOf(item);
     }
 
     function impactOf(item) {
-      return cleanBodyCandidate(item.insight_impact) || fallbackImpactOf(item);
+      return cleanNarrativeCandidate(item.insight_impact) || fallbackImpactOf(item);
     }
 
     function jdActionOf(item) {
-      return cleanBodyCandidate(item.insight_jd_action) || fallbackJdActionOf(item);
+      return cleanNarrativeCandidate(item.insight_jd_action) || fallbackJdActionOf(item);
     }
 
     function itemSectionOf(item) {
@@ -1399,6 +1423,7 @@
         const displayTitle = itemDisplayTitle(item);
         const originalTitle = item.title || displayTitle;
         const brief = bodyTextOf(item);
+        const briefNode = brief ? `<div class="brief">${escapeHTML(brief)}</div>` : "";
         const judge = judgmentTypeOf(item);
         const titleNode = hasValidLink(link)
           ? `<a class="news-title" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer">${escapeHTML(displayTitle)}</a>`
@@ -1421,7 +1446,7 @@
               ${titleNode}
               <button class="insight-toggle" type="button">解读</button>
             </div>
-            <div class="brief">${escapeHTML(brief)}</div>
+            ${briefNode}
             <div class="meta">
               <span>${escapeHTML(date)}</span>
               <span>${escapeHTML(source)}</span>
