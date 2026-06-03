@@ -19,6 +19,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -38,11 +39,24 @@ USER_AGENT = (
 
 MAX_ITEMS_PER_QUERY = int(os.getenv("RETAIL_NEWS_MAX_ITEMS_PER_QUERY", "10"))
 MAX_QUERIES_PER_ENTITY = int(os.getenv("RETAIL_NEWS_MAX_QUERIES_PER_ENTITY", "12"))
-MAX_TOTAL_QUERIES = int(os.getenv("RETAIL_NEWS_MAX_TOTAL_QUERIES", "220"))
 MAX_HISTORY_ITEMS = int(os.getenv("RETAIL_NEWS_MAX_HISTORY_ITEMS", "1500"))
 REQUEST_TIMEOUT = int(os.getenv("RETAIL_NEWS_REQUEST_TIMEOUT", "12"))
 REQUEST_DELAY_SECONDS = float(os.getenv("RETAIL_NEWS_REQUEST_DELAY_SECONDS", "0.08"))
 QUERY_WINDOW = os.getenv("RETAIL_NEWS_QUERY_WINDOW", "when:30d").strip()
+REANALYZE_EXISTING = os.getenv("REANALYZE_EXISTING", "false").strip().lower() in ("1", "true", "yes", "y")
+
+SECTION_QUERY_BUDGETS = {
+    "platform": int(os.getenv("RETAIL_NEWS_PLATFORM_QUERY_BUDGET", "80")),
+    "retailer": int(os.getenv("RETAIL_NEWS_RETAILER_QUERY_BUDGET", "150")),
+    "category": int(os.getenv("RETAIL_NEWS_CATEGORY_QUERY_BUDGET", "220")),
+}
+SECTION_SOURCE_QUERY_BUDGETS = {
+    "platform": int(os.getenv("RETAIL_NEWS_PLATFORM_SOURCE_QUERY_BUDGET", "24")),
+    "retailer": int(os.getenv("RETAIL_NEWS_RETAILER_SOURCE_QUERY_BUDGET", "36")),
+    "category": int(os.getenv("RETAIL_NEWS_CATEGORY_SOURCE_QUERY_BUDGET", "48")),
+}
+CATEGORY_MIN_QUERIES_PER_MONITOR = int(os.getenv("RETAIL_NEWS_CATEGORY_MIN_QUERIES_PER_MONITOR", "12"))
+CATEGORY_MAX_QUERIES_PER_MONITOR = int(os.getenv("RETAIL_NEWS_CATEGORY_MAX_QUERIES_PER_MONITOR", "28"))
 
 DEEPSEEK_ENDPOINT = "https://api.deepseek.com/chat/completions"
 DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-flash")
@@ -182,6 +196,25 @@ def dedupe_preserve(values: Iterable[str]) -> List[str]:
     return result
 
 
+def split_sentences(text: str) -> List[str]:
+    text = clean_text(text)
+    if not text:
+        return []
+    parts = re.split(r"(?<=[。！？!?])\s+|[。！？!?]\s*", text)
+    return [part.strip(" ，,；;") for part in parts if part.strip(" ，,；;")]
+
+
+def join_sentences(sentences: Iterable[str], limit: int = 5) -> str:
+    clean_sentences = []
+    for sentence in sentences:
+        sentence = clean_text(sentence).strip("。")
+        if sentence and sentence not in clean_sentences:
+            clean_sentences.append(sentence)
+        if len(clean_sentences) >= limit:
+            break
+    return "。".join(clean_sentences) + ("。" if clean_sentences else "")
+
+
 def is_englishish(value: str) -> bool:
     letters = re.findall(r"[A-Za-z]", value or "")
     return len(letters) >= 3
@@ -189,6 +222,13 @@ def is_englishish(value: str) -> bool:
 
 def has_deepseek_api_key() -> bool:
     return bool(os.getenv("DEEPSEEK_API_KEY", "").strip())
+
+
+def item_is_recent(item: Dict[str, Any], days: int = 7) -> bool:
+    published = parse_datetime(item.get("published", ""))
+    if not published:
+        return False
+    return published >= utc_now() - timedelta(days=days)
 
 
 def is_mostly_english(text: str) -> bool:
@@ -357,7 +397,40 @@ def rule_based_insight(
         return f"该动态涉及{entity}合作或资本动作，可能改变资源配置、渠道覆盖或行业竞争格局。"
     if category == "科技 / AI":
         return f"该动态与{entity}科技或 AI 能力相关，建议关注其对商品运营、营销效率和用户服务的潜在改造。"
-    return f"该动态与{entity}相关，当前重要性为{importance}分，建议结合命中关键词判断是否纳入后续重点跟踪。"
+    return f"该动态与{entity}相关，建议关注其是否带来外部竞争、用户心智或品类经营节奏的变化。"
+
+
+def rule_based_brief_body(
+    title: str,
+    summary: str,
+    ai_insight: str,
+    entity: str,
+    category: str,
+    section: str,
+) -> str:
+    summary_sentences = split_sentences(summary)
+    sentences: List[str] = []
+    if summary_sentences:
+        sentences.extend(summary_sentences[:2])
+    elif title:
+        sentences.append(f"这条动态提到{clean_text(title)}")
+
+    if category:
+        sentences.append(f"从经营情报看，它更偏向{category}信号。")
+
+    if ai_insight:
+        sentences.extend(split_sentences(ai_insight)[:2])
+
+    if section == "platform":
+        sentences.append("对京东商超而言，可重点观察其对平台流量、商家资源和履约心智的影响。")
+    elif section == "retailer":
+        sentences.append("对京东商超而言，可重点观察其对差异化货盘、会员经营和价格心智的影响。")
+    elif section == "category":
+        sentences.append("对京东商超而言，可重点观察其对趋势货盘、品牌合作和品类合规的影响。")
+    else:
+        sentences.append(f"对京东商超而言，可持续跟踪{entity or '相关主体'}后续动作。")
+
+    return join_sentences(sentences, limit=5)
 
 
 def truncate_display_title(text: str, max_chars: int = 36) -> str:
@@ -434,6 +507,7 @@ def rule_based_analysis(
     importance = infer_importance(text, taxonomy, category)
     reason_keywords = "、".join(matched_keywords[:8]) if matched_keywords else matched_query
     display_title = rule_based_display_title(entity, category, subcategory, title, matched_keywords)
+    ai_insight = rule_based_insight(section, entity, category, subcategory, matched_keywords, importance)
 
     item.update(
         {
@@ -447,8 +521,9 @@ def rule_based_analysis(
             "matched_keywords": matched_keywords,
             "importance": importance,
             "display_title": display_title,
-            "ai_insight": rule_based_insight(section, entity, category, subcategory, matched_keywords, importance),
-            "reason": f"命中关键词：{reason_keywords}；按规则归类为「{category}」。",
+            "brief_body": rule_based_brief_body(title, summary, ai_insight, entity, category, section),
+            "ai_insight": ai_insight,
+            "reason": f"命中关键词：{reason_keywords}；主要信号指向「{category}」。",
             "analysis_mode": "rule_based",
         }
     )
@@ -464,12 +539,56 @@ def looks_like_noise(title: str, summary: str, taxonomy: Dict[str, Any]) -> bool
     return not any(keyword_in_text(word, text) for word in high_signal)
 
 
-def build_queries(monitor: Dict[str, Any]) -> List[str]:
+SECTION_SOURCE_PRIORITY = {
+    "platform": ["36氪", "虎嗅网", "亿邦动力", "TechCrunch", "极客公园"],
+    "retailer": ["联商网", "亿邦动力", "北京商报", "36氪", "职业零售网"],
+    "category": ["人民网", "北京商报", "行业协会网站", "酒类商业协会", "亿邦动力", "联商网"],
+}
+
+
+def preferred_sources_for_section(taxonomy: Dict[str, Any], section: str) -> List[Dict[str, Any]]:
+    sources = taxonomy.get("preferred_sources", []) or []
+    priority = SECTION_SOURCE_PRIORITY.get(section, [])
+    order = {name: index for index, name in enumerate(priority)}
+
+    def source_rank(source: Dict[str, Any]) -> Tuple[int, str]:
+        return (order.get(source.get("name", ""), 999), source.get("name", ""))
+
+    ranked = sorted(sources, key=source_rank)
+    return [source for source in ranked if source.get("name") in priority][:6]
+
+
+def build_preferred_source_queries(
+    base_queries: List[str],
+    taxonomy: Dict[str, Any],
+    section: str,
+) -> List[str]:
+    sources = preferred_sources_for_section(taxonomy, section)
+    source_budget = SECTION_SOURCE_QUERY_BUDGETS.get(section, 0)
+    if not sources or source_budget <= 0:
+        return []
+
+    source_queries: List[str] = []
+    for query in base_queries[:6]:
+        for source in sources:
+            domain = (source.get("domain") or "").strip()
+            source_name = (source.get("name") or "").strip()
+            if domain:
+                source_queries.append(f"{query} site:{domain}")
+            elif source_name:
+                source_queries.append(f"{query} {source_name}")
+            if len(source_queries) >= source_budget:
+                return dedupe_preserve(source_queries)
+    return dedupe_preserve(source_queries)
+
+
+def build_queries(monitor: Dict[str, Any], taxonomy: Dict[str, Any]) -> List[str]:
     queries: List[str] = list(monitor.get("queries", []) or [])
     display = monitor.get("display_name") or monitor.get("name", "")
     aliases = monitor.get("aliases", []) or []
+    section = monitor.get("section", "")
 
-    if monitor.get("section") in ("platform", "retailer"):
+    if section in ("platform", "retailer"):
         dimensions = monitor.get("dimensions", []) or []
         queries.extend([display, *aliases[:4]])
         for dimension in dimensions[:8]:
@@ -482,18 +601,38 @@ def build_queries(monitor: Dict[str, Any]) -> List[str]:
         trend_words = monitor.get("trend_keywords", []) or []
         brands = monitor.get("brands", []) or []
         dynamic_words = monitor.get("brand_dynamic_keywords", []) or []
-        queries.append(display)
-        for word in policy_words[:6]:
+        queries.extend(
+            [
+                display,
+                f"{display} 行业政策",
+                f"{display} 新品 趋势",
+                f"{display} 监管",
+                f"{display} 食品安全",
+                f"{display} 重点品牌",
+            ]
+        )
+        for word in policy_words[:5]:
             queries.append(f"{word} 政策 监管")
-        for word in trend_words[:6]:
+        for word in trend_words[:5]:
             queries.append(f"{word} 新品 趋势")
-        for brand in brands[:12]:
-            queries.append(f"{brand} {dynamic_words[0] if dynamic_words else '动态'}")
-            queries.append(f"{brand} 新品 渠道")
+        for brand in brands[:10]:
+            queries.append(f"{brand} 新品")
+            queries.append(f"{brand} 财报")
+            queries.append(f"{brand} 渠道")
+            queries.append(f"{brand} 价格")
+            if dynamic_words:
+                queries.append(f"{brand} {dynamic_words[0]}")
 
-    queries = dedupe_preserve(queries)
+    base_queries = dedupe_preserve(queries)
+    source_queries = build_preferred_source_queries(base_queries, taxonomy, section)
+    if section == "category":
+        limit = max(CATEGORY_MIN_QUERIES_PER_MONITOR, CATEGORY_MAX_QUERIES_PER_MONITOR)
+        source_reserve = min(8, len(source_queries), SECTION_SOURCE_QUERY_BUDGETS.get(section, 0))
+        base_limit = max(CATEGORY_MIN_QUERIES_PER_MONITOR, limit - source_reserve)
+        return dedupe_preserve([*base_queries[:base_limit], *source_queries[:source_reserve]])[:limit]
     if MAX_QUERIES_PER_ENTITY > 0:
-        return queries[:MAX_QUERIES_PER_ENTITY]
+        source_reserve = min(6, len(source_queries), SECTION_SOURCE_QUERY_BUDGETS.get(section, 0))
+        return dedupe_preserve([*base_queries[:MAX_QUERIES_PER_ENTITY], *source_queries[:source_reserve]])
     return []
 
 
@@ -635,6 +774,7 @@ def load_existing_news() -> Dict[str, Any]:
             "ai_mode": "rule_based",
             "version": VERSION,
         },
+        "summaries": {},
         "items": [],
     }
     data = load_json(NEWS_PATH, default)
@@ -644,6 +784,8 @@ def load_existing_news() -> Dict[str, Any]:
         data["items"] = []
     if not isinstance(data.get("metadata"), dict):
         data["metadata"] = default["metadata"]
+    if not isinstance(data.get("summaries"), dict):
+        data["summaries"] = {}
     return data
 
 
@@ -677,59 +819,76 @@ def should_keep_candidate(
     return True, matches
 
 
-def fetch_candidates(watchlist: Dict[str, Any], taxonomy: Dict[str, Any]) -> List[Tuple[Dict[str, Any], Dict[str, Any], str]]:
+def fetch_candidates(
+    watchlist: Dict[str, Any],
+    taxonomy: Dict[str, Any],
+) -> Tuple[List[Tuple[Dict[str, Any], Dict[str, Any], str]], Dict[str, Counter]]:
     monitors: List[Dict[str, Any]] = []
     monitors.extend(watchlist.get("platforms", []) or [])
     monitors.extend(watchlist.get("retailers", []) or [])
     monitors.extend(watchlist.get("categories", []) or [])
-    monitors.sort(key=lambda item: int(item.get("priority", 1)), reverse=True)
-
     candidates: List[Tuple[Dict[str, Any], Dict[str, Any], str]] = []
-    query_counter = 0
+    stats: Dict[str, Counter] = {section: Counter() for section in ("platform", "retailer", "category")}
 
-    for monitor in monitors:
-        for query in build_queries(monitor):
-            if MAX_TOTAL_QUERIES >= 0 and query_counter >= MAX_TOTAL_QUERIES:
-                return candidates
-            query_counter += 1
-            try:
-                for parsed in fetch_rss_for_query(query):
-                    keep, _ = should_keep_candidate(parsed, monitor, taxonomy)
-                    if not keep:
-                        continue
-                    base_item = {
-                        "id": stable_id(parsed.get("title", ""), parsed.get("link", "")),
-                        "title": parsed.get("title", ""),
-                        "link": parsed.get("link", ""),
-                        "published": parsed.get("published", ""),
-                        "source": parsed.get("source", ""),
-                        "summary": parsed.get("summary", ""),
-                        "fetched_at": isoformat_z(utc_now()),
-                    }
-                    candidates.append((base_item, monitor, query))
-            except Exception as exc:
-                warn(f"Query failed for {monitor.get('display_name')} / {query}: {exc}")
+    for section in ("platform", "retailer", "category"):
+        section_monitors = [
+            monitor for monitor in monitors
+            if monitor.get("section") == section
+        ]
+        section_monitors.sort(key=lambda item: int(item.get("priority", 1)), reverse=True)
+        query_budget = SECTION_QUERY_BUDGETS.get(section, 0)
+        query_count = 0
 
-        for feed in monitor.get("feeds", []) or []:
-            try:
-                for parsed in fetch_manual_feed(feed):
-                    keep, _ = should_keep_candidate(parsed, monitor, taxonomy)
-                    if not keep:
-                        continue
-                    base_item = {
-                        "id": stable_id(parsed.get("title", ""), parsed.get("link", "")),
-                        "title": parsed.get("title", ""),
-                        "link": parsed.get("link", ""),
-                        "published": parsed.get("published", ""),
-                        "source": parsed.get("source", ""),
-                        "summary": parsed.get("summary", ""),
-                        "fetched_at": isoformat_z(utc_now()),
-                    }
-                    candidates.append((base_item, monitor, "manual_feed"))
-            except Exception as exc:
-                warn(f"Manual feed failed for {monitor.get('display_name')}: {exc}")
+        for monitor in section_monitors:
+            for query in build_queries(monitor, taxonomy):
+                if query_budget >= 0 and query_count >= query_budget:
+                    break
+                query_count += 1
+                stats[section]["queries"] += 1
+                try:
+                    parsed_items = fetch_rss_for_query(query)
+                    stats[section]["rss_items"] += len(parsed_items)
+                    for parsed in parsed_items:
+                        keep, _ = should_keep_candidate(parsed, monitor, taxonomy)
+                        if not keep:
+                            continue
+                        base_item = {
+                            "id": stable_id(parsed.get("title", ""), parsed.get("link", "")),
+                            "title": parsed.get("title", ""),
+                            "link": parsed.get("link", ""),
+                            "published": parsed.get("published", ""),
+                            "source": parsed.get("source", ""),
+                            "summary": parsed.get("summary", ""),
+                            "fetched_at": isoformat_z(utc_now()),
+                        }
+                        candidates.append((base_item, monitor, query))
+                        stats[section]["candidates"] += 1
+                except Exception as exc:
+                    warn(f"Query failed for {monitor.get('display_name')} / {query}: {exc}")
 
-    return candidates
+            for feed in monitor.get("feeds", []) or []:
+                try:
+                    parsed_items = fetch_manual_feed(feed)
+                    stats[section]["manual_feed_items"] += len(parsed_items)
+                    for parsed in parsed_items:
+                        keep, _ = should_keep_candidate(parsed, monitor, taxonomy)
+                        if not keep:
+                            continue
+                        base_item = {
+                            "id": stable_id(parsed.get("title", ""), parsed.get("link", "")),
+                            "title": parsed.get("title", ""),
+                            "link": parsed.get("link", ""),
+                            "published": parsed.get("published", ""),
+                            "source": parsed.get("source", ""),
+                            "summary": parsed.get("summary", ""),
+                            "fetched_at": isoformat_z(utc_now()),
+                        }
+                        candidates.append((base_item, monitor, "manual_feed"))
+                        stats[section]["candidates"] += 1
+                except Exception as exc:
+                    warn(f"Manual feed failed for {monitor.get('display_name')}: {exc}")
+
+    return candidates, stats
 
 
 def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> str:
@@ -745,13 +904,14 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
                 "subcategory": "行业政策 / 行业热点 / 新品趋势 / 重点品牌动态 / 空",
                 "importance": 1,
                 "display_title": "中文浓缩标题，18-32个汉字",
+                "brief_body": "3-5句中文正文摘要",
                 "ai_insight": "1-2句话中文商业解读",
                 "reason": "简短判断依据",
             }
         ]
     }
     task = {
-        "任务说明": "请从商分和商超业务视角判断新闻是否与平台竞对、零售商、品类政策/热点/品牌动态相关，并完成分类、评分和商业解读。",
+        "任务说明": "请从京东商超、京东自营超市和京东平台经营视角，判断新闻是否与平台竞对、零售商、品类政策/热点/品牌动态相关，并完成分类、评分、浓缩标题、正文摘要和商业解读。",
         "板块定义": taxonomy.get("sections", []),
         "分类标签列表": taxonomy.get("global_categories", []),
         "品类子标签": ["行业政策", "行业热点 / 新品趋势", "重点品牌动态", ""],
@@ -767,8 +927,10 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
             "只输出合法 JSON，不要输出 Markdown。",
             "不要简单复述标题，ai_insight 要体现商业判断。",
             "display_title 必须是中文，控制在18-32个汉字左右，提炼为“主体 + 动作 + 影响/主题”的一句话。",
+            "brief_body 必须是中文，3-5句，说明新闻说了什么、对平台/零售商/品类意味着什么、对京东商超的潜在影响或观察点。",
             "ai_insight 必须是中文，不能输出英文标题。",
-            "如果原始新闻是英文，也要用中文生成 display_title 和 ai_insight。",
+            "ai_insight 不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”等系统解释性话术。",
+            "如果原始新闻是英文，也要用中文生成 display_title、brief_body 和 ai_insight。",
             "is_relevant=false 的新闻可以标为低价值或噪音。",
         ],
         "待分析新闻数组": news_batch,
@@ -792,26 +954,20 @@ def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
         return None
 
 
-def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def post_deepseek_json(
+    messages: List[Dict[str, str]],
+    max_tokens: int,
+    context: str,
+) -> Optional[Dict[str, Any]]:
     api_key = os.getenv("DEEPSEEK_API_KEY", "").strip()
     if not api_key:
         return None
 
-    system_prompt = (
-        "你是“外部动态监控雷达 —— 大商超事业群”的商超与零售竞争情报分析助手。"
-        "你要从商分视角判断新闻对平台竞对、零售商、品类与重点品牌的意义。"
-        "你的解读要偏商业判断，不要简单复述标题。"
-        "display_title 和 ai_insight 必须使用中文，不要输出英文标题。"
-        "你只能输出合法 JSON。不要输出 Markdown。不要输出多余解释。"
-    )
     payload = {
         "model": DEEPSEEK_MODEL,
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": build_deepseek_user_prompt(news_batch, taxonomy)},
-        ],
+        "messages": messages,
         "temperature": 0.2,
-        "max_tokens": DEEPSEEK_MAX_TOKENS,
+        "max_tokens": max_tokens,
         "response_format": {"type": "json_object"},
     }
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -830,18 +986,41 @@ def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) ->
         with urllib.request.urlopen(request, timeout=90) as response:
             response_payload = json.loads(response.read().decode("utf-8"))
     except Exception as exc:
-        warn(f"DeepSeek request failed; falling back to rule_based: {exc}")
+        warn(f"DeepSeek {context} request failed; falling back to rule_based: {exc}")
         return None
 
     try:
         content = response_payload["choices"][0]["message"]["content"]
     except Exception:
-        warn("DeepSeek response missing choices[0].message.content; falling back to rule_based")
+        warn(f"DeepSeek {context} response missing choices[0].message.content; falling back to rule_based")
         return None
     parsed = extract_json_object(content)
     if parsed is None:
-        warn("DeepSeek JSON parse failed; falling back to rule_based")
+        warn(f"DeepSeek {context} JSON parse failed; falling back to rule_based")
     return parsed
+
+
+def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    api_key = os.getenv("DEEPSEEK_API_KEY", "").strip()
+    if not api_key:
+        return None
+
+    system_prompt = (
+        "你是“外部动态监控雷达 —— 大商超事业群”的商超与零售竞争情报分析助手。"
+        "你要从京东商超、京东自营超市和京东平台经营视角判断新闻对平台竞对、零售商、品类与重点品牌的意义。"
+        "你的解读要偏商业判断，不要简单复述标题。"
+        "display_title、brief_body 和 ai_insight 必须使用中文，不要输出英文标题。"
+        "不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”等系统解释性话术。"
+        "你只能输出合法 JSON。不要输出 Markdown。不要输出多余解释。"
+    )
+    return post_deepseek_json(
+        [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": build_deepseek_user_prompt(news_batch, taxonomy)},
+        ],
+        DEEPSEEK_MAX_TOKENS,
+        "news analysis",
+    )
 
 
 def deepseek_payload_item(item: Dict[str, Any]) -> Dict[str, Any]:
@@ -853,6 +1032,7 @@ def deepseek_payload_item(item: Dict[str, Any]) -> Dict[str, Any]:
         "published": item.get("published", ""),
         "section_guess": item.get("section", ""),
         "entity_guess": item.get("entity", ""),
+        "category_group_guess": item.get("category_group", ""),
         "matched_query": item.get("matched_query", ""),
         "matched_keywords": item.get("matched_keywords", []),
     }
@@ -897,6 +1077,7 @@ def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any
                     "subcategory": analyzed.get("subcategory") or "",
                     "importance": int(analyzed.get("importance") or target.get("importance") or 1),
                     "display_title": analyzed.get("display_title") or target.get("display_title", ""),
+                    "brief_body": analyzed.get("brief_body") or target.get("brief_body", ""),
                     "ai_insight": analyzed.get("ai_insight") or target.get("ai_insight", ""),
                     "reason": analyzed.get("reason") or target.get("reason", ""),
                     "analysis_mode": "deepseek",
@@ -950,6 +1131,205 @@ def ensure_display_title(item: Dict[str, Any]) -> None:
     item["display_title"] = rule_based_display_title(entity, category, subcategory, title, matched_keywords)
 
 
+def ensure_brief_body(item: Dict[str, Any]) -> None:
+    if item.get("brief_body"):
+        return
+    item["brief_body"] = rule_based_brief_body(
+        item.get("title", ""),
+        item.get("summary", ""),
+        item.get("ai_insight", ""),
+        item.get("entity", "") or item.get("category_group", ""),
+        item.get("category", ""),
+        item.get("section", ""),
+    )
+
+
+def judgment_type_for(item: Dict[str, Any]) -> str:
+    category = item.get("category", "")
+    importance = int(item.get("importance") or 1)
+    if category in ("食品安全", "行业政策", "监管合规", "平台政策") or importance >= 5:
+        return "预警"
+    if category in ("新品发布", "行业热点 / 新品趋势", "自有品牌", "爆品", "会员 / 用户"):
+        return "机会"
+    if category in ("开店 / 拓店", "即时零售", "供应链能力", "渠道动作", "营销活动"):
+        return "动作"
+    return "关注"
+
+
+def default_summary_bullets(section: str) -> List[Dict[str, str]]:
+    defaults = {
+        "platform": [
+            {"type": "预警", "text": "抖音、美团等平台持续加码即时零售，需要关注其对京东超市小时达场景和履约心智的分流。"},
+            {"type": "机会", "text": "低价竞争持续强化，京东可在确定性品质、正品心智和品牌合作上形成差异化表达。"},
+            {"type": "动作", "text": "建议持续跟踪平台政策、大促资源分配和商家生态变化，判断品牌预算是否向内容场迁移。"},
+        ],
+        "retailer": [
+            {"type": "预警", "text": "会员店和硬折扣持续强化爆品、自有品牌与精选 SKU，可能抬高用户对差异化货盘的期待。"},
+            {"type": "机会", "text": "京东可在自营超市中强化高性价比爆品池、家庭囤货场景和稳定履约体验。"},
+            {"type": "关注", "text": "线下商超调改与服务体验升级值得持续观察，其变化会影响用户对商超渠道的信任心智。"},
+        ],
+        "category": [
+            {"type": "机会", "text": "健康化、功能化和家庭场景趋势持续出现，适合沉淀趋势货盘和新品首发机会。"},
+            {"type": "预警", "text": "食品安全、功效宣称、儿童用品等监管动态需持续关注，避免影响平台品类经营合规。"},
+            {"type": "动作", "text": "重点品牌新品和渠道动作可作为京东判断爆品孵化、品牌合作和营销资源倾斜的信号。"},
+        ],
+    }
+    return defaults.get(section, [])
+
+
+def rule_based_section_summary(section: str, items: List[Dict[str, Any]]) -> Dict[str, Any]:
+    selected = [item for item in items if (item.get("section") or "") == section and item_is_recent(item, 7)]
+    if not selected:
+        selected = [item for item in items if (item.get("section") or "") == section][:20]
+    if not selected:
+        bullets = default_summary_bullets(section)
+    else:
+        top_categories = Counter(item.get("category", "其他") for item in selected if item.get("category"))
+        top_entities = Counter((item.get("category_group") or item.get("entity") or "") for item in selected)
+        entity = top_entities.most_common(1)[0][0] if top_entities else "外部竞对"
+        category = top_categories.most_common(1)[0][0] if top_categories else "经营动态"
+        sample = max(selected, key=lambda item: int(item.get("importance") or 1))
+        bullets = [
+            {"type": judgment_type_for(sample), "text": f"{entity}近期{category}信号更集中，京东商超需关注其对用户心智、货盘竞争和经营节奏的影响。"},
+            {"type": "动作", "text": "建议结合高重要性新闻持续跟踪价格、供给、履约和渠道动作，识别可复制的机会与需要防守的风险。"},
+            {"type": "关注", "text": "若同一主体或同一维度连续出现，应纳入业务例会的竞对观察和品类策略复盘。"},
+        ]
+        if section == "category":
+            bullets.insert(1, {"type": "预警", "text": "品类政策、食品安全和功效宣称类动态需要优先进入合规与商家准入检查。"})
+        elif section == "platform":
+            bullets.insert(1, {"type": "预警", "text": "平台侧即时零售、内容电商和商家生态变化，可能影响品牌预算流向和用户购物入口。"})
+        elif section == "retailer":
+            bullets.insert(1, {"type": "机会", "text": "零售商的自有品牌、爆品与会员动作，可为京东自营超市优化货盘和会员场景提供参照。"})
+
+    return {
+        "title": "京东视角 · 今日关键判断",
+        "updated_at": isoformat_z(utc_now()),
+        "analysis_mode": "rule_based",
+        "bullets": bullets[:5],
+    }
+
+
+def build_deepseek_summary_prompt(section: str, items: List[Dict[str, Any]]) -> str:
+    slim_items = [
+        {
+            "id": item.get("id", ""),
+            "display_title": item.get("display_title", ""),
+            "brief_body": item.get("brief_body", ""),
+            "ai_insight": item.get("ai_insight", ""),
+            "entity": item.get("entity", ""),
+            "category_group": item.get("category_group", ""),
+            "category": item.get("category", ""),
+            "importance": item.get("importance", 1),
+            "source": item.get("source", ""),
+            "published": item.get("published", ""),
+        }
+        for item in items[:30]
+    ]
+    payload = {
+        "任务": "请从京东商超、京东自营超市和京东平台经营视角，基于新闻数组生成本板块的3-5条关键判断。",
+        "section": section,
+        "输出要求": {
+            "title": "京东视角 · 今日关键判断",
+            "bullets": "数组，每项包含 type 和 text",
+            "type_allowed": ["机会", "预警", "动作", "关注"],
+            "text": "必须中文，偏商业判断，不复述标题，不出现系统解释性话术。",
+        },
+        "新闻数组": slim_items,
+    }
+    return json.dumps(payload, ensure_ascii=False)
+
+
+def deepseek_section_summary(section: str, items: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    if not has_deepseek_api_key() or not items:
+        return None
+    system_prompt = (
+        "你是京东大商超事业群的外部经营情报分析助手。"
+        "你只输出合法 JSON。所有内容必须中文。"
+        "判断必须站在京东商超、京东自营超市、京东平台经营视角，不能复述标题。"
+    )
+    result = post_deepseek_json(
+        [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": build_deepseek_summary_prompt(section, items)},
+        ],
+        1800,
+        f"{section} summary",
+    )
+    if not result:
+        return None
+    bullets = result.get("bullets", [])
+    if not isinstance(bullets, list):
+        return None
+    clean_bullets = []
+    for bullet in bullets:
+        if not isinstance(bullet, dict):
+            continue
+        bullet_type = bullet.get("type")
+        text = clean_text(bullet.get("text", ""))
+        if bullet_type not in ("机会", "预警", "动作", "关注") or not text:
+            continue
+        clean_bullets.append({"type": bullet_type, "text": text})
+    if not clean_bullets:
+        return None
+    return {
+        "title": "京东视角 · 今日关键判断",
+        "updated_at": isoformat_z(utc_now()),
+        "analysis_mode": "deepseek",
+        "bullets": clean_bullets[:5],
+    }
+
+
+def build_summaries(items: List[Dict[str, Any]]) -> Dict[str, Any]:
+    summaries: Dict[str, Any] = {}
+    for section in ("platform", "retailer", "category"):
+        recent = [
+            item for item in items
+            if item.get("section") == section and item_is_recent(item, 7)
+        ]
+        high_importance = [item for item in recent if int(item.get("importance") or 1) >= 4]
+        source_items = high_importance or recent
+        source_items = sorted(source_items, key=sort_key_published, reverse=True)[:30]
+        summaries[section] = deepseek_section_summary(section, source_items) or rule_based_section_summary(section, items)
+    return summaries
+
+
+def reanalyze_existing_items(items: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> int:
+    if not REANALYZE_EXISTING:
+        return 0
+    targets = [
+        item for item in sorted(items, key=sort_key_published, reverse=True)
+        if not item.get("display_title")
+        or not item.get("brief_body")
+        or (has_deepseek_api_key() and item.get("analysis_mode") != "deepseek")
+    ]
+    if not targets:
+        return 0
+    if has_deepseek_api_key():
+        apply_deepseek_analysis(targets[:150], taxonomy)
+        for item in targets[:150]:
+            ensure_display_title(item)
+            ensure_brief_body(item)
+        return min(len(targets), 150)
+    for item in targets:
+        ensure_display_title(item)
+        ensure_brief_body(item)
+        if not item.get("analysis_mode"):
+            item["analysis_mode"] = "rule_based"
+    return len(targets)
+
+
+def print_fetch_stats(stats: Dict[str, Counter], new_counts: Counter) -> None:
+    for section in ("platform", "retailer", "category"):
+        section_stats = stats.get(section, Counter())
+        print(
+            f"{section} stats: queries={section_stats.get('queries', 0)}, "
+            f"rss_items={section_stats.get('rss_items', 0)}, "
+            f"candidates={section_stats.get('candidates', 0)}, "
+            f"new_items={new_counts.get(section, 0)}"
+        )
+    print(f"category new news count: {new_counts.get('category', 0)}")
+
+
 def main() -> int:
     watchlist = load_json(WATCHLIST_PATH, {"platforms": [], "retailers": [], "categories": []})
     taxonomy = load_json(TAXONOMY_PATH, {})
@@ -960,7 +1340,9 @@ def main() -> int:
     current_titles = set(existing_titles)
     new_items: List[Dict[str, Any]] = []
 
-    candidates = fetch_candidates(watchlist, taxonomy)
+    reanalyzed_count = reanalyze_existing_items(existing_items, taxonomy)
+    candidates, fetch_stats = fetch_candidates(watchlist, taxonomy)
+    new_counts: Counter = Counter()
     for base_item, monitor, matched_query in candidates:
         link_key = (base_item.get("link") or "").strip().lower()
         title_key = normalize_title(base_item.get("title", ""))
@@ -971,6 +1353,7 @@ def main() -> int:
 
         analyzed = rule_based_analysis(base_item, monitor, taxonomy, matched_query)
         new_items.append(analyzed)
+        new_counts[analyzed.get("section", "")] += 1
         if link_key:
             current_links.add(link_key)
         if title_key:
@@ -980,18 +1363,24 @@ def main() -> int:
     combined_items = existing_items + analyzed_new_items
     for item in combined_items:
         ensure_display_title(item)
+        ensure_brief_body(item)
     combined_items.sort(key=sort_key_published, reverse=True)
     combined_items = combined_items[:MAX_HISTORY_ITEMS]
 
-    ai_mode = "deepseek" if any(item.get("analysis_mode") == "deepseek" for item in analyzed_new_items) else "rule_based"
+    ai_mode = "deepseek" if any(item.get("analysis_mode") == "deepseek" for item in combined_items) else "rule_based"
+    summaries = build_summaries(combined_items)
+    if any(summary.get("analysis_mode") == "deepseek" for summary in summaries.values()):
+        ai_mode = "deepseek"
     output = {
         "metadata": build_metadata(combined_items, ai_mode),
+        "summaries": summaries,
         "items": combined_items,
     }
     write_json_atomic(NEWS_PATH, output)
+    print_fetch_stats(fetch_stats, new_counts)
     print(
         f"Generated {NEWS_PATH} with {len(combined_items)} total items "
-        f"({len(analyzed_new_items)} new, mode={ai_mode})."
+        f"({len(analyzed_new_items)} new, {reanalyzed_count} reanalyzed, mode={ai_mode})."
     )
     return 0
 
