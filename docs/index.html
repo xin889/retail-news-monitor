@@ -309,6 +309,16 @@
       text-underline-offset: 3px;
     }
 
+    .news-title.no-link {
+      color: #5f6662;
+      cursor: default;
+    }
+
+    .news-title.no-link:hover {
+      color: #5f6662;
+      text-decoration: none;
+    }
+
     .meta {
       display: flex;
       flex-wrap: wrap;
@@ -319,7 +329,8 @@
     }
 
     .tag,
-    .importance {
+    .importance,
+    .no-link-badge {
       display: inline-flex;
       align-items: center;
       min-height: 20px;
@@ -329,6 +340,11 @@
       background: #fff;
       color: var(--muted);
       white-space: nowrap;
+    }
+
+    .no-link-badge {
+      background: #f5f5f4;
+      color: #88817d;
     }
 
     .importance.high {
@@ -623,6 +639,20 @@
       return new Intl.DateTimeFormat("zh-CN", options).format(date);
     }
 
+    function hasValidLink(value) {
+      return /^https?:\/\//i.test(String(value || "").trim());
+    }
+
+    function itemSectionOf(item) {
+      if (item.section) return item.section;
+      if (item.category_group || item.entity_type === "category" || item.entity_type === "brand") return "category";
+      return "";
+    }
+
+    function itemDisplayTitle(item) {
+      return item.display_title || item.title || "未命名新闻";
+    }
+
     function modeLabel(mode) {
       return mode === "deepseek" ? "DeepSeek 解读" : "规则版解读";
     }
@@ -656,7 +686,8 @@
 
     function categoryGroupOf(item) {
       if (item.category_group) return item.category_group;
-      const text = `${item.entity || ""} ${item.title || ""} ${(item.matched_keywords || []).join(" ")}`;
+      if (item.entity && CATEGORY_BRANDS[item.entity]) return item.entity;
+      const text = `${item.entity || ""} ${item.display_title || ""} ${item.title || ""} ${(item.matched_keywords || []).join(" ")}`;
       for (const [group, brands] of Object.entries(CATEGORY_BRANDS)) {
         if (compact(text).includes(compact(group))) return group;
         if (brands.some(brand => compact(text).includes(compact(brand)))) return group;
@@ -686,25 +717,38 @@
     function entityMatches(item) {
       if (state.entity === "全部") return true;
       if (state.section === "category") {
-        return compact(categoryGroupOf(item)).includes(compact(state.entity));
+        const group = categoryGroupOf(item) || item.entity || "";
+        return compact(group).includes(compact(state.entity));
       }
-      const haystack = compact(`${item.entity || ""} ${item.title || ""} ${(item.matched_keywords || []).join(" ")}`);
+      const haystack = compact(`${item.entity || ""} ${item.display_title || ""} ${item.title || ""} ${(item.matched_keywords || []).join(" ")}`);
       return haystack.includes(compact(state.entity));
     }
 
     function subcategoryMatches(item) {
       if (state.subcategory === "全部") return true;
-      const haystack = compact(`${item.subcategory || ""} ${item.category || ""} ${item.ai_insight || ""}`);
-      return haystack.includes(compact(state.subcategory));
+      const subcategory = item.subcategory || "";
+      const category = item.category || "";
+      if (state.subcategory === "行业政策") {
+        return subcategory === "行业政策" || category === "行业政策";
+      }
+      if (state.subcategory === "行业热点 / 新品趋势") {
+        return subcategory === "行业热点 / 新品趋势" || category === "行业热点 / 新品趋势" || category === "新品发布";
+      }
+      if (state.subcategory === "重点品牌动态") {
+        return subcategory === "重点品牌动态" || item.entity_type === "brand";
+      }
+      return false;
     }
 
     function searchMatches(item) {
       if (!state.search) return true;
       const text = [
         item.title,
+        item.display_title,
         item.summary,
         item.source,
         item.entity,
+        item.category_group,
         item.category,
         item.subcategory,
         item.ai_insight,
@@ -716,7 +760,7 @@
 
     function filteredItems() {
       let items = (newsData.items || []).filter(item => {
-        if (item.section !== state.section) return false;
+        if (itemSectionOf(item) !== state.section) return false;
         if (!entityMatches(item)) return false;
         if (state.section === "category" && !subcategoryMatches(item)) return false;
         if (state.section !== "category" && !dimensionMatches(item, state.dimension)) return false;
@@ -757,11 +801,16 @@
         const date = formatDate(item.published);
         const category = item.subcategory || item.category || "其他";
         const importance = Number(item.importance || 1);
-        const link = item.link || "#";
+        const link = String(item.link || "").trim();
+        const displayTitle = itemDisplayTitle(item);
+        const originalTitle = item.title || displayTitle;
+        const titleNode = hasValidLink(link)
+          ? `<a class="news-title" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(item.ai_insight || "")}">${escapeHTML(displayTitle)}</a>`
+          : `<span class="news-title no-link" title="${escapeHTML(item.ai_insight || "")}">${escapeHTML(displayTitle)}</span><span class="no-link-badge">无原文链接</span>`;
         return `
           <li class="news-row">
             <div class="title-line">
-              <a class="news-title" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(item.ai_insight || "")}">${escapeHTML(item.title || "未命名新闻")}</a>
+              ${titleNode}
               <button class="insight-toggle" type="button">解读</button>
             </div>
             <div class="meta">
@@ -774,6 +823,7 @@
             <div class="tooltip">
               <strong>AI 解读</strong>
               <p>${escapeHTML(item.ai_insight || "暂无解读")}</p>
+              <p class="fine">原始标题：${escapeHTML(originalTitle)}</p>
               <p class="fine">判断依据：${escapeHTML(item.reason || "-")}</p>
               <p class="fine">命中关键词：${escapeHTML(keywords)}</p>
               <p class="fine">来源：${escapeHTML(source)} / 发布时间：${escapeHTML(formatDate(item.published, true))}</p>
