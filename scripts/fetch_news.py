@@ -85,6 +85,57 @@ RULE_CATEGORY_PATTERNS: List[Tuple[str, Tuple[str, ...]]] = [
     ("ma", ("并购", "收购", "合并", "投资", "合作", "merger", "acquisition", "partnership")),
 ]
 
+INSIGHT_TYPES = ("机会", "预警", "动作", "关注")
+
+BUSINESS_HOT_KEYWORDS = [
+    "平台政策", "组织调整", "财报业绩", "低价策略", "价格力", "百亿补贴",
+    "即时零售", "内容电商", "直播电商", "商家生态", "会员体系", "自有品牌",
+    "爆品", "供应链", "履约成本", "前置仓", "开店拓店", "门店调改",
+    "硬折扣", "精选SKU", "食品安全", "监管合规", "行业政策", "新品趋势",
+    "渠道动作", "营销活动", "无糖茶", "高蛋白", "宠物主粮", "湿厕纸",
+    "洗衣凝珠", "低GI", "零添加", "功能饮料", "儿童用品", "功效宣称",
+    "IP联名", "AI玩具", "量贩零食", "功能粮", "GMV", "SKU", "AI",
+]
+
+CATEGORY_HOT_KEYWORDS = {
+    "业务规模 & GMV表现": ["GMV", "业务表现", "增长质量"],
+    "财报业绩": ["财报业绩", "营收利润", "利润承压"],
+    "组织架构": ["组织调整", "组织效率"],
+    "组织调整": ["组织调整", "组织效率"],
+    "平台政策": ["平台政策", "商家生态", "经营规则"],
+    "行业政策": ["行业政策", "监管合规"],
+    "监管合规": ["监管合规", "平台合规"],
+    "食品安全": ["食品安全", "监管合规"],
+    "价格力策略": ["价格力", "低价策略"],
+    "价格变化": ["价格力", "价格波动"],
+    "自有品牌": ["自有品牌", "差异化货盘"],
+    "会员 / 用户": ["会员体系", "用户留存"],
+    "供应链能力": ["供应链", "履约成本"],
+    "即时零售": ["即时零售", "履约成本"],
+    "新品发布": ["新品趋势", "爆品"],
+    "行业热点 / 新品趋势": ["新品趋势", "趋势货盘"],
+    "重点品牌动态": ["重点品牌", "渠道动作"],
+    "渠道动作": ["渠道动作", "品牌资源"],
+    "营销活动": ["营销活动", "用户转化"],
+    "内容电商打法": ["内容电商", "直播电商"],
+    "开店 / 拓店": ["开店拓店", "区域竞争"],
+    "并购合作": ["并购合作", "资源整合"],
+    "科技 / AI": ["科技AI", "运营效率"],
+    "爆品": ["爆品", "高复购"],
+    "大促专栏": ["大促策略", "促销强度"],
+}
+
+HOT_KEYWORD_BLOCKLIST = (
+    "建议", "关注", "该动态", "影响", "当前", "是否", "其对", "对京东",
+    "从经营", "表示", "通过", "可能", "相关", "变化", "节奏", "方面",
+    "值得", "需要", "持续", "系统", "归类",
+)
+
+FACT_EXCERPT_BLOCKLIST = (
+    "建议关注", "从经营情报看", "对京东商超而言", "该动态涉及",
+    "需持续关注", "当前重要性", "按规则归类", "建议结合命中关键词",
+)
+
 
 def warn(message: str) -> None:
     print(f"[warning] {message}", file=sys.stderr)
@@ -163,6 +214,28 @@ def clean_text(value: str) -> str:
     value = re.sub(r"https?://\S+", " ", value)
     value = re.sub(r"\s+", " ", value)
     return value.strip()
+
+
+def clean_source_excerpt(description: str, title: str = "") -> str:
+    """Clean RSS description while keeping source facts instead of AI analysis."""
+    raw = html.unescape(description or "")
+    raw = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", raw)
+    raw = re.sub(r"(?i)<br\s*/?>|</p>|</li>", "。", raw)
+    raw = re.sub(r"(?is)<font\b[^>]*>.*?</font>", " ", raw)
+    text = clean_text(raw)
+    text = re.sub(r"\bFull Coverage\b|查看完整报道|阅读原文", " ", text, flags=re.I)
+    text = re.sub(r"\s+", " ", text).strip(" -_—–|｜")
+
+    clean_title = clean_text(title)
+    if clean_title and text.startswith(clean_title) and len(text) > len(clean_title) + 8:
+        text = text[len(clean_title):].strip(" -_—–|｜。")
+    if clean_title and normalize_title(text) == normalize_title(clean_title):
+        return clean_title
+
+    for phrase in FACT_EXCERPT_BLOCKLIST:
+        text = text.replace(phrase, "")
+    text = re.sub(r"\s+", " ", text).strip(" -_—–|｜")
+    return text[:520]
 
 
 def normalize_title(title: str) -> str:
@@ -251,6 +324,57 @@ def keyword_in_text(keyword: str, text: str) -> bool:
     if is_englishish(keyword):
         return keyword.lower() in text.lower()
     return keyword in text
+
+
+def is_good_hot_keyword(value: str) -> bool:
+    word = clean_text(value).strip(" ，,；;。.!！?？、")
+    if not word:
+        return False
+    if any(blocked in word for blocked in HOT_KEYWORD_BLOCKLIST):
+        return False
+    if len(word) > 10 and word not in BUSINESS_HOT_KEYWORDS:
+        return False
+    if re.search(r"[\u4e00-\u9fff]", word):
+        cjk_len = len(re.findall(r"[\u4e00-\u9fff]", word))
+        return 2 <= cjk_len <= 8 or word in BUSINESS_HOT_KEYWORDS
+    return word in ("GMV", "SKU", "AI", "IP")
+
+
+def clean_hot_keywords(values: Iterable[str], limit: int = 6) -> List[str]:
+    if isinstance(values, str):
+        values = re.split(r"[、,，;；\s]+", values)
+    cleaned: List[str] = []
+    for value in values:
+        word = clean_text(str(value or "")).strip(" ，,；;。.!！?？、")
+        word = word.replace("科技 / AI", "科技AI")
+        word = word.replace("开店 / 拓店", "开店拓店")
+        if not is_good_hot_keyword(word):
+            continue
+        if word not in cleaned:
+            cleaned.append(word)
+        if len(cleaned) >= limit:
+            break
+    return cleaned
+
+
+def rule_based_hot_keywords(
+    category: str,
+    subcategory: str,
+    title: str,
+    summary: str,
+    matched_keywords: List[str],
+) -> List[str]:
+    text = f"{category} {subcategory} {title} {summary} {' '.join(matched_keywords)}"
+    candidates: List[str] = []
+    candidates.extend(CATEGORY_HOT_KEYWORDS.get(subcategory, []))
+    candidates.extend(CATEGORY_HOT_KEYWORDS.get(category, []))
+    for word in BUSINESS_HOT_KEYWORDS:
+        if keyword_in_text(word, text):
+            candidates.append(word)
+    for word in matched_keywords:
+        if word in BUSINESS_HOT_KEYWORDS or word in CATEGORY_HOT_KEYWORDS.get(category, []):
+            candidates.append(word)
+    return clean_hot_keywords(candidates, limit=6)
 
 
 def collect_monitor_keywords(monitor: Dict[str, Any]) -> List[str]:
@@ -364,73 +488,133 @@ def infer_importance(text: str, taxonomy: Dict[str, Any], category: str) -> int:
     return 2 if category != "其他" else 1
 
 
-def rule_based_insight(
+def rule_based_structured_insight(
     section: str,
     entity: str,
     category: str,
     subcategory: str,
+    title: str,
+    summary: str,
     matched_keywords: List[str],
     importance: int,
-) -> str:
+) -> Dict[str, Any]:
+    entity = entity or "相关主体"
     label = subcategory if subcategory and subcategory != "全部" else category
-    if category in ("业务规模 & GMV表现", "财报业绩"):
-        return f"该动态与{entity}的经营表现相关，建议关注其对增长质量、费用效率和资源投入节奏的影响。"
-    if category in ("组织架构", "组织调整"):
-        return f"该动态涉及{entity}组织或管理变化，可能影响后续业务优先级、协同效率和竞争打法。"
-    if category in ("平台政策", "监管合规", "行业政策", "食品安全"):
-        return f"该新闻涉及{label}，需关注其对经营合规、商家准入、品类管理和供应链标准的影响。"
+    hot_keywords = rule_based_hot_keywords(category, subcategory, title, summary, matched_keywords)
+
     if category in ("价格力策略", "价格变化"):
-        return f"该动态与{entity}价格策略相关，建议关注其对用户转化、毛利结构和竞对跟进动作的影响。"
-    if category == "自有品牌":
-        return f"该新闻涉及{entity}自有品牌，可能影响差异化商品供给、会员粘性和采购议价空间。"
-    if category == "会员 / 用户":
-        return f"该动态与{entity}会员或用户经营相关，建议关注其对复购、客单价和长期留存的拉动。"
-    if category in ("供应链能力", "即时零售"):
-        return f"该动态涉及{entity}供应链或即时履约，建议关注其对履约成本、区域扩张和用户体验的影响。"
-    if category in ("新品发布", "行业热点 / 新品趋势", "重点品牌动态"):
-        return f"该动态属于{label}，建议关注其背后的健康化、功能化、场景化或渠道化消费需求。"
-    if category in ("渠道动作", "营销活动", "内容电商打法"):
-        return f"该新闻体现{entity}在渠道或营销侧的动作，建议关注其对流量获取、品牌触达和货架转化的影响。"
-    if category == "开店 / 拓店":
-        return f"该动态与{entity}门店扩张或调改相关，建议关注区域布局、坪效模型和竞争半径变化。"
-    if category == "并购合作":
-        return f"该动态涉及{entity}合作或资本动作，可能改变资源配置、渠道覆盖或行业竞争格局。"
-    if category == "科技 / AI":
-        return f"该动态与{entity}科技或 AI 能力相关，建议关注其对商品运营、营销效率和用户服务的潜在改造。"
-    return f"该动态与{entity}相关，建议关注其是否带来外部竞争、用户心智或品类经营节奏的变化。"
+        result = {
+            "insight_type": "预警",
+            "insight_motive": f"{entity}强化价格动作，通常对应流量争夺、转化效率压力和用户低价心智竞争。",
+            "insight_impact": "低价信号会放大用户比价行为，并压缩同类核心 SKU 的毛利空间。",
+            "insight_jd_action": "京东商超可对比核心 SKU 价格带、促销强度和履约体验，判断是否强化低价爆品池。",
+        }
+    elif category == "自有品牌":
+        result = {
+            "insight_type": "机会",
+            "insight_motive": f"{entity}强化自有品牌，多数是为了提升差异化供给和毛利控制能力。",
+            "insight_impact": "自有品牌扩张会提高用户对独家商品、会员专属商品和稳定品质的期待。",
+            "insight_jd_action": "京东商超可梳理大包装、家庭囤货和高复购品类的自营定制机会。",
+        }
+    elif category in ("业务规模 & GMV表现", "财报业绩"):
+        result = {
+            "insight_type": "关注" if importance < 5 else "预警",
+            "insight_motive": f"{entity}披露经营表现，背后通常反映增长、利润和投入强度的取舍。",
+            "insight_impact": "财务信号会影响竞对补贴力度、商家资源投放和品类扩张节奏。",
+            "insight_jd_action": "京东商超可跟踪其核心品类投入、价格补贴和履约成本是否同步变化。",
+        }
+    elif category in ("组织架构", "组织调整"):
+        result = {
+            "insight_type": "预警",
+            "insight_motive": f"{entity}出现组织变化，通常指向业务优先级、协同效率或增长压力的重新分配。",
+            "insight_impact": "组织调整可能带来资源重排，并改变平台政策、品类打法或区域扩张速度。",
+            "insight_jd_action": "京东商超可观察后续资源是否转向即时零售、低价、会员或重点品类。",
+        }
+    elif category in ("平台政策", "监管合规", "行业政策", "食品安全"):
+        result = {
+            "insight_type": "预警",
+            "insight_motive": f"{label}信号通常来自监管要求、平台治理或行业准入标准变化。",
+            "insight_impact": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。",
+            "insight_jd_action": "京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
+        }
+    elif category == "会员 / 用户":
+        result = {
+            "insight_type": "机会",
+            "insight_motive": f"{entity}推进会员或用户经营，通常是为了提高复购、客单价和长期留存。",
+            "insight_impact": "会员权益和差异化货盘会抬高用户对商超渠道稳定服务的期待。",
+            "insight_jd_action": "京东商超可验证会员专属价、囤货权益和高频品类组合是否提升复购。",
+        }
+    elif category in ("供应链能力", "即时零售"):
+        result = {
+            "insight_type": "动作",
+            "insight_motive": f"{entity}强化履约或供应链，多数指向时效体验、库存周转和区域覆盖能力。",
+            "insight_impact": "履约能力提升会改变用户对到家速度、缺货率和服务稳定性的比较标准。",
+            "insight_jd_action": "京东商超可对照小时达、前置仓、仓配协同和履约成本，识别需要补强的场景。",
+        }
+    elif category in ("新品发布", "行业热点 / 新品趋势", "重点品牌动态", "爆品"):
+        result = {
+            "insight_type": "机会",
+            "insight_motive": f"{entity}出现{label}信号，背后可能是健康化、功能化、场景化或渠道化需求变化。",
+            "insight_impact": "新品和爆品动作会影响品牌预算、渠道首发资源和用户尝鲜路径。",
+            "insight_jd_action": "京东商超可筛选可复制的趋势货盘，并验证新品首发、试用和爆品孵化资源。",
+        }
+    elif category in ("渠道动作", "营销活动", "内容电商打法"):
+        result = {
+            "insight_type": "动作",
+            "insight_motive": f"{entity}加强渠道或营销动作，通常指向流量获取、品牌触达和货架转化效率。",
+            "insight_impact": "渠道资源变化可能推动品牌预算向内容场、即时场或线下场迁移。",
+            "insight_jd_action": "京东商超可对比品牌投放、达人内容、货架转化和大促资源分配的变化。",
+        }
+    elif category == "开店 / 拓店":
+        result = {
+            "insight_type": "动作",
+            "insight_motive": f"{entity}拓店或调改通常指向区域覆盖、服务体验和规模效率优化。",
+            "insight_impact": "门店布局会改变区域竞争半径，也会影响用户对即时购买和线下体验的选择。",
+            "insight_jd_action": "京东商超可观察相关城市的用户价格敏感度、到家需求和家庭囤货场景变化。",
+        }
+    elif category == "科技 / AI":
+        result = {
+            "insight_type": "关注",
+            "insight_motive": f"{entity}投入科技或 AI 能力，背后可能是运营效率、商品推荐和客服体验的改善需求。",
+            "insight_impact": "AI 工具可能降低内容、营销和商品运营成本，提升用户触达效率。",
+            "insight_jd_action": "京东商超可评估 AI 在选品、补货、营销素材和客服运营中的可落地场景。",
+        }
+    else:
+        result = {
+            "insight_type": judgment_type_for_category(category, importance),
+            "insight_motive": f"{entity}的外部动作反映其在增长、供给或用户心智上的经营调整。",
+            "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+            "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+        }
+
+    result["hot_keywords"] = hot_keywords or clean_hot_keywords(CATEGORY_HOT_KEYWORDS.get(category, []), limit=6)
+    result["ai_insight"] = f"{result['insight_impact']}{result['insight_jd_action']}"
+    return result
 
 
 def rule_based_brief_body(
     title: str,
+    source_excerpt: str,
     summary: str,
-    ai_insight: str,
-    entity: str,
-    category: str,
-    section: str,
 ) -> str:
-    summary_sentences = split_sentences(summary)
-    sentences: List[str] = []
-    if summary_sentences:
-        sentences.extend(summary_sentences[:2])
-    elif title:
-        sentences.append(f"这条动态提到{clean_text(title)}")
+    source_text = clean_source_excerpt(source_excerpt or summary, title)
+    for phrase in FACT_EXCERPT_BLOCKLIST:
+        source_text = source_text.replace(phrase, "")
+    sentences = split_sentences(source_text)
+    if sentences:
+        return join_sentences(sentences, limit=4)
+    clean_title = clean_text(title)
+    return clean_title[:160] if clean_title else "暂无原文摘要。"
 
-    if category:
-        sentences.append(f"从经营情报看，它更偏向{category}信号。")
 
-    if ai_insight:
-        sentences.extend(split_sentences(ai_insight)[:2])
-
-    if section == "platform":
-        sentences.append("对京东商超而言，可重点观察其对平台流量、商家资源和履约心智的影响。")
-    elif section == "retailer":
-        sentences.append("对京东商超而言，可重点观察其对差异化货盘、会员经营和价格心智的影响。")
-    elif section == "category":
-        sentences.append("对京东商超而言，可重点观察其对趋势货盘、品牌合作和品类合规的影响。")
-    else:
-        sentences.append(f"对京东商超而言，可持续跟踪{entity or '相关主体'}后续动作。")
-
-    return join_sentences(sentences, limit=5)
+def judgment_type_for_category(category: str, importance: int) -> str:
+    if importance >= 5 or category in ("食品安全", "行业政策", "监管合规", "平台政策"):
+        return "预警"
+    if category in ("新品发布", "行业热点 / 新品趋势", "自有品牌", "爆品", "会员 / 用户"):
+        return "机会"
+    if category in ("开店 / 拓店", "即时零售", "供应链能力", "渠道动作", "营销活动"):
+        return "动作"
+    return "关注"
 
 
 def truncate_display_title(text: str, max_chars: int = 36) -> str:
@@ -498,6 +682,7 @@ def rule_based_analysis(
 ) -> Dict[str, Any]:
     title = item.get("title", "")
     summary = item.get("summary", "")
+    source_excerpt = item.get("source_excerpt") or summary
     text = f"{title} {summary}"
     section = monitor.get("section", "")
     category = infer_category(section, text)
@@ -507,7 +692,9 @@ def rule_based_analysis(
     importance = infer_importance(text, taxonomy, category)
     reason_keywords = "、".join(matched_keywords[:8]) if matched_keywords else matched_query
     display_title = rule_based_display_title(entity, category, subcategory, title, matched_keywords)
-    ai_insight = rule_based_insight(section, entity, category, subcategory, matched_keywords, importance)
+    structured = rule_based_structured_insight(
+        section, entity, category, subcategory, title, summary, matched_keywords, importance
+    )
 
     item.update(
         {
@@ -521,9 +708,15 @@ def rule_based_analysis(
             "matched_keywords": matched_keywords,
             "importance": importance,
             "display_title": display_title,
-            "brief_body": rule_based_brief_body(title, summary, ai_insight, entity, category, section),
-            "ai_insight": ai_insight,
-            "reason": f"命中关键词：{reason_keywords}；主要信号指向「{category}」。",
+            "source_excerpt": clean_source_excerpt(source_excerpt, title) or summary,
+            "brief_body": rule_based_brief_body(title, source_excerpt, summary),
+            "insight_type": structured.get("insight_type", "关注"),
+            "insight_motive": structured.get("insight_motive", ""),
+            "insight_impact": structured.get("insight_impact", ""),
+            "insight_jd_action": structured.get("insight_jd_action", ""),
+            "ai_insight": structured.get("ai_insight", ""),
+            "hot_keywords": structured.get("hot_keywords", []),
+            "reason": f"关键词与分类信号指向「{category}」；参考词：{reason_keywords}。",
             "analysis_mode": "rule_based",
         }
     )
@@ -722,14 +915,18 @@ def parse_rss_items(content: bytes, fallback_source: str = "") -> List[Dict[str,
         pub_date = find_text(item, "pubDate")
         published_dt = parse_datetime(pub_date)
         published = isoformat_z(published_dt) if published_dt else pub_date
+        title = clean_text(find_text(item, "title"))
+        raw_description = find_text(item, "description")
+        source_excerpt = clean_source_excerpt(raw_description, title)
 
         parsed_items.append(
             {
-                "title": clean_text(find_text(item, "title")),
+                "title": title,
                 "link": extract_best_link(item),
                 "published": published,
                 "source": source,
-                "summary": clean_text(find_text(item, "description")),
+                "summary": source_excerpt or clean_text(raw_description),
+                "source_excerpt": source_excerpt or clean_text(raw_description),
             }
         )
     return parsed_items
@@ -859,6 +1056,7 @@ def fetch_candidates(
                             "published": parsed.get("published", ""),
                             "source": parsed.get("source", ""),
                             "summary": parsed.get("summary", ""),
+                            "source_excerpt": parsed.get("source_excerpt", "") or parsed.get("summary", ""),
                             "fetched_at": isoformat_z(utc_now()),
                         }
                         candidates.append((base_item, monitor, query))
@@ -881,6 +1079,7 @@ def fetch_candidates(
                             "published": parsed.get("published", ""),
                             "source": parsed.get("source", ""),
                             "summary": parsed.get("summary", ""),
+                            "source_excerpt": parsed.get("source_excerpt", "") or parsed.get("summary", ""),
                             "fetched_at": isoformat_z(utc_now()),
                         }
                         candidates.append((base_item, monitor, "manual_feed"))
@@ -904,9 +1103,14 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
                 "subcategory": "行业政策 / 行业热点 / 新品趋势 / 重点品牌动态 / 空",
                 "importance": 1,
                 "display_title": "中文浓缩标题，18-32个汉字",
-                "brief_body": "3-5句中文正文摘要",
-                "ai_insight": "1-2句话中文商业解读",
-                "reason": "简短判断依据",
+                "brief_body": "2-4句新闻事实简述，不要策略建议",
+                "insight_type": "机会 / 预警 / 动作 / 关注",
+                "insight_motive": "这件事背后的动机或背景，1句话",
+                "insight_impact": "对平台、零售商、品类或竞争格局的影响，1句话",
+                "insight_jd_action": "对京东商超的启示或可观察动作，1句话",
+                "ai_insight": "整合后的1-2句话中文洞察",
+                "hot_keywords": ["业务热词1", "业务热词2", "业务热词3"],
+                "reason": "内部判断依据，前端不展示",
             }
         ]
     }
@@ -925,12 +1129,16 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
         "输出JSONSchema": schema,
         "要求": [
             "只输出合法 JSON，不要输出 Markdown。",
-            "不要简单复述标题，ai_insight 要体现商业判断。",
+            "所有输出必须为中文；如果原始新闻是英文，也要用中文生成 display_title、brief_body、ai_insight 和结构化洞察。",
             "display_title 必须是中文，控制在18-32个汉字左右，提炼为“主体 + 动作 + 影响/主题”的一句话。",
-            "brief_body 必须是中文，3-5句，说明新闻说了什么、对平台/零售商/品类意味着什么、对京东商超的潜在影响或观察点。",
-            "ai_insight 必须是中文，不能输出英文标题。",
-            "ai_insight 不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”等系统解释性话术。",
-            "如果原始新闻是英文，也要用中文生成 display_title、brief_body 和 ai_insight。",
+            "brief_body 必须是中文，2-4句，只基于原新闻标题和摘要改写事实：发生了什么、关键数字/时间/主体/动作；不要输出“建议关注”“对京东而言”“从经营情报看”，不要过度推断。",
+            "insight_motive 回答为什么这个主体要做这件事，尽量指向增长、利润、履约、低价、会员、供应链、监管、组织效率或用户心智等变量。",
+            "insight_impact 回答这件事可能改变什么，尽量指向竞争格局、用户选择、品牌资源、价格心智、履约能力或品类供给。",
+            "insight_jd_action 回答京东商超应该观察什么、验证什么信号，或有哪些机会、威胁和动作。",
+            "ai_insight 是 insight_impact 与 insight_jd_action 的自然整合，不要简单复述标题。",
+            "禁止空泛表达：建议关注其影响、需持续关注、可能产生一定影响、有助于提升竞争力、值得关注、建议关注、该动态涉及。",
+            "不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”等系统解释性话术。",
+            "hot_keywords 输出3-6个中文业务词，2-8个字优先；不要完整句子，不要“建议关注”“值得关注”“该动态”等套话。",
             "is_relevant=false 的新闻可以标为低价值或噪音。",
         ],
         "待分析新闻数组": news_batch,
@@ -1008,9 +1216,10 @@ def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) ->
     system_prompt = (
         "你是“外部动态监控雷达 —— 大商超事业群”的商超与零售竞争情报分析助手。"
         "你要从京东商超、京东自营超市和京东平台经营视角判断新闻对平台竞对、零售商、品类与重点品牌的意义。"
-        "你的解读要偏商业判断，不要简单复述标题。"
-        "display_title、brief_body 和 ai_insight 必须使用中文，不要输出英文标题。"
-        "不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”等系统解释性话术。"
+        "brief_body 只写新闻事实简述，不写策略建议。"
+        "洞察要回答发生动机、可能影响和京东启示，指向价格、履约、会员、自有品牌、爆品、商家资源、品牌预算、供应链、品类趋势、合规风险等具体经营变量。"
+        "display_title、brief_body、ai_insight、insight_motive、insight_impact、insight_jd_action 必须使用中文，不要输出英文标题。"
+        "不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”“建议关注其影响”“需持续关注”“该动态涉及”等空泛或系统解释性话术。"
         "你只能输出合法 JSON。不要输出 Markdown。不要输出多余解释。"
     )
     return post_deepseek_json(
@@ -1028,6 +1237,7 @@ def deepseek_payload_item(item: Dict[str, Any]) -> Dict[str, Any]:
         "id": item.get("id", ""),
         "title": item.get("title", ""),
         "summary": item.get("summary", ""),
+        "source_excerpt": item.get("source_excerpt", "") or item.get("summary", ""),
         "source": item.get("source", ""),
         "published": item.get("published", ""),
         "section_guess": item.get("section", ""),
@@ -1068,6 +1278,12 @@ def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any
                 irrelevant_ids.add(item_id)
                 continue
             target = by_id[item_id]
+            insight_type = analyzed.get("insight_type") or target.get("insight_type") or "关注"
+            if insight_type not in INSIGHT_TYPES:
+                insight_type = judgment_type_for_category(
+                    analyzed.get("category") or target.get("category", "其他"),
+                    int(analyzed.get("importance") or target.get("importance") or 1),
+                )
             target.update(
                 {
                     "section": analyzed.get("section") or target.get("section", ""),
@@ -1078,11 +1294,22 @@ def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any
                     "importance": int(analyzed.get("importance") or target.get("importance") or 1),
                     "display_title": analyzed.get("display_title") or target.get("display_title", ""),
                     "brief_body": analyzed.get("brief_body") or target.get("brief_body", ""),
+                    "insight_type": insight_type,
+                    "insight_motive": analyzed.get("insight_motive") or target.get("insight_motive", ""),
+                    "insight_impact": analyzed.get("insight_impact") or target.get("insight_impact", ""),
+                    "insight_jd_action": analyzed.get("insight_jd_action") or target.get("insight_jd_action", ""),
                     "ai_insight": analyzed.get("ai_insight") or target.get("ai_insight", ""),
+                    "hot_keywords": clean_hot_keywords(
+                        analyzed.get("hot_keywords") if isinstance(analyzed.get("hot_keywords"), list) else target.get("hot_keywords", []),
+                        limit=6,
+                    ),
                     "reason": analyzed.get("reason") or target.get("reason", ""),
                     "analysis_mode": "deepseek",
                 }
             )
+            ensure_source_excerpt(target)
+            ensure_brief_body(target)
+            ensure_structured_insight(target)
 
     return [item for item in items if item.get("id") not in irrelevant_ids]
 
@@ -1131,29 +1358,59 @@ def ensure_display_title(item: Dict[str, Any]) -> None:
     item["display_title"] = rule_based_display_title(entity, category, subcategory, title, matched_keywords)
 
 
+def ensure_source_excerpt(item: Dict[str, Any]) -> None:
+    title = item.get("title", "")
+    excerpt = item.get("source_excerpt") or item.get("summary", "")
+    cleaned = clean_source_excerpt(excerpt, title) or clean_text(item.get("summary", ""))
+    if cleaned:
+        item["source_excerpt"] = cleaned
+
+
 def ensure_brief_body(item: Dict[str, Any]) -> None:
-    if item.get("brief_body"):
+    if item.get("brief_body") and not any(phrase in item.get("brief_body", "") for phrase in FACT_EXCERPT_BLOCKLIST):
         return
     item["brief_body"] = rule_based_brief_body(
         item.get("title", ""),
+        item.get("source_excerpt", ""),
         item.get("summary", ""),
-        item.get("ai_insight", ""),
-        item.get("entity", "") or item.get("category_group", ""),
-        item.get("category", ""),
-        item.get("section", ""),
     )
 
 
+def ensure_structured_insight(item: Dict[str, Any]) -> None:
+    missing = (
+        not item.get("insight_type")
+        or not item.get("insight_motive")
+        or not item.get("insight_impact")
+        or not item.get("insight_jd_action")
+        or not item.get("ai_insight")
+        or not item.get("hot_keywords")
+    )
+    if not missing:
+        item["hot_keywords"] = clean_hot_keywords(item.get("hot_keywords", []), limit=6)
+        return
+    matched_keywords = item.get("matched_keywords", [])
+    if not isinstance(matched_keywords, list):
+        matched_keywords = []
+    structured = rule_based_structured_insight(
+        item.get("section", ""),
+        item.get("entity", "") or item.get("category_group", ""),
+        item.get("category", "其他"),
+        item.get("subcategory", ""),
+        item.get("title", ""),
+        item.get("source_excerpt", "") or item.get("summary", ""),
+        matched_keywords,
+        int(item.get("importance") or 1),
+    )
+    for key in ("insight_type", "insight_motive", "insight_impact", "insight_jd_action", "ai_insight", "hot_keywords"):
+        if not item.get(key):
+            item[key] = structured.get(key, [] if key == "hot_keywords" else "")
+    item["hot_keywords"] = clean_hot_keywords(item.get("hot_keywords", []), limit=6)
+
+
 def judgment_type_for(item: Dict[str, Any]) -> str:
-    category = item.get("category", "")
-    importance = int(item.get("importance") or 1)
-    if category in ("食品安全", "行业政策", "监管合规", "平台政策") or importance >= 5:
-        return "预警"
-    if category in ("新品发布", "行业热点 / 新品趋势", "自有品牌", "爆品", "会员 / 用户"):
-        return "机会"
-    if category in ("开店 / 拓店", "即时零售", "供应链能力", "渠道动作", "营销活动"):
-        return "动作"
-    return "关注"
+    if item.get("insight_type") in INSIGHT_TYPES:
+        return item.get("insight_type", "关注")
+    return judgment_type_for_category(item.get("category", ""), int(item.get("importance") or 1))
 
 
 def default_summary_bullets(section: str) -> List[Dict[str, str]]:
@@ -1299,7 +1556,12 @@ def reanalyze_existing_items(items: List[Dict[str, Any]], taxonomy: Dict[str, An
     targets = [
         item for item in sorted(items, key=sort_key_published, reverse=True)
         if not item.get("display_title")
+        or not item.get("source_excerpt")
         or not item.get("brief_body")
+        or not item.get("insight_motive")
+        or not item.get("insight_impact")
+        or not item.get("insight_jd_action")
+        or not item.get("hot_keywords")
         or (has_deepseek_api_key() and item.get("analysis_mode") != "deepseek")
     ]
     if not targets:
@@ -1307,12 +1569,16 @@ def reanalyze_existing_items(items: List[Dict[str, Any]], taxonomy: Dict[str, An
     if has_deepseek_api_key():
         apply_deepseek_analysis(targets[:150], taxonomy)
         for item in targets[:150]:
+            ensure_source_excerpt(item)
             ensure_display_title(item)
             ensure_brief_body(item)
+            ensure_structured_insight(item)
         return min(len(targets), 150)
     for item in targets:
+        ensure_source_excerpt(item)
         ensure_display_title(item)
         ensure_brief_body(item)
+        ensure_structured_insight(item)
         if not item.get("analysis_mode"):
             item["analysis_mode"] = "rule_based"
     return len(targets)
@@ -1362,8 +1628,10 @@ def main() -> int:
     analyzed_new_items = apply_deepseek_analysis(new_items, taxonomy)
     combined_items = existing_items + analyzed_new_items
     for item in combined_items:
+        ensure_source_excerpt(item)
         ensure_display_title(item)
         ensure_brief_body(item)
+        ensure_structured_insight(item)
     combined_items.sort(key=sort_key_published, reverse=True)
     combined_items = combined_items[:MAX_HISTORY_ITEMS]
 
