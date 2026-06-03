@@ -213,6 +213,102 @@
   ],
   "preferred_sources": [
     {
+      "name": "晚点 LatePost",
+      "domain": "latepost.com",
+      "url": "https://www.latepost.com/",
+      "sections": ["platform"],
+      "priority": 10,
+      "tags": ["商业", "平台", "消费"]
+    },
+    {
+      "name": "虎嗅消费频道",
+      "domain": "huxiu.com",
+      "url": "https://www.huxiu.com/channel/103.html",
+      "sections": ["platform", "category"],
+      "priority": 9,
+      "tags": ["商业", "消费", "平台"]
+    },
+    {
+      "name": "电商报",
+      "domain": "cndsw.com.cn",
+      "url": "https://www.cndsw.com.cn/",
+      "sections": ["platform", "retailer"],
+      "priority": 9,
+      "tags": ["电商", "平台", "零售"]
+    },
+    {
+      "name": "电商报快讯",
+      "domain": "cndsw.com.cn",
+      "url": "https://www.cndsw.com.cn/briefing",
+      "sections": ["platform", "retailer"],
+      "priority": 8,
+      "tags": ["电商", "快讯", "平台"]
+    },
+    {
+      "name": "北京商报快消",
+      "domain": "bbtnews.com.cn",
+      "url": "https://www.bbtnews.com.cn/chuizhipd/Company%20Research%20New/Fast%20moving%20consumer/",
+      "sections": ["retailer", "category"],
+      "priority": 8,
+      "tags": ["快消", "消费", "零售"]
+    },
+    {
+      "name": "北京商报电商",
+      "domain": "bbtnews.com.cn",
+      "url": "https://www.bbtnews.com.cn/chuizhipd/shangyexinwenzhongxi/dianshangpd/",
+      "sections": ["platform", "retailer"],
+      "priority": 8,
+      "tags": ["电商", "零售", "平台"]
+    },
+    {
+      "name": "亿邦动力专栏",
+      "domain": "ebrun.com",
+      "url": "https://www.ebrun.com/zl/",
+      "sections": ["platform", "retailer"],
+      "priority": 8,
+      "tags": ["电商", "零售", "平台"]
+    },
+    {
+      "name": "中国酒业协会",
+      "domain": "cada.cc",
+      "url": "https://www.cada.cc/Category_25/Index.aspx",
+      "sections": ["category"],
+      "priority": 9,
+      "tags": ["酒类", "协会", "政策"]
+    },
+    {
+      "name": "中国玩具和婴童用品协会",
+      "domain": "wjyt-china.org",
+      "url": "https://www.wjyt-china.org/news/market_insight",
+      "sections": ["category"],
+      "priority": 8,
+      "tags": ["母婴", "玩具", "协会"]
+    },
+    {
+      "name": "中国饮料工业协会",
+      "domain": "chinabeverage.org",
+      "url": "http://home.chinabeverage.org/news-7.html",
+      "sections": ["category"],
+      "priority": 8,
+      "tags": ["饮料", "协会", "政策"]
+    },
+    {
+      "name": "中国造纸协会生活用纸专业委员会",
+      "domain": "cnhpia.org",
+      "url": "http://www.cnhpia.org/class/view?id=6",
+      "sections": ["category"],
+      "priority": 8,
+      "tags": ["纸品", "协会", "行业"]
+    },
+    {
+      "name": "中国畜牧业协会",
+      "domain": "caaa.cn",
+      "url": "https://www.caaa.cn/html/rd/",
+      "sections": ["category"],
+      "priority": 8,
+      "tags": ["宠物", "畜牧", "协会"]
+    },
+    {
       "name": "36氪",
       "domain": "36kr.com",
       "tags": ["商业", "科技", "消费", "平台"]
