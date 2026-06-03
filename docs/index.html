@@ -626,7 +626,7 @@
       font-size: 14px;
       line-height: 1.72;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 3;
     }
 
     .card-footer {
@@ -699,18 +699,14 @@
       font-weight: 680;
     }
 
-    .keyword-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
+    .insight-card .fine {
+      color: #786d69;
+      font-size: 12px;
+      line-height: 1.55;
     }
 
-    .keyword-tag {
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: #f6f2f1;
-      color: #665b57;
-      font-size: 12px;
+    .insight-card .fine p {
+      margin: 3px 0;
     }
 
     .word-cloud-panel {
@@ -1032,6 +1028,7 @@
     }
 
     function judgmentTypeOf(item) {
+      if (["机会", "预警", "动作", "关注"].includes(item.insight_type)) return item.insight_type;
       const category = item.category || "";
       const importance = Number(item.importance || 1);
       if (importance >= 5 || ["食品安全", "行业政策", "监管合规", "平台政策"].includes(category)) return "预警";
@@ -1040,9 +1037,22 @@
       return "关注";
     }
 
+    const BODY_BAD_PHRASES = ["建议关注", "从经营情报看", "对京东商超而言", "该动态涉及", "需持续关注", "当前重要性", "按规则归类", "建议结合命中关键词"];
+
+    function cleanBodyCandidate(value) {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      if (!text) return "";
+      if (BODY_BAD_PHRASES.some(phrase => text.includes(phrase))) return "";
+      return text;
+    }
+
     function bodyTextOf(item) {
-      const combined = [item.brief_body, item.ai_insight, item.summary].filter(Boolean).join(" ");
-      return combined || "暂无摘要，可查看原文或等待下次刷新补充。";
+      const candidates = [item.source_excerpt, item.summary, item.brief_body, item.title];
+      for (const candidate of candidates) {
+        const text = cleanBodyCandidate(candidate);
+        if (text) return text;
+      }
+      return itemDisplayTitle(item);
     }
 
     function firstSentences(text, limit = 2) {
@@ -1050,15 +1060,46 @@
       return parts.slice(0, limit).join("。") + (parts.length ? "。" : "");
     }
 
-    function jdFocusOf(item) {
-      if (item.brief_body) return firstSentences(item.brief_body, 2);
+    function fallbackMotiveOf(item) {
+      const entity = item.entity || categoryGroupOf(item) || "外部主体";
+      const category = item.category || "";
+      if (/价格|低价|补贴|折扣/.test(category)) return `${entity}的价格动作通常来自流量争夺、转化效率和用户低价心智压力。`;
+      if (/自有品牌|会员/.test(category)) return `${entity}强化差异化供给和会员经营，背后是提升复购与毛利控制的需求。`;
+      if (/即时零售|履约|供应链/.test(category)) return `${entity}加强履约和供应链能力，多数指向时效体验与区域覆盖效率。`;
+      if (/政策|监管|合规|食品安全/.test(category)) return `这类信号通常来自监管要求、行业准入或平台治理标准变化。`;
+      if (/新品|趋势|爆品/.test(category)) return `新品和爆品动作背后往往是品牌寻找增长场景与用户需求变化。`;
+      return `${entity}的外部动作反映其在增长、供给或用户心智上的经营调整。`;
+    }
+
+    function fallbackImpactOf(item) {
+      const text = `${item.category || ""} ${item.subcategory || ""}`;
+      if (/价格|低价|补贴|折扣/.test(text)) return "低价信号会放大用户比价行为，并压缩同类核心 SKU 的毛利空间。";
+      if (/自有品牌|爆品|新品/.test(text)) return "差异化商品和新品动作会影响品牌资源、首发机会和用户尝鲜路径。";
+      if (/即时零售|履约|前置仓|供应链/.test(text)) return "履约能力变化会改变用户对到家速度、缺货率和服务稳定性的比较标准。";
+      if (/政策|监管|合规|食品安全/.test(text)) return "规则变化会影响商家准入、营销表达、商品资质和供应链标准。";
+      return "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。";
+    }
+
+    function fallbackJdActionOf(item) {
       const text = `${item.category || ""} ${item.subcategory || ""} ${item.ai_insight || ""}`;
-      if (/价格|低价|补贴|折扣/.test(text)) return "关注京东超市价格心智与毛利平衡。";
-      if (/自有品牌|爆品|新品/.test(text)) return "关注差异化货盘、会员粘性与爆品孵化。";
-      if (/即时零售|履约|前置仓|供应链/.test(text)) return "关注小时达场景、履约成本和稳定体验。";
-      if (/政策|监管|合规|食品安全/.test(text)) return "关注平台合规、商家准入和品类经营风险。";
-      if (/趋势|上新|联名/.test(text)) return "关注新品首发、趋势货盘和爆品孵化。";
-      return "关注该动态对京东商超用户心智、商品供给和运营节奏的影响。";
+      if (/价格|低价|补贴|折扣/.test(text)) return "京东商超可校准核心 SKU 价格带、促销强度和毛利边界。";
+      if (/自有品牌|爆品|新品/.test(text)) return "京东商超可筛选差异化货盘、会员权益和爆品孵化机会。";
+      if (/即时零售|履约|前置仓|供应链/.test(text)) return "京东商超可复盘小时达场景、履约成本和服务稳定性。";
+      if (/政策|监管|合规|食品安全/.test(text)) return "京东商超可同步检查平台合规、商家准入和品类经营风险。";
+      if (/趋势|上新|联名/.test(text)) return "京东商超可验证新品首发、趋势货盘和品牌资源倾斜信号。";
+      return "对照价格、供给、履约和用户反馈，判断是否需要调整对应策略。";
+    }
+
+    function motiveOf(item) {
+      return cleanBodyCandidate(item.insight_motive) || fallbackMotiveOf(item);
+    }
+
+    function impactOf(item) {
+      return cleanBodyCandidate(item.insight_impact) || fallbackImpactOf(item);
+    }
+
+    function jdActionOf(item) {
+      return cleanBodyCandidate(item.insight_jd_action) || fallbackJdActionOf(item);
     }
 
     function itemSectionOf(item) {
@@ -1212,6 +1253,7 @@
       const text = [
         item.title,
         item.display_title,
+        item.source_excerpt,
         item.summary,
         item.source,
         item.entity,
@@ -1220,7 +1262,11 @@
         item.subcategory,
         item.ai_insight,
         item.brief_body,
+        item.insight_motive,
+        item.insight_impact,
+        item.insight_jd_action,
         item.reason,
+        ...(item.hot_keywords || []),
         ...(item.matched_keywords || [])
       ].join(" ");
       return compact(text).includes(compact(state.search));
@@ -1250,27 +1296,48 @@
       return items;
     }
 
-    const WORD_STOP = new Set("新闻 动态 平台 品牌 公司 相关 关注 影响 表示 发布 市场 进行 以及 通过 当前 可以 建议 业务 用户 行业 方面 京东 商超 一个 可能 需要 持续 外部 经营 情报 视角".split(" "));
+    const BUSINESS_WORDS = [
+      "平台政策", "组织调整", "财报业绩", "低价策略", "价格力", "百亿补贴", "即时零售",
+      "内容电商", "直播电商", "商家生态", "会员体系", "自有品牌", "爆品", "供应链",
+      "履约成本", "前置仓", "开店拓店", "门店调改", "硬折扣", "精选SKU", "食品安全",
+      "监管合规", "行业政策", "新品趋势", "渠道动作", "营销活动", "无糖茶", "高蛋白",
+      "宠物主粮", "湿厕纸", "洗衣凝珠", "低GI", "零添加", "功能饮料", "儿童用品",
+      "功效宣称", "IP联名", "AI玩具", "量贩零食", "功能粮", "GMV", "SKU", "AI",
+      "会员店", "商品结构", "价格波动", "营收利润", "品牌预算", "核心SKU", "趋势货盘"
+    ];
+    const CLOUD_EN_ALLOW = new Set(["Costco", "ALDI", "Aldi", "Temu", "Walmart", "Hema", "Freshippo", "GMV", "SKU", "AI", "IP"]);
+    const CLOUD_BLOCK_RE = /(建议|关注|该动态|影响|当前|是否|其对|对京东|从经营|表示|通过|可能|相关|变化|节奏|方面|值得|需要|持续|页面|情报)/;
 
-    function addWord(counter, word, weight = 1) {
-      word = String(word || "").trim();
-      if (!word || word.length < 2 || WORD_STOP.has(word)) return;
-      if (/^\d+$/.test(word)) return;
-      counter.set(word, (counter.get(word) || 0) + weight);
+    function normalizeCloudWord(value) {
+      return String(value || "")
+        .replace(/\s*\/\s*/g, "")
+        .replace(/\s+/g, "")
+        .replace(/[，,；;。.!！?？、:：()[\]【】"'“”‘’]/g, "")
+        .trim();
     }
 
-    function extractWordsFromText(text, counter) {
-      const clean = String(text || "").replace(/[^\u4e00-\u9fffA-Za-z0-9/ ]+/g, " ");
-      const cjkChunks = clean.match(/[\u4e00-\u9fff]{2,8}/g) || [];
-      cjkChunks.forEach(chunk => {
-        if (chunk.length <= 4) {
-          addWord(counter, chunk);
-        } else {
-          for (let i = 0; i <= chunk.length - 2; i += 2) addWord(counter, chunk.slice(i, i + 4));
-        }
+    function isGoodCloudWord(value) {
+      const word = normalizeCloudWord(value);
+      if (!word || /^\d+$/.test(word)) return false;
+      if (CLOUD_BLOCK_RE.test(word)) return false;
+      if (CLOUD_EN_ALLOW.has(word)) return true;
+      const hasCjk = /[\u4e00-\u9fff]/.test(word);
+      if (!hasCjk) return false;
+      const cjkLen = (word.match(/[\u4e00-\u9fff]/g) || []).length;
+      return cjkLen >= 2 && cjkLen <= 8;
+    }
+
+    function addWord(counter, word, weight = 1) {
+      const normalized = normalizeCloudWord(word);
+      if (!isGoodCloudWord(normalized)) return;
+      counter.set(normalized, (counter.get(normalized) || 0) + weight);
+    }
+
+    function addBusinessWordsFromTitle(counter, text) {
+      const source = normalizeCloudWord(text);
+      BUSINESS_WORDS.forEach(word => {
+        if (source.includes(normalizeCloudWord(word))) addWord(counter, word, 2);
       });
-      const enWords = clean.match(/[A-Za-z][A-Za-z0-9-]{2,}/g) || [];
-      enWords.forEach(word => addWord(counter, word.toLowerCase()));
     }
 
     function renderWordCloud(items) {
@@ -1280,12 +1347,14 @@
       }
       const counter = new Map();
       items.forEach(item => {
-        (item.matched_keywords || []).forEach(word => addWord(counter, word, 4));
-        [item.display_title, item.category, item.entity, item.category_group, item.ai_insight, item.brief_body].forEach(text => extractWordsFromText(text, counter));
+        (item.hot_keywords || []).forEach(word => addWord(counter, word, 6));
+        (item.matched_keywords || []).forEach(word => addWord(counter, word, BUSINESS_WORDS.includes(normalizeCloudWord(word)) ? 4 : 2));
+        [item.category, item.subcategory, item.entity, item.category_group].forEach(word => addWord(counter, word, 3));
+        addBusinessWordsFromTitle(counter, item.display_title || item.title || "");
       });
       const words = [...counter.entries()]
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 40);
+        .slice(0, 30);
       if (!words.length) {
         els.wordCloud.innerHTML = `<div class="empty" style="padding:18px 0;">暂无可展示热词</div>`;
         return;
@@ -1322,8 +1391,6 @@
       }
 
       els.newsList.innerHTML = items.map(item => {
-        const keywords = (item.matched_keywords || []).join("、") || "-";
-        const keywordTags = (item.matched_keywords || []).slice(0, 10).map(word => `<span class="keyword-tag">${escapeHTML(word)}</span>`).join("") || `<span class="keyword-tag">暂无关键词</span>`;
         const source = item.source || "未知来源";
         const date = formatDate(item.published);
         const category = item.subcategory || item.category || "其他";
@@ -1366,21 +1433,20 @@
                 <h3>AI 解读</h3>
                 <div><span class="judgment ${judgmentClass(judge)}">${escapeHTML(judge)}</span></div>
                 <div class="insight-section">
-                  <div class="insight-label">核心判断</div>
-                  <p class="insight-core">${escapeHTML(item.ai_insight || "暂无解读")}</p>
+                  <div class="insight-label">发生动机</div>
+                  <p class="insight-core">${escapeHTML(motiveOf(item))}</p>
                 </div>
                 <div class="insight-section">
-                  <div class="insight-label">京东关注点</div>
-                  <p>${escapeHTML(jdFocusOf(item))}</p>
+                  <div class="insight-label">可能影响</div>
+                  <p>${escapeHTML(impactOf(item))}</p>
                 </div>
                 <div class="insight-section">
-                  <div class="insight-label">命中关键词</div>
-                  <div class="keyword-tags">${keywordTags}</div>
+                  <div class="insight-label">京东启示</div>
+                  <p>${escapeHTML(jdActionOf(item))}</p>
                 </div>
                 <div class="insight-section fine">
                   <p>原始标题：${escapeHTML(originalTitle)}</p>
                   <p>来源：${escapeHTML(source)} / 发布时间：${escapeHTML(formatDate(item.published, true))}</p>
-                  <p>判断依据：${escapeHTML(item.reason || "-")}</p>
                 </div>
               </div>
             </div>
