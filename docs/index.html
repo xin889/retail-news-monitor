@@ -475,13 +475,28 @@
       background: var(--tab-color);
     }
 
-    .jd-summary {
+    .insight-board {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
       margin-bottom: 12px;
+    }
+
+    .insight-panel {
       padding: 16px 18px;
       border: 1px solid rgba(225, 37, 27, 0.18);
       border-radius: var(--radius);
-      background: linear-gradient(135deg, #fff7f5, #ffffff 58%, #fffaf0);
+      background: #fff;
       box-shadow: var(--shadow);
+    }
+
+    .briefing-panel {
+      background: linear-gradient(135deg, #fff7f5, #ffffff 58%, #fffaf0);
+      overflow: hidden;
+    }
+
+    .counsel-panel {
+      background: linear-gradient(135deg, #ffffff, #fff8f6 72%, #fffaf0);
     }
 
     .summary-head {
@@ -501,6 +516,66 @@
     .summary-mode {
       color: var(--muted);
       font-size: 12px;
+    }
+
+    .briefing-viewport {
+      position: relative;
+      height: 188px;
+      overflow: hidden;
+    }
+
+    .briefing-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      animation: briefingScroll 24s linear infinite;
+    }
+
+    .briefing-viewport:hover .briefing-list {
+      animation-play-state: paused;
+    }
+
+    .briefing-item a {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 7px;
+      align-items: center;
+      min-height: 28px;
+      color: #31201f;
+      font-size: 13px;
+    }
+
+    .briefing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #f3b3ad;
+    }
+
+    .briefing-item.high .briefing-dot {
+      background: var(--teal);
+      box-shadow: 0 0 0 3px rgba(225, 37, 27, 0.10);
+    }
+
+    .briefing-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .briefing-source {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    @keyframes briefingScroll {
+      0%, 16% { transform: translateY(0); }
+      28%, 44% { transform: translateY(-56px); }
+      56%, 72% { transform: translateY(-112px); }
+      84%, 100% { transform: translateY(-168px); }
     }
 
     .summary-list {
@@ -798,6 +873,10 @@
         flex: 0 0 auto;
       }
 
+      .insight-board {
+        grid-template-columns: 1fr;
+      }
+
       .title-line {
         align-items: flex-start;
       }
@@ -865,7 +944,7 @@
       <button data-section="category" data-desc="政策监管、新品趋势与重点品牌动作">品类洞察</button>
     </nav>
 
-    <section class="jd-summary" id="jdSummary" aria-label="京东视角关键判断"></section>
+    <section class="insight-board" id="insightBoard" aria-label="今日快讯与诸葛参谋"></section>
 
     <section class="filters" id="filters" aria-label="筛选条件"></section>
 
@@ -944,7 +1023,7 @@
       searchInput: document.getElementById("searchInput"),
       sortSelect: document.getElementById("sortSelect"),
       highOnly: document.getElementById("highOnly"),
-      jdSummary: document.getElementById("jdSummary"),
+      insightBoard: document.getElementById("insightBoard"),
       filters: document.getElementById("filters"),
       listTitle: document.getElementById("listTitle"),
       listHint: document.getElementById("listHint"),
@@ -1071,7 +1150,7 @@
     }
 
     function bodyTextOf(item) {
-      const candidates = [item.source_excerpt, item.summary, item.brief_body, item.title];
+      const candidates = [item.article_excerpt, item.source_excerpt, item.summary, item.brief_body];
       for (const candidate of candidates) {
         const text = cleanCardBodyCandidate(candidate, item);
         if (text) return text;
@@ -1137,13 +1216,15 @@
     }
 
     function modeLabel(mode) {
-      return mode === "deepseek" ? "DeepSeek 解读" : "规则版解读";
+      return mode && mode !== "rule_based" ? "AI 解读" : "规则版解读";
     }
 
     function updateStaticKpis() {
       const meta = newsData.metadata || {};
       const mode = meta.ai_mode || "rule_based";
-      els.aiMode.textContent = modeLabel(mode);
+      const provider = meta.ai_provider && meta.ai_provider !== "rule_based" ? ` · ${meta.ai_provider}` : "";
+      const model = meta.ai_model ? ` / ${meta.ai_model}` : "";
+      els.aiMode.textContent = `${modeLabel(mode)}${provider}${model}`;
       els.sourceNote.textContent = `数据来源：RSS / Google News RSS / 官方公开页面 / ${modeLabel(mode)}`;
       els.todayCount.textContent = meta.today_count ?? 0;
       els.last7Count.textContent = meta.last_7_days_count ?? 0;
@@ -1194,25 +1275,82 @@
       ];
     }
 
-    function renderJdSummary(sectionItems) {
+    function briefingTextOf(item) {
+      const title = item.display_title || item.title || "";
+      const generic = /组织调整可能影响业务打法|即时零售布局影响到家竞争|价格力动作影响竞争格局|经营表现变化值得关注|外部动态值得关注/.test(title);
+      const text = generic && item.title ? item.title : title;
+      return String(text || "").replace(/\s+/g, "").replace(/[|｜].*$/, "").slice(0, 40);
+    }
+
+    function fallbackBriefingsForSection(sourceItems) {
+      return sourceItems
+        .filter(item => hasValidLink(item.link))
+        .slice()
+        .sort((a, b) => {
+          const importance = Number(b.importance || 0) - Number(a.importance || 0);
+          if (importance !== 0) return importance;
+          return new Date(b.published || 0) - new Date(a.published || 0);
+        })
+        .map(item => ({
+          entity: item.entity || categoryGroupOf(item) || "外部动态",
+          text: briefingTextOf(item),
+          link: item.link,
+          source: item.source || "",
+          published: item.published || "",
+          importance: Number(item.importance || 1)
+        }))
+        .filter(item => item.text && hasValidLink(item.link))
+        .slice(0, 12);
+    }
+
+    function renderInsightBoard(sectionItems) {
+      const briefing = newsData.briefings && newsData.briefings[state.section];
+      const briefingItems = briefing && Array.isArray(briefing.items) && briefing.items.length
+        ? briefing.items
+        : fallbackBriefingsForSection(sectionItems);
+
       const summary = newsData.summaries && newsData.summaries[state.section];
       const bullets = summary && Array.isArray(summary.bullets) && summary.bullets.length
         ? summary.bullets
         : fallbackSummaryForSection(state.section, sectionItems);
       const mode = summary ? modeLabel(summary.analysis_mode || "rule_based") : "规则版解读";
-      els.jdSummary.innerHTML = `
-        <div class="summary-head">
-          <h2>京东视角 · 关键判断</h2>
-          <span class="summary-mode">${escapeHTML(mode)}</span>
-        </div>
-        <ul class="summary-list">
-          ${bullets.slice(0, 5).map(bullet => `
-            <li class="summary-item">
-              <span class="judgment ${judgmentClass(bullet.type)}">${escapeHTML(bullet.type || "关注")}</span>
-              <span>${escapeHTML(bullet.text || "")}</span>
+
+      const briefingList = briefingItems.length
+        ? [...briefingItems, ...briefingItems].slice(0, Math.max(briefingItems.length, 12)).map(item => `
+            <li class="briefing-item ${Number(item.importance || 1) >= 4 ? "high" : ""}">
+              <a href="${escapeHTML(item.link)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(item.text || "")}">
+                <span class="briefing-dot"></span>
+                <span class="briefing-text">【${escapeHTML(item.entity || "外部动态")}】${escapeHTML(item.text || "")}</span>
+                <span class="briefing-source">${escapeHTML(item.source || formatDate(item.published))}</span>
+              </a>
             </li>
-          `).join("")}
-        </ul>
+          `).join("")
+        : `<li class="summary-item"><span class="judgment judge-watch">关注</span><span>暂无可点击快讯，等待下次刷新。</span></li>`;
+
+      els.insightBoard.innerHTML = `
+        <div class="insight-panel briefing-panel">
+          <div class="summary-head">
+            <h2>今日快讯</h2>
+            <span class="summary-mode">${escapeHTML(briefingItems.length ? `${briefingItems.length} 条` : "暂无")}</span>
+          </div>
+          <div class="briefing-viewport">
+            <ul class="briefing-list">${briefingList}</ul>
+          </div>
+        </div>
+        <div class="insight-panel counsel-panel">
+          <div class="summary-head">
+            <h2>诸葛参谋</h2>
+            <span class="summary-mode">${escapeHTML(mode)}</span>
+          </div>
+          <ul class="summary-list">
+            ${bullets.slice(0, 5).map(bullet => `
+              <li class="summary-item">
+                <span class="judgment ${judgmentClass(bullet.type)}">${escapeHTML(bullet.type || "关注")}</span>
+                <span>${escapeHTML(bullet.text || "")}</span>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
       `;
     }
 
@@ -1277,6 +1415,7 @@
       const text = [
         item.title,
         item.display_title,
+        item.article_excerpt,
         item.source_excerpt,
         item.summary,
         item.source,
@@ -1438,7 +1577,7 @@
                 <span class="tag">${escapeHTML(item.entity || categoryGroupOf(item) || "-")}</span>
                 <span class="tag">${escapeHTML(category)}</span>
                 <span class="importance ${importanceClass(importance)}">重要性 ${importance}</span>
-                ${item.analysis_mode === "deepseek" ? `<span class="tag">AI解读</span>` : ""}
+                ${item.analysis_mode && item.analysis_mode !== "rule_based" ? `<span class="tag">AI解读</span>` : ""}
               </div>
               <span class="judgment ${judgmentClass(judge)}">${escapeHTML(judge)}</span>
             </div>
@@ -1484,7 +1623,7 @@
     function render() {
       updateStaticKpis();
       renderFilters();
-      renderJdSummary(sectionItems());
+      renderInsightBoard(sectionItems());
       renderList();
       document.querySelectorAll(".nav button").forEach(button => {
         button.classList.toggle("active", button.dataset.section === state.section);
@@ -1541,7 +1680,7 @@
 
     async function loadNews() {
       try {
-        const response = await fetch("./news.json", { cache: "no-store" });
+        const response = await fetch(`./news.json?v=${Date.now()}`, { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         newsData = await response.json();
         if (!Array.isArray(newsData.items)) newsData.items = [];
