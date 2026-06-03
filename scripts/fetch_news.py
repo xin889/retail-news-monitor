@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import email.utils
 import difflib
+import gzip
 import hashlib
 import html
 import json
@@ -46,6 +47,9 @@ REQUEST_DELAY_SECONDS = float(os.getenv("RETAIL_NEWS_REQUEST_DELAY_SECONDS", "0.
 QUERY_WINDOW = os.getenv("RETAIL_NEWS_QUERY_WINDOW", "when:30d").strip()
 REANALYZE_EXISTING = os.getenv("REANALYZE_EXISTING", "false").strip().lower() in ("1", "true", "yes", "y")
 RESET_NEWS = os.getenv("RESET_NEWS", "false").strip().lower() in ("1", "true", "yes", "y")
+ARTICLE_FETCH_LIMIT = int(os.getenv("ARTICLE_FETCH_LIMIT", "120"))
+ARTICLE_REQUEST_TIMEOUT = int(os.getenv("ARTICLE_REQUEST_TIMEOUT", "10"))
+ARTICLE_READ_BYTES = int(os.getenv("ARTICLE_READ_BYTES", str(1024 * 1024)))
 
 SECTION_QUERY_BUDGETS = {
     "platform": int(os.getenv("RETAIL_NEWS_PLATFORM_QUERY_BUDGET", "80")),
@@ -60,11 +64,19 @@ SECTION_SOURCE_QUERY_BUDGETS = {
 CATEGORY_MIN_QUERIES_PER_MONITOR = int(os.getenv("RETAIL_NEWS_CATEGORY_MIN_QUERIES_PER_MONITOR", "12"))
 CATEGORY_MAX_QUERIES_PER_MONITOR = int(os.getenv("RETAIL_NEWS_CATEGORY_MAX_QUERIES_PER_MONITOR", "28"))
 
-DEEPSEEK_ENDPOINT = "https://api.deepseek.com/chat/completions"
-DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-flash")
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "deepseek").strip() or "deepseek"
+LLM_API_KEY = os.getenv("LLM_API_KEY", "").strip() or os.getenv("DEEPSEEK_API_KEY", "").strip()
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "").strip()
+if not LLM_BASE_URL and LLM_PROVIDER.lower() == "deepseek":
+    LLM_BASE_URL = "https://api.deepseek.com"
+LLM_ENDPOINT = os.getenv("LLM_ENDPOINT", "").strip() or f"{LLM_BASE_URL.rstrip('/')}/chat/completions"
+LLM_MODEL = os.getenv("LLM_MODEL", "").strip() or os.getenv("DEEPSEEK_MODEL", "").strip() or (
+    "deepseek-v4-flash" if LLM_PROVIDER.lower() == "deepseek" else ""
+)
+LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.2"))
+LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", os.getenv("DEEPSEEK_MAX_TOKENS", "5000")))
 DEEPSEEK_MAX_NEWS_PER_RUN = int(os.getenv("DEEPSEEK_MAX_NEWS_PER_RUN", "200"))
 DEEPSEEK_BATCH_SIZE = int(os.getenv("DEEPSEEK_BATCH_SIZE", "20"))
-DEEPSEEK_MAX_TOKENS = int(os.getenv("DEEPSEEK_MAX_TOKENS", "5000"))
 
 
 RULE_CATEGORY_PATTERNS: List[Tuple[str, Tuple[str, ...]]] = [
@@ -336,7 +348,15 @@ def is_englishish(value: str) -> bool:
 
 
 def has_deepseek_api_key() -> bool:
-    return bool(os.getenv("DEEPSEEK_API_KEY", "").strip())
+    return has_llm_api_key()
+
+
+def has_llm_api_key() -> bool:
+    return bool(LLM_API_KEY and LLM_ENDPOINT and LLM_MODEL)
+
+
+def ai_provider_name() -> str:
+    return LLM_PROVIDER.lower() if has_llm_api_key() else "rule_based"
 
 
 def item_is_recent(item: Dict[str, Any], days: int = 7) -> bool:
@@ -735,6 +755,7 @@ def rule_based_analysis(
     title = item.get("title", "")
     summary = item.get("summary", "")
     source_excerpt = item.get("source_excerpt") or summary
+    article_excerpt = item.get("article_excerpt", "")
     text = f"{title} {summary}"
     section = monitor.get("section", "")
     category = infer_category(section, text)
@@ -760,8 +781,9 @@ def rule_based_analysis(
             "matched_keywords": matched_keywords,
             "importance": importance,
             "display_title": display_title,
+            "article_excerpt": article_excerpt if is_valid_excerpt(article_excerpt, title) else "",
             "source_excerpt": clean_source_excerpt(source_excerpt, title),
-            "brief_body": rule_based_brief_body(title, source_excerpt, summary),
+            "brief_body": rule_based_brief_body(title, article_excerpt or source_excerpt, summary),
             "insight_type": structured.get("insight_type", "关注"),
             "insight_motive": structured.get("insight_motive", ""),
             "insight_impact": structured.get("insight_impact", ""),
@@ -785,9 +807,9 @@ def looks_like_noise(title: str, summary: str, taxonomy: Dict[str, Any]) -> bool
 
 
 SECTION_SOURCE_PRIORITY = {
-    "platform": ["36氪", "虎嗅网", "亿邦动力", "TechCrunch", "极客公园"],
-    "retailer": ["联商网", "亿邦动力", "北京商报", "36氪", "职业零售网"],
-    "category": ["人民网", "北京商报", "行业协会网站", "酒类商业协会", "亿邦动力", "联商网"],
+    "platform": ["晚点 LatePost", "36氪", "虎嗅消费频道", "虎嗅网", "电商报", "亿邦动力", "亿邦动力专栏", "TechCrunch", "极客公园"],
+    "retailer": ["联商网", "北京商报", "北京商报快消", "北京商报电商", "亿邦动力", "亿邦动力专栏", "电商报", "36氪", "职业零售网"],
+    "category": ["人民网", "北京商报", "北京商报快消", "中国酒业协会", "中国玩具和婴童用品协会", "中国饮料工业协会", "中国造纸协会生活用纸专业委员会", "中国畜牧业协会", "行业协会网站", "亿邦动力", "联商网"],
 }
 
 
@@ -797,9 +819,14 @@ def preferred_sources_for_section(taxonomy: Dict[str, Any], section: str) -> Lis
     order = {name: index for index, name in enumerate(priority)}
 
     def source_rank(source: Dict[str, Any]) -> Tuple[int, str]:
-        return (order.get(source.get("name", ""), 999), source.get("name", ""))
+        configured_priority = -int(source.get("priority", 0) or 0)
+        return (order.get(source.get("name", ""), 999), configured_priority, source.get("name", ""))
 
-    ranked = sorted(sources, key=source_rank)
+    scoped = [
+        source for source in sources
+        if not source.get("sections") or section in (source.get("sections") or [])
+    ]
+    ranked = sorted(scoped, key=source_rank)
     return [source for source in ranked if source.get("name") in priority][:6]
 
 
@@ -1027,6 +1054,162 @@ def fetch_manual_feed(feed: Any) -> List[Dict[str, str]]:
     return parse_rss_items(content, fallback_source=fallback_source)
 
 
+def decode_html_bytes(data: bytes, headers: Any = None) -> str:
+    if not data:
+        return ""
+    encoding = ""
+    try:
+        if headers and str(headers.get("Content-Encoding", "")).lower() == "gzip":
+            data = gzip.decompress(data)
+    except Exception:
+        pass
+    try:
+        content_type = headers.get("Content-Type", "") if headers else ""
+        match = re.search(r"charset=([\w.-]+)", content_type, flags=re.I)
+        if match:
+            encoding = match.group(1)
+    except Exception:
+        encoding = ""
+    for candidate in [encoding, "utf-8", "gb18030", "gbk"]:
+        if not candidate:
+            continue
+        try:
+            return data.decode(candidate, errors="ignore")
+        except Exception:
+            continue
+    return data.decode("utf-8", errors="ignore")
+
+
+def extract_meta_description(page_html: str) -> str:
+    patterns = [
+        r"<meta\b[^>]*(?:name|property)=[\"']description[\"'][^>]*content=[\"']([^\"']+)[\"'][^>]*>",
+        r"<meta\b[^>]*content=[\"']([^\"']+)[\"'][^>]*(?:name|property)=[\"']description[\"'][^>]*>",
+        r"<meta\b[^>]*property=[\"']og:description[\"'][^>]*content=[\"']([^\"']+)[\"'][^>]*>",
+        r"<meta\b[^>]*name=[\"']twitter:description[\"'][^>]*content=[\"']([^\"']+)[\"'][^>]*>",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, page_html, flags=re.I | re.S)
+        if match:
+            return clean_description(match.group(1))
+    return ""
+
+
+def extract_jsonld_description(page_html: str) -> str:
+    blocks = re.findall(
+        r"<script\b[^>]*type=[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
+        page_html,
+        flags=re.I | re.S,
+    )
+    for block in blocks[:4]:
+        try:
+            payload = json.loads(html.unescape(block).strip())
+        except Exception:
+            continue
+        queue = payload if isinstance(payload, list) else [payload]
+        while queue:
+            current = queue.pop(0)
+            if isinstance(current, dict):
+                for key in ("description", "articleBody"):
+                    value = current.get(key)
+                    if isinstance(value, str) and clean_text(value):
+                        return clean_description(value)
+                for value in current.values():
+                    if isinstance(value, (dict, list)):
+                        queue.append(value)
+            elif isinstance(current, list):
+                queue.extend(current)
+    return ""
+
+
+def clean_paragraph_text(text: str) -> str:
+    text = clean_text(text)
+    text = re.sub(r"责任编辑[：:].*$|版权声明.*$|免责声明.*$|本文来源.*$|广告.*$", "", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+def extract_paragraph_excerpt(page_html: str, title: str = "") -> str:
+    page_html = re.sub(r"(?is)<script.*?</script>|<style.*?</style>|<noscript.*?</noscript>", " ", page_html)
+    article_blocks = re.findall(r"(?is)<article\b[^>]*>(.*?)</article>", page_html)
+    candidates_html = article_blocks or [page_html]
+    paragraphs: List[str] = []
+    for block in candidates_html[:2]:
+        for paragraph in re.findall(r"(?is)<p\b[^>]*>(.*?)</p>", block):
+            text = clean_paragraph_text(paragraph)
+            if is_valid_excerpt(text, title):
+                paragraphs.append(text)
+            if len(paragraphs) >= 4:
+                break
+        if paragraphs:
+            break
+    if not paragraphs:
+        return ""
+    return normalize_excerpt_length("。".join(paragraphs), title)
+
+
+def normalize_excerpt_length(text: str, title: str = "") -> str:
+    text = clean_description(text, title)
+    sentences = split_sentences(text)
+    if sentences:
+        selected: List[str] = []
+        length = 0
+        for sentence in sentences:
+            selected.append(sentence)
+            length += text_signal_length(sentence)
+            if length >= 80 or len(selected) >= 4:
+                break
+        text = join_sentences(selected, limit=4)
+    if text_signal_length(text) > 240:
+        text = text[:260].rstrip("，。；、：: -_—–") + "。"
+    return text if is_valid_excerpt(text, title) else ""
+
+
+def fetch_article_excerpt(url: str, title: str = "") -> str:
+    if not is_valid_link(url):
+        return ""
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.6",
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=ARTICLE_REQUEST_TIMEOUT) as response:
+            content_type = response.headers.get("Content-Type", "")
+            if "html" not in content_type.lower() and "text" not in content_type.lower():
+                return ""
+            page_html = decode_html_bytes(response.read(ARTICLE_READ_BYTES), response.headers)
+    except Exception as exc:
+        warn(f"Article excerpt fetch failed for {url}: {exc}")
+        return ""
+    for extractor in (extract_meta_description, extract_jsonld_description):
+        excerpt = normalize_excerpt_length(extractor(page_html), title)
+        if excerpt:
+            return excerpt
+    return extract_paragraph_excerpt(page_html, title)
+
+
+def enrich_article_excerpts(items: List[Dict[str, Any]], limit: int = ARTICLE_FETCH_LIMIT) -> int:
+    if limit <= 0:
+        return 0
+    count = 0
+    for item in items:
+        if count >= limit:
+            break
+        if item.get("article_excerpt") and is_valid_excerpt(item.get("article_excerpt", ""), item.get("title", "")):
+            continue
+        link = item.get("link", "")
+        if not is_valid_link(link):
+            continue
+        excerpt = fetch_article_excerpt(link, item.get("title", ""))
+        count += 1
+        if excerpt:
+            item["article_excerpt"] = excerpt
+    return count
+
+
 def load_existing_news() -> Dict[str, Any]:
     default = {
         "metadata": {
@@ -1035,9 +1218,12 @@ def load_existing_news() -> Dict[str, Any]:
             "today_count": 0,
             "last_7_days_count": 0,
             "ai_mode": "rule_based",
+            "ai_provider": "rule_based",
+            "ai_model": "",
             "version": VERSION,
         },
         "summaries": {},
+        "briefings": {},
         "items": [],
     }
     data = load_json(NEWS_PATH, default)
@@ -1049,6 +1235,8 @@ def load_existing_news() -> Dict[str, Any]:
         data["metadata"] = default["metadata"]
     if not isinstance(data.get("summaries"), dict):
         data["summaries"] = {}
+    if not isinstance(data.get("briefings"), dict):
+        data["briefings"] = {}
     return data
 
 
@@ -1123,8 +1311,6 @@ def should_keep_candidate(
         return False, []
     if not is_valid_link(link):
         return False, []
-    if not is_valid_excerpt(parsed.get("source_excerpt", ""), title) and not has_deepseek_api_key():
-        return False, []
     if not has_deepseek_api_key() and is_mostly_english(title):
         return False, []
     matches = matched_keywords_for(monitor, title, summary)
@@ -1173,6 +1359,7 @@ def fetch_candidates(
                             "published": parsed.get("published", ""),
                             "source": parsed.get("source", ""),
                             "summary": parsed.get("summary", ""),
+                            "article_excerpt": "",
                             "source_excerpt": parsed.get("source_excerpt", ""),
                             "fetched_at": isoformat_z(utc_now()),
                         }
@@ -1196,6 +1383,7 @@ def fetch_candidates(
                             "published": parsed.get("published", ""),
                             "source": parsed.get("source", ""),
                             "summary": parsed.get("summary", ""),
+                            "article_excerpt": "",
                             "source_excerpt": parsed.get("source_excerpt", ""),
                             "fetched_at": isoformat_z(utc_now()),
                         }
@@ -1281,30 +1469,29 @@ def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
         return None
 
 
-def post_deepseek_json(
+def post_llm_json(
     messages: List[Dict[str, str]],
     max_tokens: int,
     context: str,
 ) -> Optional[Dict[str, Any]]:
-    api_key = os.getenv("DEEPSEEK_API_KEY", "").strip()
-    if not api_key:
+    if not has_llm_api_key():
         return None
 
     payload = {
-        "model": DEEPSEEK_MODEL,
+        "model": LLM_MODEL,
         "messages": messages,
-        "temperature": 0.2,
+        "temperature": LLM_TEMPERATURE,
         "max_tokens": max_tokens,
         "response_format": {"type": "json_object"},
     }
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     request = urllib.request.Request(
-        DEEPSEEK_ENDPOINT,
+        LLM_ENDPOINT,
         data=body,
         method="POST",
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}",
+            "Authorization": f"Bearer {LLM_API_KEY}",
             "User-Agent": USER_AGENT,
         },
     )
@@ -1313,23 +1500,30 @@ def post_deepseek_json(
         with urllib.request.urlopen(request, timeout=90) as response:
             response_payload = json.loads(response.read().decode("utf-8"))
     except Exception as exc:
-        warn(f"DeepSeek {context} request failed; falling back to rule_based: {exc}")
+        warn(f"LLM provider {LLM_PROVIDER} {context} request failed; falling back to rule_based: {exc}")
         return None
 
     try:
         content = response_payload["choices"][0]["message"]["content"]
     except Exception:
-        warn(f"DeepSeek {context} response missing choices[0].message.content; falling back to rule_based")
+        warn(f"LLM provider {LLM_PROVIDER} {context} response missing choices[0].message.content; falling back to rule_based")
         return None
     parsed = extract_json_object(content)
     if parsed is None:
-        warn(f"DeepSeek {context} JSON parse failed; falling back to rule_based")
+        warn(f"LLM provider {LLM_PROVIDER} {context} JSON parse failed; falling back to rule_based")
     return parsed
 
 
-def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    api_key = os.getenv("DEEPSEEK_API_KEY", "").strip()
-    if not api_key:
+def call_llm_chat_completion(
+    messages: List[Dict[str, str]],
+    max_tokens: int,
+    context: str,
+) -> Optional[Dict[str, Any]]:
+    return post_llm_json(messages, max_tokens, context)
+
+
+def call_llm_analysis(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    if not has_llm_api_key():
         return None
 
     system_prompt = (
@@ -1341,12 +1535,12 @@ def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) ->
         "不要出现“当前重要性为几分”“建议结合命中关键词”“按规则归类为”“建议关注其影响”“需持续关注”“该动态涉及”等空泛或系统解释性话术。"
         "你只能输出合法 JSON。不要输出 Markdown。不要输出多余解释。"
     )
-    return post_deepseek_json(
+    return call_llm_chat_completion(
         [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": build_deepseek_user_prompt(news_batch, taxonomy)},
         ],
-        DEEPSEEK_MAX_TOKENS,
+        LLM_MAX_TOKENS,
         "news analysis",
     )
 
@@ -1356,6 +1550,7 @@ def deepseek_payload_item(item: Dict[str, Any]) -> Dict[str, Any]:
         "id": item.get("id", ""),
         "title": item.get("title", ""),
         "summary": item.get("summary", ""),
+        "article_excerpt": item.get("article_excerpt", ""),
         "source_excerpt": item.get("source_excerpt", "") or item.get("summary", ""),
         "source": item.get("source", ""),
         "published": item.get("published", ""),
@@ -1368,8 +1563,7 @@ def deepseek_payload_item(item: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> List[Dict[str, Any]]:
-    api_key = os.getenv("DEEPSEEK_API_KEY", "").strip()
-    if not api_key or not items:
+    if not has_llm_api_key() or not items:
         return items
 
     limited = items[:DEEPSEEK_MAX_NEWS_PER_RUN]
@@ -1379,12 +1573,12 @@ def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any
     for offset in range(0, len(limited), DEEPSEEK_BATCH_SIZE):
         batch = limited[offset : offset + DEEPSEEK_BATCH_SIZE]
         payload_batch = [deepseek_payload_item(item) for item in batch]
-        result = call_deepseek(payload_batch, taxonomy)
+        result = call_llm_analysis(payload_batch, taxonomy)
         if not result:
             continue
         result_items = result.get("items", [])
         if not isinstance(result_items, list):
-            warn("DeepSeek returned no items array; keeping rule_based analysis")
+            warn("LLM returned no items array; keeping rule_based analysis")
             continue
 
         for analyzed in result_items:
@@ -1423,7 +1617,7 @@ def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any
                         limit=6,
                     ),
                     "reason": analyzed.get("reason") or target.get("reason", ""),
-                    "analysis_mode": "deepseek",
+                    "analysis_mode": ai_provider_name(),
                 }
             )
             ensure_source_excerpt(target)
@@ -1460,6 +1654,8 @@ def build_metadata(items: List[Dict[str, Any]], ai_mode: str) -> Dict[str, Any]:
         "today_count": today_count,
         "last_7_days_count": last_7_days_count,
         "ai_mode": ai_mode,
+        "ai_provider": ai_mode if ai_mode != "rule_based" else "rule_based",
+        "ai_model": LLM_MODEL if ai_mode != "rule_based" and has_llm_api_key() else "",
         "version": VERSION,
     }
 
@@ -1492,7 +1688,7 @@ def ensure_brief_body(item: Dict[str, Any]) -> None:
         return
     item["brief_body"] = rule_based_brief_body(
         item.get("title", ""),
-        item.get("source_excerpt", ""),
+        item.get("article_excerpt", "") or item.get("source_excerpt", ""),
         item.get("summary", ""),
     )
 
@@ -1580,7 +1776,7 @@ def rule_based_section_summary(section: str, items: List[Dict[str, Any]]) -> Dic
             bullets.insert(1, {"type": "机会", "text": "零售商的自有品牌、爆品与会员动作，可为京东自营超市优化货盘和会员场景提供参照。"})
 
     return {
-        "title": "京东视角 · 今日关键判断",
+        "title": "诸葛参谋",
         "updated_at": isoformat_z(utc_now()),
         "analysis_mode": "rule_based",
         "bullets": bullets[:5],
@@ -1593,6 +1789,7 @@ def build_deepseek_summary_prompt(section: str, items: List[Dict[str, Any]]) -> 
             "id": item.get("id", ""),
             "display_title": item.get("display_title", ""),
             "source_excerpt": item.get("source_excerpt", ""),
+            "article_excerpt": item.get("article_excerpt", ""),
             "brief_body": item.get("brief_body", ""),
             "ai_insight": item.get("ai_insight", ""),
             "entity": item.get("entity", ""),
@@ -1608,7 +1805,7 @@ def build_deepseek_summary_prompt(section: str, items: List[Dict[str, Any]]) -> 
         "任务": "请从京东商超、京东自营超市和京东平台经营视角，基于新闻数组生成本板块的3-5条关键判断。",
         "section": section,
         "输出要求": {
-            "title": "京东视角 · 今日关键判断",
+            "title": "诸葛参谋",
             "bullets": "数组，每项包含 type 和 text",
             "type_allowed": ["机会", "预警", "动作", "关注"],
             "text": "必须中文，偏商业判断，不复述标题，不出现系统解释性话术。",
@@ -1619,14 +1816,14 @@ def build_deepseek_summary_prompt(section: str, items: List[Dict[str, Any]]) -> 
 
 
 def deepseek_section_summary(section: str, items: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
-    if not has_deepseek_api_key() or not items:
+    if not has_llm_api_key() or not items:
         return None
     system_prompt = (
         "你是京东大商超事业群的外部经营情报分析助手。"
         "你只输出合法 JSON。所有内容必须中文。"
         "判断必须站在京东商超、京东自营超市、京东平台经营视角，不能复述标题。"
     )
-    result = post_deepseek_json(
+    result = call_llm_chat_completion(
         [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": build_deepseek_summary_prompt(section, items)},
@@ -1651,9 +1848,9 @@ def deepseek_section_summary(section: str, items: List[Dict[str, Any]]) -> Optio
     if not clean_bullets:
         return None
     return {
-        "title": "京东视角 · 今日关键判断",
+        "title": "诸葛参谋",
         "updated_at": isoformat_z(utc_now()),
-        "analysis_mode": "deepseek",
+        "analysis_mode": ai_provider_name(),
         "bullets": clean_bullets[:5],
     }
 
@@ -1672,6 +1869,85 @@ def build_summaries(items: List[Dict[str, Any]]) -> Dict[str, Any]:
     return summaries
 
 
+GENERIC_DISPLAY_TITLE_PATTERNS = (
+    "组织调整可能影响业务打法",
+    "即时零售布局影响到家竞争",
+    "价格力动作影响竞争格局",
+    "平台规则变化影响商家经营",
+    "经营表现变化值得关注",
+    "外部动态值得关注",
+)
+
+
+def clean_briefing_text(item: Dict[str, Any]) -> str:
+    display_title = clean_text(item.get("display_title", ""))
+    title = clean_text(item.get("title", ""))
+    use_title = (
+        not display_title
+        or any(pattern in display_title for pattern in GENERIC_DISPLAY_TITLE_PATTERNS)
+        or is_too_similar(display_title, f"{item.get('entity', '')}{item.get('category', '')}")
+    )
+    text = title if use_title and title else display_title or title
+    text = re.sub(r"\s+", "", text)
+    text = re.sub(r"[|｜].*$", "", text).strip("，。；、：: -_—–")
+    if len(text) > 40:
+        text = text[:40].rstrip("，。；、：: -_—–")
+    return text or "外部动态更新"
+
+
+def briefing_sort_key(item: Dict[str, Any]) -> Tuple[int, datetime, int, int]:
+    has_link = 1 if is_valid_link(item.get("link", "")) else 0
+    has_body = 1 if any(
+        is_valid_excerpt(item.get(key, ""), item.get("title", ""))
+        for key in ("article_excerpt", "source_excerpt", "brief_body", "summary")
+    ) else 0
+    return (
+        int(item.get("importance") or 1),
+        sort_key_published(item),
+        has_link,
+        has_body,
+    )
+
+
+def generate_briefings(items: List[Dict[str, Any]]) -> Dict[str, Any]:
+    briefings: Dict[str, Any] = {}
+    for section in ("platform", "retailer", "category"):
+        section_items = [
+            item for item in items
+            if item.get("section") == section and is_valid_link(item.get("link", ""))
+        ]
+        recent_items = [item for item in section_items if item_is_recent(item, 7)]
+        pool = recent_items if len(recent_items) >= 10 else section_items
+        pool = sorted(pool, key=briefing_sort_key, reverse=True)
+        seen_titles = set()
+        briefing_items: List[Dict[str, Any]] = []
+        for item in pool:
+            text = clean_briefing_text(item)
+            text_key = normalize_title(text)
+            if not text_key or text_key in seen_titles:
+                continue
+            seen_titles.add(text_key)
+            entity = item.get("entity") or item.get("category_group") or "外部动态"
+            briefing_items.append(
+                {
+                    "entity": entity,
+                    "text": text,
+                    "link": item.get("link", ""),
+                    "source": item.get("source", ""),
+                    "published": item.get("published", ""),
+                    "importance": int(item.get("importance") or 1),
+                }
+            )
+            if len(briefing_items) >= 12:
+                break
+        briefings[section] = {
+            "title": "今日快讯",
+            "updated_at": isoformat_z(utc_now()),
+            "items": briefing_items,
+        }
+    return briefings
+
+
 def reanalyze_existing_items(items: List[Dict[str, Any]], taxonomy: Dict[str, Any]) -> int:
     if not REANALYZE_EXISTING:
         return 0
@@ -1684,11 +1960,11 @@ def reanalyze_existing_items(items: List[Dict[str, Any]], taxonomy: Dict[str, An
         or not item.get("insight_impact")
         or not item.get("insight_jd_action")
         or not item.get("hot_keywords")
-        or (has_deepseek_api_key() and item.get("analysis_mode") != "deepseek")
+        or (has_llm_api_key() and item.get("analysis_mode") != ai_provider_name())
     ]
     if not targets:
         return 0
-    if has_deepseek_api_key():
+    if has_llm_api_key():
         apply_deepseek_analysis(targets[:150], taxonomy)
         for item in targets[:150]:
             ensure_source_excerpt(item)
@@ -1731,6 +2007,7 @@ def main() -> int:
 
     reanalyzed_count = 0 if RESET_NEWS else reanalyze_existing_items(existing_items, taxonomy)
     candidates, fetch_stats = fetch_candidates(watchlist, taxonomy)
+    enrich_article_excerpts([base_item for base_item, _, _ in candidates], ARTICLE_FETCH_LIMIT)
     new_counts: Counter = Counter()
     for base_item, monitor, matched_query in candidates:
         link_key = (base_item.get("link") or "").strip().lower()
@@ -1738,6 +2015,12 @@ def main() -> int:
         if link_key and link_key in current_links:
             continue
         if title_key and title_key in current_titles:
+            continue
+        has_fact_body = any(
+            is_valid_excerpt(base_item.get(key, ""), base_item.get("title", ""))
+            for key in ("article_excerpt", "source_excerpt", "summary")
+        )
+        if not has_fact_body and not has_llm_api_key():
             continue
 
         analyzed = rule_based_analysis(base_item, monitor, taxonomy, matched_query)
@@ -1762,13 +2045,25 @@ def main() -> int:
     combined_items.sort(key=sort_key_published, reverse=True)
     combined_items = combined_items[:MAX_HISTORY_ITEMS]
 
-    ai_mode = "deepseek" if any(item.get("analysis_mode") == "deepseek" for item in combined_items) else "rule_based"
+    item_ai_modes = [
+        item.get("analysis_mode", "")
+        for item in combined_items
+        if item.get("analysis_mode") and item.get("analysis_mode") != "rule_based"
+    ]
+    ai_mode = ai_provider_name() if has_llm_api_key() and item_ai_modes else (item_ai_modes[0] if item_ai_modes else "rule_based")
     summaries = build_summaries(combined_items)
-    if any(summary.get("analysis_mode") == "deepseek" for summary in summaries.values()):
-        ai_mode = "deepseek"
+    briefings = generate_briefings(combined_items)
+    summary_ai_modes = [
+        summary.get("analysis_mode", "")
+        for summary in summaries.values()
+        if summary.get("analysis_mode") and summary.get("analysis_mode") != "rule_based"
+    ]
+    if summary_ai_modes:
+        ai_mode = ai_provider_name() if has_llm_api_key() else summary_ai_modes[0]
     output = {
         "metadata": build_metadata(combined_items, ai_mode),
         "summaries": summaries,
+        "briefings": briefings,
         "items": combined_items,
     }
     write_json_atomic(NEWS_PATH, output)
