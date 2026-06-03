@@ -8,6 +8,7 @@ without DEEPSEEK_API_KEY. Existing docs/news.json is merged, not replaced.
 from __future__ import annotations
 
 import email.utils
+import difflib
 import hashlib
 import html
 import json
@@ -44,6 +45,7 @@ REQUEST_TIMEOUT = int(os.getenv("RETAIL_NEWS_REQUEST_TIMEOUT", "12"))
 REQUEST_DELAY_SECONDS = float(os.getenv("RETAIL_NEWS_REQUEST_DELAY_SECONDS", "0.08"))
 QUERY_WINDOW = os.getenv("RETAIL_NEWS_QUERY_WINDOW", "when:30d").strip()
 REANALYZE_EXISTING = os.getenv("REANALYZE_EXISTING", "false").strip().lower() in ("1", "true", "yes", "y")
+RESET_NEWS = os.getenv("RESET_NEWS", "false").strip().lower() in ("1", "true", "yes", "y")
 
 SECTION_QUERY_BUDGETS = {
     "platform": int(os.getenv("RETAIL_NEWS_PLATFORM_QUERY_BUDGET", "80")),
@@ -216,26 +218,66 @@ def clean_text(value: str) -> str:
     return value.strip()
 
 
-def clean_source_excerpt(description: str, title: str = "") -> str:
-    """Clean RSS description while keeping source facts instead of AI analysis."""
+def text_signal_length(value: str) -> int:
+    cjk = len(re.findall(r"[\u4e00-\u9fff]", value or ""))
+    latin = len(re.findall(r"[A-Za-z0-9]", value or ""))
+    return cjk + latin // 4
+
+
+def is_too_similar(a: str, b: str, threshold: float = 0.86) -> bool:
+    left = normalize_title(a)
+    right = normalize_title(b)
+    if not left or not right:
+        return False
+    if left == right:
+        return True
+    shorter, longer = sorted((left, right), key=len)
+    if len(shorter) >= 12 and shorter in longer:
+        return True
+    return difflib.SequenceMatcher(None, left, right).ratio() >= threshold
+
+
+def is_valid_excerpt(excerpt: str, title: str = "") -> bool:
+    excerpt = clean_text(excerpt)
+    if not excerpt:
+        return False
+    if any(phrase in excerpt for phrase in FACT_EXCERPT_BLOCKLIST):
+        return False
+    if text_signal_length(excerpt) < 20:
+        return False
+    if title and is_too_similar(excerpt, title):
+        return False
+    if re.fullmatch(r"[\u4e00-\u9fffA-Za-z0-9 .·'’_-]{2,24}", excerpt):
+        return False
+    return True
+
+
+def clean_description(description: str, title: str = "") -> str:
     raw = html.unescape(description or "")
     raw = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", raw)
     raw = re.sub(r"(?i)<br\s*/?>|</p>|</li>", "。", raw)
     raw = re.sub(r"(?is)<font\b[^>]*>.*?</font>", " ", raw)
+    raw = re.sub(r"(?is)<a\b[^>]*>.*?</a>", " ", raw)
     text = clean_text(raw)
-    text = re.sub(r"\bFull Coverage\b|查看完整报道|阅读原文", " ", text, flags=re.I)
-    text = re.sub(r"\s+", " ", text).strip(" -_—–|｜")
+    text = re.sub(r"\bFull Coverage\b|查看完整报道|阅读原文|更多报道|原文链接", " ", text, flags=re.I)
+    text = re.sub(r"\s*[-_—–|｜]\s*(Google News|谷歌新闻|百度新闻|腾讯新闻|新浪财经|界面新闻|36氪|虎嗅网|亿邦动力|联商网)\s*$", " ", text, flags=re.I)
+    text = re.sub(r"\s+", " ", text).strip(" -_—–|｜。")
 
     clean_title = clean_text(title)
-    if clean_title and text.startswith(clean_title) and len(text) > len(clean_title) + 8:
+    if clean_title and text.startswith(clean_title):
         text = text[len(clean_title):].strip(" -_—–|｜。")
-    if clean_title and normalize_title(text) == normalize_title(clean_title):
-        return clean_title
-
+    if clean_title and text.endswith(clean_title):
+        text = text[:-len(clean_title)].strip(" -_—–|｜。")
     for phrase in FACT_EXCERPT_BLOCKLIST:
         text = text.replace(phrase, "")
-    text = re.sub(r"\s+", " ", text).strip(" -_—–|｜")
+    text = re.sub(r"\s+", " ", text).strip(" -_—–|｜。")
     return text[:520]
+
+
+def clean_source_excerpt(description: str, title: str = "") -> str:
+    """Clean RSS description while keeping source facts instead of AI analysis."""
+    text = clean_description(description, title)
+    return text if is_valid_excerpt(text, title) else ""
 
 
 def normalize_title(title: str) -> str:
@@ -635,6 +677,16 @@ def rule_based_display_title(
     matched_keywords: List[str],
 ) -> str:
     entity = clean_text(entity) or "相关主体"
+    original_title = truncate_display_title(title, 34)
+    if original_title and not is_mostly_english(original_title):
+        has_specific_signal = keyword_in_text(entity, original_title) or any(
+            keyword_in_text(kw, original_title)
+            for kw in matched_keywords
+            if kw and len(kw) >= 2 and len(kw) <= 12
+        )
+        if has_specific_signal and text_signal_length(original_title) >= 10:
+            return original_title
+
     phrase_map = {
         "业务规模 & GMV表现": "经营表现变化值得关注",
         "财报业绩": "营收利润表现释放经营信号",
@@ -708,7 +760,7 @@ def rule_based_analysis(
             "matched_keywords": matched_keywords,
             "importance": importance,
             "display_title": display_title,
-            "source_excerpt": clean_source_excerpt(source_excerpt, title) or summary,
+            "source_excerpt": clean_source_excerpt(source_excerpt, title),
             "brief_body": rule_based_brief_body(title, source_excerpt, summary),
             "insight_type": structured.get("insight_type", "关注"),
             "insight_motive": structured.get("insight_motive", ""),
@@ -861,16 +913,26 @@ def find_text(element: ET.Element, tag_name: str) -> str:
 
 def normalize_link(candidate: str) -> str:
     candidate = html.unescape(candidate or "").strip()
-    if not candidate:
+    if not candidate or candidate == "#" or candidate.lower().startswith(("javascript:", "mailto:", "about:")):
         return ""
     href_match = re.search(r"https?://[^\s\"'<>]+", candidate)
     if href_match:
         candidate = href_match.group(0)
     if candidate.startswith("//"):
         candidate = f"https:{candidate}"
-    if not re.match(r"^https?://", candidate, flags=re.I):
+    candidate = candidate.strip().rstrip(").,，。")
+    if not is_valid_link(candidate):
         return ""
-    return candidate.strip().rstrip(").,，。")
+    return candidate
+
+
+def is_valid_link(link: str) -> bool:
+    link = html.unescape(link or "").strip()
+    if not link or link == "#":
+        return False
+    if link.lower().startswith(("javascript:", "mailto:", "about:", "data:")):
+        return False
+    return bool(re.match(r"^https?://[^\s\"'<>]+$", link, flags=re.I))
 
 
 def extract_href_from_description(description: str) -> str:
@@ -917,16 +979,20 @@ def parse_rss_items(content: bytes, fallback_source: str = "") -> List[Dict[str,
         published = isoformat_z(published_dt) if published_dt else pub_date
         title = clean_text(find_text(item, "title"))
         raw_description = find_text(item, "description")
+        cleaned_description = clean_description(raw_description, title)
         source_excerpt = clean_source_excerpt(raw_description, title)
+        link = extract_best_link(item)
+        if not is_valid_link(link):
+            continue
 
         parsed_items.append(
             {
                 "title": title,
-                "link": extract_best_link(item),
+                "link": link,
                 "published": published,
                 "source": source,
-                "summary": source_excerpt or clean_text(raw_description),
-                "source_excerpt": source_excerpt or clean_text(raw_description),
+                "summary": source_excerpt or cleaned_description,
+                "source_excerpt": source_excerpt,
             }
         )
     return parsed_items
@@ -999,6 +1065,52 @@ def existing_dedupe_sets(items: List[Dict[str, Any]]) -> Tuple[set, set]:
     return links, titles
 
 
+def build_display_excerpt_map(items: List[Dict[str, Any]]) -> Dict[str, List[str]]:
+    display_map: Dict[str, List[str]] = defaultdict(list)
+    for item in items:
+        display_key = normalize_title(item.get("display_title", ""))
+        if not display_key:
+            continue
+        excerpt = item.get("source_excerpt") or item.get("summary") or item.get("brief_body") or item.get("title", "")
+        display_map[display_key].append(clean_text(excerpt))
+    return display_map
+
+
+def should_skip_duplicate_display_title(
+    item: Dict[str, Any],
+    display_excerpt_map: Dict[str, List[str]],
+) -> bool:
+    display_key = normalize_title(item.get("display_title", ""))
+    if not display_key or display_key not in display_excerpt_map:
+        return False
+    excerpt = item.get("source_excerpt") or item.get("summary") or item.get("brief_body") or ""
+    if not is_valid_excerpt(excerpt, item.get("title", "")):
+        return True
+    existing_excerpts = [text for text in display_excerpt_map.get(display_key, []) if text]
+    if not existing_excerpts:
+        return True
+    return any(is_too_similar(excerpt, old, threshold=0.78) for old in existing_excerpts)
+
+
+def remember_display_title(item: Dict[str, Any], display_excerpt_map: Dict[str, List[str]]) -> None:
+    display_key = normalize_title(item.get("display_title", ""))
+    if not display_key:
+        return
+    excerpt = item.get("source_excerpt") or item.get("summary") or item.get("brief_body") or item.get("title", "")
+    display_excerpt_map[display_key].append(clean_text(excerpt))
+
+
+def prune_duplicate_display_titles(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    kept: List[Dict[str, Any]] = []
+    display_map: Dict[str, List[str]] = defaultdict(list)
+    for item in sorted(items, key=sort_key_published, reverse=True):
+        if should_skip_duplicate_display_title(item, display_map):
+            continue
+        kept.append(item)
+        remember_display_title(item, display_map)
+    return kept
+
+
 def should_keep_candidate(
     parsed: Dict[str, str],
     monitor: Dict[str, Any],
@@ -1006,7 +1118,12 @@ def should_keep_candidate(
 ) -> Tuple[bool, List[str]]:
     title = parsed.get("title", "")
     summary = parsed.get("summary", "")
+    link = parsed.get("link", "")
     if not title or looks_like_noise(title, summary, taxonomy):
+        return False, []
+    if not is_valid_link(link):
+        return False, []
+    if not is_valid_excerpt(parsed.get("source_excerpt", ""), title) and not has_deepseek_api_key():
         return False, []
     if not has_deepseek_api_key() and is_mostly_english(title):
         return False, []
@@ -1056,7 +1173,7 @@ def fetch_candidates(
                             "published": parsed.get("published", ""),
                             "source": parsed.get("source", ""),
                             "summary": parsed.get("summary", ""),
-                            "source_excerpt": parsed.get("source_excerpt", "") or parsed.get("summary", ""),
+                            "source_excerpt": parsed.get("source_excerpt", ""),
                             "fetched_at": isoformat_z(utc_now()),
                         }
                         candidates.append((base_item, monitor, query))
@@ -1079,7 +1196,7 @@ def fetch_candidates(
                             "published": parsed.get("published", ""),
                             "source": parsed.get("source", ""),
                             "summary": parsed.get("summary", ""),
-                            "source_excerpt": parsed.get("source_excerpt", "") or parsed.get("summary", ""),
+                            "source_excerpt": parsed.get("source_excerpt", ""),
                             "fetched_at": isoformat_z(utc_now()),
                         }
                         candidates.append((base_item, monitor, "manual_feed"))
@@ -1131,7 +1248,9 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
             "只输出合法 JSON，不要输出 Markdown。",
             "所有输出必须为中文；如果原始新闻是英文，也要用中文生成 display_title、brief_body、ai_insight 和结构化洞察。",
             "display_title 必须是中文，控制在18-32个汉字左右，提炼为“主体 + 动作 + 影响/主题”的一句话。",
-            "brief_body 必须是中文，2-4句，只基于原新闻标题和摘要改写事实：发生了什么、关键数字/时间/主体/动作；不要输出“建议关注”“对京东而言”“从经营情报看”，不要过度推断。",
+            "display_title 必须尽量包含具体主体和具体动作，不要过度泛化，不要把不同新闻都写成“组织调整可能影响业务打法”这类模板句。",
+            "display_title 示例：美团称外卖补贴增长不可持续；美团一季度研发投入达70亿元；淘宝闪购首批外卖商户完成打标；抖音达人探索电商结算新路径。",
+            "brief_body 必须是中文，2-4句，只基于原始标题、source_excerpt、summary 改写事实：发生了什么、关键数字/时间/主体/动作；不要重复标题，不要输出“建议关注”“对京东而言”“从经营情报看”“该动态涉及”，不要泛泛而谈。",
             "insight_motive 回答为什么这个主体要做这件事，尽量指向增长、利润、履约、低价、会员、供应链、监管、组织效率或用户心智等变量。",
             "insight_impact 回答这件事可能改变什么，尽量指向竞争格局、用户选择、品牌资源、价格心智、履约能力或品类供给。",
             "insight_jd_action 回答京东商超应该观察什么、验证什么信号，或有哪些机会、威胁和动作。",
@@ -1361,9 +1480,11 @@ def ensure_display_title(item: Dict[str, Any]) -> None:
 def ensure_source_excerpt(item: Dict[str, Any]) -> None:
     title = item.get("title", "")
     excerpt = item.get("source_excerpt") or item.get("summary", "")
-    cleaned = clean_source_excerpt(excerpt, title) or clean_text(item.get("summary", ""))
+    cleaned = clean_source_excerpt(excerpt, title)
     if cleaned:
         item["source_excerpt"] = cleaned
+    else:
+        item["source_excerpt"] = ""
 
 
 def ensure_brief_body(item: Dict[str, Any]) -> None:
@@ -1471,6 +1592,7 @@ def build_deepseek_summary_prompt(section: str, items: List[Dict[str, Any]]) -> 
         {
             "id": item.get("id", ""),
             "display_title": item.get("display_title", ""),
+            "source_excerpt": item.get("source_excerpt", ""),
             "brief_body": item.get("brief_body", ""),
             "ai_insight": item.get("ai_insight", ""),
             "entity": item.get("entity", ""),
@@ -1600,13 +1722,14 @@ def main() -> int:
     watchlist = load_json(WATCHLIST_PATH, {"platforms": [], "retailers": [], "categories": []})
     taxonomy = load_json(TAXONOMY_PATH, {})
     existing_data = load_existing_news()
-    existing_items = existing_data.get("items", [])
+    existing_items = [] if RESET_NEWS else existing_data.get("items", [])
     existing_links, existing_titles = existing_dedupe_sets(existing_items)
     current_links = set(existing_links)
     current_titles = set(existing_titles)
+    display_excerpt_map = build_display_excerpt_map(existing_items)
     new_items: List[Dict[str, Any]] = []
 
-    reanalyzed_count = reanalyze_existing_items(existing_items, taxonomy)
+    reanalyzed_count = 0 if RESET_NEWS else reanalyze_existing_items(existing_items, taxonomy)
     candidates, fetch_stats = fetch_candidates(watchlist, taxonomy)
     new_counts: Counter = Counter()
     for base_item, monitor, matched_query in candidates:
@@ -1618,7 +1741,10 @@ def main() -> int:
             continue
 
         analyzed = rule_based_analysis(base_item, monitor, taxonomy, matched_query)
+        if should_skip_duplicate_display_title(analyzed, display_excerpt_map):
+            continue
         new_items.append(analyzed)
+        remember_display_title(analyzed, display_excerpt_map)
         new_counts[analyzed.get("section", "")] += 1
         if link_key:
             current_links.add(link_key)
@@ -1632,6 +1758,7 @@ def main() -> int:
         ensure_display_title(item)
         ensure_brief_body(item)
         ensure_structured_insight(item)
+    combined_items = prune_duplicate_display_titles(combined_items)
     combined_items.sort(key=sort_key_published, reverse=True)
     combined_items = combined_items[:MAX_HISTORY_ITEMS]
 
