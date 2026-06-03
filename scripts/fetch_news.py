@@ -187,6 +187,24 @@ def is_englishish(value: str) -> bool:
     return len(letters) >= 3
 
 
+def has_deepseek_api_key() -> bool:
+    return bool(os.getenv("DEEPSEEK_API_KEY", "").strip())
+
+
+def is_mostly_english(text: str) -> bool:
+    """Return true for titles that are effectively English-only."""
+    text = clean_text(text)
+    letters = len(re.findall(r"[A-Za-z]", text))
+    cjk = len(re.findall(r"[\u4e00-\u9fff]", text))
+    digits = len(re.findall(r"\d", text))
+    signal = letters + cjk + digits
+    if signal == 0:
+        return False
+    if cjk == 0 and letters >= 8:
+        return True
+    return letters >= 16 and letters / max(signal, 1) >= 0.72 and letters > cjk * 3
+
+
 def keyword_in_text(keyword: str, text: str) -> bool:
     if not keyword:
         return False
@@ -342,6 +360,63 @@ def rule_based_insight(
     return f"该动态与{entity}相关，当前重要性为{importance}分，建议结合命中关键词判断是否纳入后续重点跟踪。"
 
 
+def truncate_display_title(text: str, max_chars: int = 36) -> str:
+    text = re.sub(r"\s+", "", clean_text(text))
+    text = re.sub(r"[|｜].*$", "", text)
+    text = re.sub(r"[-_—–·:：]\s*[^-_—–·:：]{2,30}$", "", text)
+    text = text.strip("，。；、：: -_—–")
+    if len(text) <= max_chars:
+        return text
+    return text[:max_chars].rstrip("，。；、：: -_—–")
+
+
+def rule_based_display_title(
+    entity: str,
+    category: str,
+    subcategory: str,
+    title: str,
+    matched_keywords: List[str],
+) -> str:
+    entity = clean_text(entity) or "相关主体"
+    phrase_map = {
+        "业务规模 & GMV表现": "经营表现变化值得关注",
+        "财报业绩": "营收利润表现释放经营信号",
+        "组织架构": "组织调整可能影响业务打法",
+        "组织调整": "组织变化影响后续经营节奏",
+        "平台政策": "平台规则变化影响商家经营",
+        "行业政策": "监管变化影响品类经营",
+        "监管合规": "合规要求变化影响经营准入",
+        "食品安全": "食品安全事件影响品类准入",
+        "开店 / 拓店": "拓店动作影响区域竞争",
+        "会员 / 用户": "会员经营动作强化用户粘性",
+        "自有品牌": "自有品牌动作强化差异供给",
+        "爆品": "爆品表现带动商品策略关注",
+        "价格力策略": "价格力动作影响竞争格局",
+        "价格变化": "价格波动引发渠道关注",
+        "供应链能力": "供应链动作影响履约效率",
+        "即时零售": "即时零售布局影响到家竞争",
+        "新品发布": "上新动作折射消费趋势",
+        "行业热点 / 新品趋势": "新品趋势折射消费变化",
+        "重点品牌动态": "品牌动作影响品类竞争",
+        "渠道动作": "渠道动作影响终端触达",
+        "营销活动": "营销动作影响用户转化",
+        "内容电商打法": "内容电商动作影响流量转化",
+        "科技 / AI": "AI能力投入影响运营效率",
+        "并购合作": "合作动作可能改变竞争格局",
+    }
+    phrase = phrase_map.get(subcategory) or phrase_map.get(category)
+    if phrase:
+        return truncate_display_title(f"{entity}{phrase}", 36)
+
+    useful_keywords = [
+        kw for kw in matched_keywords
+        if kw and kw != entity and len(kw) <= 12 and not is_englishish(kw)
+    ]
+    if useful_keywords:
+        return truncate_display_title(f"{entity}{useful_keywords[0]}动态值得关注", 36)
+    return truncate_display_title(title, 36) or "外部动态值得关注"
+
+
 def rule_based_analysis(
     item: Dict[str, Any],
     monitor: Dict[str, Any],
@@ -358,6 +433,7 @@ def rule_based_analysis(
     matched_keywords = matched_keywords_for(monitor, title, summary)
     importance = infer_importance(text, taxonomy, category)
     reason_keywords = "、".join(matched_keywords[:8]) if matched_keywords else matched_query
+    display_title = rule_based_display_title(entity, category, subcategory, title, matched_keywords)
 
     item.update(
         {
@@ -370,6 +446,7 @@ def rule_based_analysis(
             "matched_query": matched_query,
             "matched_keywords": matched_keywords,
             "importance": importance,
+            "display_title": display_title,
             "ai_insight": rule_based_insight(section, entity, category, subcategory, matched_keywords, importance),
             "reason": f"命中关键词：{reason_keywords}；按规则归类为「{category}」。",
             "analysis_mode": "rule_based",
@@ -450,6 +527,45 @@ def find_text(element: ET.Element, tag_name: str) -> str:
     return child.text if child is not None and child.text else ""
 
 
+def normalize_link(candidate: str) -> str:
+    candidate = html.unescape(candidate or "").strip()
+    if not candidate:
+        return ""
+    href_match = re.search(r"https?://[^\s\"'<>]+", candidate)
+    if href_match:
+        candidate = href_match.group(0)
+    if candidate.startswith("//"):
+        candidate = f"https:{candidate}"
+    if not re.match(r"^https?://", candidate, flags=re.I):
+        return ""
+    return candidate.strip().rstrip(").,，。")
+
+
+def extract_href_from_description(description: str) -> str:
+    description = html.unescape(description or "")
+    match = re.search(r"<a\b[^>]*\bhref=[\"']([^\"']+)[\"']", description, flags=re.I)
+    if match:
+        return normalize_link(match.group(1))
+    return normalize_link(description)
+
+
+def extract_best_link(item: ET.Element) -> str:
+    """Pick the best URL available in an RSS item.
+
+    Google News RSS usually provides item/link, but some feeds only expose a
+    usable URL in guid or in the description's first anchor.
+    """
+    for candidate in (
+        find_text(item, "link"),
+        find_text(item, "guid"),
+        extract_href_from_description(find_text(item, "description")),
+    ):
+        link = normalize_link(candidate)
+        if link:
+            return link
+    return ""
+
+
 def parse_rss_items(content: bytes, fallback_source: str = "") -> List[Dict[str, str]]:
     try:
         root = ET.fromstring(content)
@@ -471,7 +587,7 @@ def parse_rss_items(content: bytes, fallback_source: str = "") -> List[Dict[str,
         parsed_items.append(
             {
                 "title": clean_text(find_text(item, "title")),
-                "link": clean_text(find_text(item, "link")),
+                "link": extract_best_link(item),
                 "published": published,
                 "source": source,
                 "summary": clean_text(find_text(item, "description")),
@@ -553,6 +669,8 @@ def should_keep_candidate(
     summary = parsed.get("summary", "")
     if not title or looks_like_noise(title, summary, taxonomy):
         return False, []
+    if not has_deepseek_api_key() and is_mostly_english(title):
+        return False, []
     matches = matched_keywords_for(monitor, title, summary)
     if not matches:
         return False, []
@@ -624,9 +742,10 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
                 "entity": "命中的平台、零售商、品类或品牌",
                 "entity_type": "platform / retailer / category / brand",
                 "category": "维度标签",
-                "subcategory": "行业政策 / 行业热点 / 重点品牌动态 / 空",
+                "subcategory": "行业政策 / 行业热点 / 新品趋势 / 重点品牌动态 / 空",
                 "importance": 1,
-                "ai_insight": "1-2句话商业解读",
+                "display_title": "中文浓缩标题，18-32个汉字",
+                "ai_insight": "1-2句话中文商业解读",
                 "reason": "简短判断依据",
             }
         ]
@@ -647,6 +766,9 @@ def build_deepseek_user_prompt(news_batch: List[Dict[str, Any]], taxonomy: Dict[
         "要求": [
             "只输出合法 JSON，不要输出 Markdown。",
             "不要简单复述标题，ai_insight 要体现商业判断。",
+            "display_title 必须是中文，控制在18-32个汉字左右，提炼为“主体 + 动作 + 影响/主题”的一句话。",
+            "ai_insight 必须是中文，不能输出英文标题。",
+            "如果原始新闻是英文，也要用中文生成 display_title 和 ai_insight。",
             "is_relevant=false 的新闻可以标为低价值或噪音。",
         ],
         "待分析新闻数组": news_batch,
@@ -679,6 +801,7 @@ def call_deepseek(news_batch: List[Dict[str, Any]], taxonomy: Dict[str, Any]) ->
         "你是“外部动态监控雷达 —— 大商超事业群”的商超与零售竞争情报分析助手。"
         "你要从商分视角判断新闻对平台竞对、零售商、品类与重点品牌的意义。"
         "你的解读要偏商业判断，不要简单复述标题。"
+        "display_title 和 ai_insight 必须使用中文，不要输出英文标题。"
         "你只能输出合法 JSON。不要输出 Markdown。不要输出多余解释。"
     )
     payload = {
@@ -773,6 +896,7 @@ def apply_deepseek_analysis(items: List[Dict[str, Any]], taxonomy: Dict[str, Any
                     "category": analyzed.get("category") or target.get("category", "其他"),
                     "subcategory": analyzed.get("subcategory") or "",
                     "importance": int(analyzed.get("importance") or target.get("importance") or 1),
+                    "display_title": analyzed.get("display_title") or target.get("display_title", ""),
                     "ai_insight": analyzed.get("ai_insight") or target.get("ai_insight", ""),
                     "reason": analyzed.get("reason") or target.get("reason", ""),
                     "analysis_mode": "deepseek",
@@ -813,6 +937,19 @@ def build_metadata(items: List[Dict[str, Any]], ai_mode: str) -> Dict[str, Any]:
     }
 
 
+def ensure_display_title(item: Dict[str, Any]) -> None:
+    if item.get("display_title"):
+        return
+    title = item.get("title", "")
+    entity = item.get("entity", "") or item.get("category_group", "")
+    category = item.get("category", "")
+    subcategory = item.get("subcategory", "")
+    matched_keywords = item.get("matched_keywords", [])
+    if not isinstance(matched_keywords, list):
+        matched_keywords = []
+    item["display_title"] = rule_based_display_title(entity, category, subcategory, title, matched_keywords)
+
+
 def main() -> int:
     watchlist = load_json(WATCHLIST_PATH, {"platforms": [], "retailers": [], "categories": []})
     taxonomy = load_json(TAXONOMY_PATH, {})
@@ -841,6 +978,8 @@ def main() -> int:
 
     analyzed_new_items = apply_deepseek_analysis(new_items, taxonomy)
     combined_items = existing_items + analyzed_new_items
+    for item in combined_items:
+        ensure_display_title(item)
     combined_items.sort(key=sort_key_published, reverse=True)
     combined_items = combined_items[:MAX_HISTORY_ITEMS]
 
