@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "generated_at": "2026-08-02T04:16:46.113637Z",
+    "generated_at": "2026-08-02T11:47:46.617879Z",
     "total": 1500,
-    "today_count": 5,
-    "last_7_days_count": 611,
+    "today_count": 8,
+    "last_7_days_count": 609,
     "ai_mode": "deepseek",
     "ai_provider": "deepseek",
     "ai_model": "deepseek-v4-flash",
@@ -12,82 +12,78 @@
   "summaries": {
     "platform": {
       "title": "诸葛参谋",
-      "updated_at": "2026-08-02T04:16:16.877290Z",
+      "updated_at": "2026-08-02T11:47:21.110245Z",
       "analysis_mode": "deepseek",
       "bullets": [
         {
           "type": "预警",
-          "text": "淘宝闪购通过接入朴朴、盒马等区域商超快速扩张供给网络，叠加华润啤酒等品牌深度合作，正在重塑即时零售的竞争格局。京东商超需警惕核心城市用户被分流，应评估自身小时达覆盖密度与商品丰富度，避免在即时配送体验上落后。"
+          "text": "淘宝闪购借由朴朴、便利店网点快速补齐即时供给，美团亦在加码仓配和AI，京东商超的分钟级到家心智正被多线分流，需评估重点城市的订单保卫策略。"
         },
         {
           "type": "动作",
-          "text": "面对百亿补贴和低价策略的持续发酵，用户比价行为将更加频繁。京东商超应聚焦高频刚需品类，打造具备价格竞争力的爆品池，同时强化品质和履约服务差异，避免陷入全线价格战而损伤毛利。"
-        },
-        {
-          "type": "关注",
-          "text": "美团财报显示其营收稳健并加码机器人产业链投资，预示即时零售履约成本和技术壁垒将进一步提升。京东商超需关注竞对在自动化履约和最后一公里效率上的投入节奏，评估自身仓配协同和无人技术布局是否需加速。"
-        },
-        {
-          "type": "预警",
-          "text": "淘宝商家关于审核处罚双标的投诉，反映出平台规则公平性对生态稳定性的关键影响。京东平台应检视自营和POP商家的管理规则是否透明一致，防范因处置不当引发的商家流失和舆情风险。"
+          "text": "京东秒送已与宜家等标杆品牌上线，应加速复制该模式到商超高频品类，并争取区域连锁商超接入，用确定性履约和品牌背书对抗纯流量补贴竞争。"
         },
         {
           "type": "机会",
-          "text": "即时零售从价格竞争转向服务与体验竞争，区域品牌和连锁商超的入驻为平台带来优质供给。京东商超可主动与更多区域龙头及品牌方建立独家或首发合作，锁定特色商品和会员权益，增强用户粘性和复购。"
+          "text": "第三方配送被定义为履约基础设施，京东可把仓配一体能力向中小商家开放，既摊薄履约成本，又扩大即时零售的供给生态。"
+        },
+        {
+          "type": "关注",
+          "text": "淘宝商家投诉审核处罚双标，反映平台治理存在信任缺口，京东商超可借机强化规则透明度和商家申诉机制，吸引优质商家和差异化货盘。"
+        },
+        {
+          "type": "动作",
+          "text": "价格战和百亿补贴放大了用户比价意愿，京东商超需锁定核心SKU价格带与促销节奏，同时用PLUS会员权益和品质服务守住高价值客群。"
         }
       ]
     },
     "retailer": {
       "title": "诸葛参谋",
-      "updated_at": "2026-08-02T04:16:32.989185Z",
+      "updated_at": "2026-08-02T11:47:35.981590Z",
       "analysis_mode": "deepseek",
       "bullets": [
         {
           "type": "机会",
-          "text": "盒马将烘焙供应链资产出让并锁定每年2.1亿元保底采购，说明其选择轻资产社会化协同。京东商超可评估自身高增长品类供应链的自主可控度，借助外部产能与联采降低重投入，同时强化核心品类独家定制能力。"
+          "text": "Costco机油涨价、叮咚与盒马加码自有品牌，显示会员店和即时零售都在用独家商品绑定家庭囤货。京东商超可在粮油、纸品、家清等高复购大包装品类加速推自营定制，以稳定品质和囤货价强化Plus会员专属权益。"
         },
         {
           "type": "预警",
-          "text": "朴朴试点入驻淘宝闪购，阿里系即时零售供给网络进一步补齐，小时达竞争从自营仓向生态联盟升级。京东需加快前置仓密度、骑手效率和商家接入，防范华东区域订单分流。"
+          "text": "朴朴接入淘宝闪购且传阿里收购，一旦阿里整合朴朴前置仓与淘系流量，小时达覆盖半径和订单密度将快速提升，京东商超在华东、福建等区域可能面临分流压力，需对照评估重点城市前置仓密度与履约时效差距。"
         },
         {
-          "type": "机会",
-          "text": "山姆会员卡“拼单”消费走红叠加食安争议，会员制信任出现裂缝。京东可放大PLUS会员在商超品类的家庭囤货权益、专属价和品质溯源，承接对会员价值敏感的中产家庭用户。"
+          "type": "动作",
+          "text": "盒马将烘焙供应链资产出售给海融并锁定年采购2.1亿元，本质是重资产外包加产能绑定。京东商超可借鉴资本合作与保底采购模式，在烘焙、熟食等高频加工品类与区域优质工厂签长期协议，降低自建成本并保障定制商品供给稳定。"
         },
         {
-          "type": "机会",
-          "text": "叮咚买菜自有品牌设50%增长目标，竞对正从生鲜向标品全品类渗透。京东商超应加速自有品牌在大包装、家庭装、高频标品上的定制，打造渠道独有货盘并提升毛利。"
+          "type": "关注",
+          "text": "山姆出现食安质疑和会员拼卡现象，说明高溢价会员模式对品控与权益兑现高度敏感。京东商超应跟踪事件走向，借机强化自营质检、售后保障和会员专属服务，争取追求品质的中产家庭用户。"
         },
         {
-          "type": "预警",
-          "text": "永辉一年关店381家且宣布停止大范围“胖改”，线下商超改造范式受挫，区域零售供给收缩。京东可捕捉线下流量回流线上的机会，同时警惕区域连锁调整引发的价格战。"
+          "type": "动作",
+          "text": "沃尔玛试点服装外箱RFID标准化追踪，反映头部零售商正用数字化手段提升库存与履约效率。京东商超可在高周转标品上试点RFID或一物一码，提高库存准确率、降低缺货率，为小时达和次日达提供更稳的供应链底座。"
         }
       ]
     },
     "category": {
       "title": "诸葛参谋",
-      "updated_at": "2026-08-02T04:16:46.076880Z",
+      "updated_at": "2026-08-02T11:47:46.580431Z",
       "analysis_mode": "deepseek",
       "bullets": [
         {
-          "type": "机会",
-          "text": "东鹏饮料净利增长超20%、茶饮品类倍增，且正联合线下渠道做深度联采，京东可加快引入其茶饮新品线，结合夏季旺季做水饮冲调品类组合营销，抢占增量份额。"
-        },
-        {
           "type": "预警",
-          "text": "酒类出现因命名谐音和包装图案违规被全线召回的案例，提示酒水品类在商品名、包装和宣传元素上存在监管红线，京东应及时巡检在售酒类及定制商品，防范平台连带风险。"
-        },
-        {
-          "type": "动作",
-          "text": "市场监管总局公布饮料抽检合格率，叠加多地开展暑期汛期食品安全专项检查，京东应加强饮料及粮油调味品类供应商资质核验和入仓抽检，同时在商品页突出质检标签，强化用户信任。"
+          "text": "白酒谐音命名及图案违规被全线召回，京东需立即排查在售酒类商品的名称、包装及宣传物料，避免同类型合规风险引发下架或处罚。"
         },
         {
           "type": "机会",
-          "text": "伊利等头部品牌与科技企业合作构建创新生态，且品牌连锁与多品牌签约全国联采，显示快消品牌加码数字化与渠道协同，京东可主动输出供应链、会员和数据能力，争取独家或定制货盘，强化自营差异化。"
+          "text": "母婴营养品市场进入高增长阶段，飞鹤等品牌加码牛初乳和儿童营养，京东可引入新品牌和差异化货盘，抢占高附加值品类份额。"
         },
         {
           "type": "关注",
-          "text": "母婴功能性营养品热度上升，但同日有平台被曝售卖家不合规产品且赔付受阻，京东自营需重点核查牛初乳等功能性商品的资质与宣传合规，同时完善第三方商家保证金和售后规则，巩固正品心智。"
+          "text": "伊利等头部品牌与科技巨头合作、线下连锁联采加剧，京东需关注品牌资源倾斜和价格竞争，强化与品牌的联合生意计划和独家供货谈判。"
+        },
+        {
+          "type": "动作",
+          "text": "东鹏饮料业绩增长但新品毛利承压，京东可借助品牌年中预算，争取饮料品类专属补贴和组合装权益，优化品类利润并提升复购。"
         }
       ]
     }
@@ -95,7 +91,7 @@
   "briefings": {
     "platform": {
       "title": "今日快讯",
-      "updated_at": "2026-08-02T04:16:46.088820Z",
+      "updated_at": "2026-08-02T11:47:46.592314Z",
       "items": [
         {
           "entity": "淘宝天猫",
@@ -197,7 +193,7 @@
     },
     "retailer": {
       "title": "今日快讯",
-      "updated_at": "2026-08-02T04:16:46.099678Z",
+      "updated_at": "2026-08-02T11:47:46.603444Z",
       "items": [
         {
           "entity": "沃尔玛",
@@ -299,7 +295,7 @@
     },
     "category": {
       "title": "今日快讯",
-      "updated_at": "2026-08-02T04:16:46.113619Z",
+      "updated_at": "2026-08-02T11:47:46.617859Z",
       "items": [
         {
           "entity": "伊利",
@@ -401,6 +397,73 @@
     }
   },
   "items": [
+    {
+      "id": "c352b2b099bda626",
+      "title": "零售日报：抖音未成年人模式升级算法雷军回应增程车战略- 栏目 - 亿邦动力网",
+      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9OQnUyc0E0LUdDYkJiQ0Y5ZmJweXlHNVNpdmt0WGp4dlFRYmhLTzRoa3lnZnNQcTladW1nTGJ0VTVfdU9NYXVSRFRWZGN6alEwUlVVQmN3?oc=5",
+      "published": "2026-08-02T09:01:02Z",
+      "source": "亿邦动力网",
+      "summary": "",
+      "article_excerpt": "Comprehensive up-to-date news coverage, aggregated from sources all over the world by Google News.。",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:34:35.551054Z",
+      "section": "platform",
+      "entity": "抖音电商",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "抖音 电商 战略",
+      "matched_keywords": [
+        "抖音"
+      ],
+      "importance": 1,
+      "display_title": "零售日报：抖音未成年人模式升级算法雷军回应增程车战略-栏目",
+      "brief_body": "Comprehensive up-to-date news coverage, aggregated from sources all over the world by Google News.。",
+      "insight_type": "关注",
+      "insight_motive": "抖音电商的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：抖音。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "eb2b61aa4ab5182d",
+      "title": "不花大钱的年轻人，花小钱买「零食自由」丨2026零食消费趋势报告 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9uYjZjeUx6RDVneE5CQlZfa0ZwN0ZqNkZ2RkVHT3VJNURhUFFOM3pHNTRmcGVmZ2NwSHBZcWxidWk3eWpmT1JSNTRiT2dTanR4NW5abXNyVVZFZURGTTZ1NWQyZGp2blZKSC1ma05xZTRlclJzLUQzcEEwbDZpUTQ?oc=5",
+      "published": "2026-08-02T02:00:00Z",
+      "source": "新浪财经",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:37:12.960393Z",
+      "section": "category",
+      "entity": "休闲食品",
+      "entity_type": "category",
+      "category_group": "休闲食品",
+      "category": "其他",
+      "subcategory": "行业政策",
+      "matched_query": "低卡零食 趋势",
+      "matched_keywords": [
+        "零食"
+      ],
+      "importance": 1,
+      "display_title": "不花大钱的年轻人，花小钱买「零食自由」丨2026零食消费趋势报告",
+      "brief_body": "不花大钱的年轻人，花小钱买「零食自由」丨2026零食消费趋势报告 - 新浪财经",
+      "insight_type": "关注",
+      "insight_motive": "休闲食品的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "行业政策",
+        "监管合规"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：零食。",
+      "analysis_mode": "rule_based"
+    },
     {
       "id": "0c16ad531bc5f984",
       "title": "百亿补贴冰箱是正品吗？3个维度拆解正品保障与验货攻略+FAQ - 手机新浪网",
@@ -536,6 +599,41 @@
       "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
       "hot_keywords": [],
       "reason": "关键词与分类信号指向「其他」；参考词：Costco。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "2a9b50aca1271a80",
+      "title": "三只松鼠新提交“未公开”、“超级标签”等2件商标注册申请_商标_经营动态_数据解析 - 证券之星",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9IU3R3Q3VTODdnQjZmZk0tUnNqa010b2VCY0x0WkI1anp3SjhHLWV6QmN1amhCNk55NUh1OWpjMmF2T19pQ0hGMlNDS2hxY0hUOXZSWUw5SW85amhNVnBSNEh3?oc=5",
+      "published": "2026-08-01T22:49:17Z",
+      "source": "证券之星",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:37:11.509089Z",
+      "section": "category",
+      "entity": "三只松鼠",
+      "entity_type": "brand",
+      "category_group": "休闲食品",
+      "category": "其他",
+      "subcategory": "重点品牌动态",
+      "matched_query": "三只松鼠 财报",
+      "matched_keywords": [
+        "三只松鼠"
+      ],
+      "importance": 1,
+      "display_title": "三只松鼠新提交“未公开”、“超级标签”等2件商标注册申请_商标_经营",
+      "brief_body": "三只松鼠新提交“未公开”、“超级标签”等2件商标注册申请_商标_经营动态_数据解析 - 证券之星",
+      "insight_type": "关注",
+      "insight_motive": "三只松鼠的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "重点品牌",
+        "渠道动作"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：三只松鼠。",
       "analysis_mode": "rule_based"
     },
     {
@@ -919,6 +1017,42 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "755fb84c14881bcc",
+      "title": "先领券再加购！交个朋友淘宝直播间「超级 88 发布会」冲 0 元付定金！个护日用、美妆护肤、家居家电、精选美味...闭眼冲！ - Sohu",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNR1k0d0FBNkhiZlJYWmxIWUNheVpyWHJ2aG8yTFZoNFNXbVlWc0Z5eng2QWpMY0dOR2hYOVNiWWpJWkZOUFp1ZjZBd3p5andRSFphZTVoekI5TWZDY3BEdUZDMlVadzNmanRRSXZvV1ZPdThNMHJVTmM4U2xJTDlDQXphc3ppN2RobnJqbw?oc=5",
+      "published": "2026-08-01T05:40:29Z",
+      "source": "Sohu",
+      "summary": "",
+      "article_excerpt": "Comprehensive up-to-date news coverage, aggregated from sources all over the world by Google News.。",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:34:27.542495Z",
+      "section": "platform",
+      "entity": "淘宝天猫",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "新品发布",
+      "subcategory": "",
+      "matched_query": "淘宝直播",
+      "matched_keywords": [
+        "淘宝",
+        "淘宝直播"
+      ],
+      "importance": 3,
+      "display_title": "先领券再加购！交个朋友淘宝直播间「超级88发布会」冲0元付定金！个护",
+      "brief_body": "Comprehensive up-to-date news coverage, aggregated from sources all over the world by Google News.。",
+      "insight_type": "机会",
+      "insight_motive": "淘宝天猫出现新品发布信号，背后可能是健康化、功能化、场景化或渠道化需求变化。",
+      "insight_impact": "新品和爆品动作会影响品牌预算、渠道首发资源和用户尝鲜路径。",
+      "insight_jd_action": "京东商超可筛选可复制的趋势货盘，并验证新品首发、试用和爆品孵化资源。",
+      "ai_insight": "新品和爆品动作会影响品牌预算、渠道首发资源和用户尝鲜路径。京东商超可筛选可复制的趋势货盘，并验证新品首发、试用和爆品孵化资源。",
+      "hot_keywords": [
+        "新品趋势",
+        "爆品"
+      ],
+      "reason": "关键词与分类信号指向「新品发布」；参考词：淘宝、淘宝直播。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "0944f4ebca96149e",
       "title": "重磅新品上市｜IGG 萨其马全新亮相，开创鹦鹉营养磨喙零食新品类 - hea.china.com",
       "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBHMkZaRjRUUS1mY3ZrYjdMbm9sRTNrdmxZMk1ncXEyWnpFUkFXX282RkI1a0paX05mcFZRTlZMd3JwX3hESkNnMWVVeTdIUVZhZHRoMTBWbWd4ZmxWRnJ3Mi1keHN4V2Z6TWJ6Ng?oc=5",
@@ -1299,6 +1433,38 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "6ea1ccbd56efd54f",
+      "title": "苹果涨价，山姆“精准砍单”引争议 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMisAJBVV95cUxQS1lMbkZqaXJ1eEN4WDM0VEFCMU5FYlhxcFR0VFJlMkhxUTNOMHhQTWc0YjVrdEtzSUlrM2tDUkNhNEo2b0xidGtJWDlUUDVGdlVieDFkaWd0b3dZMmpZMkZ3dVYzRnMyMVBHMEtyekRuVW42T1NnOUg2RGFicTgwOGh4anBzb2ZzMDhRTHVGQnRKVlBCdng2Q2g1YkkzZ1lfZDB1Zk1FVDhfczlMdUVLb1hsV1FickwtTDlKTkFnWkRCVGN2SVloRDNDWWtBRjlyamJBUy1fVHRRUl9yaDQwUGRqVFMtZjNOMThoYWpMM1hRZWp6VnRfVnBsMEVEVU5uekdzd2V1M1QxTHFlVm5tSTJYanltSnZaQ3k2VV9zRTdQSVNLSHFlODdGQk15TFJw?oc=5",
+      "published": "2026-07-31T21:39:23Z",
+      "source": "新浪财经",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:35:09.466331Z",
+      "section": "retailer",
+      "entity": "山姆",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "山姆 价格",
+      "matched_keywords": [
+        "山姆"
+      ],
+      "importance": 1,
+      "display_title": "苹果涨价，山姆“精准砍单”引争议",
+      "brief_body": "苹果涨价，山姆“精准砍单”引争议 - 新浪财经",
+      "insight_type": "关注",
+      "insight_motive": "山姆的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：山姆。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "780d155b532686d8",
       "title": "加拿大Costco机油价格暴涨56%，Kirkland全合成机油还能囤货吗？ - 无忧资讯",
       "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBLWHhuSkRjWUZWSzJVT3J6QVFJeVBFMXVrejJvZzl2dURub1dOQ1NYQ2lTOWRmRU5lVk1yekdVbThKWlYwUUxROHJQM0dzdG1lZktDQ1NleFc1bnRJanl4WVZXOTJhMUtCOHhj?oc=5",
@@ -1432,6 +1598,38 @@
         "履约成本"
       ],
       "reason": "关键词与分类信号指向「供应链能力」；参考词：盒马。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "b2e583539e1eebcd",
+      "title": "Temu Silicone Nose Clip Earplugs Set 3pcs Temu 硅胶鼻夹耳塞套装3件 5035.03 超值好货| 北美省钱快报 - dealmoon.ca",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPbGNEN1VOU2hlQTRQTlRnaXR2MndCNzdjLUtpQlNHaEF1bTY0N3pyVFRSQ3JIb0NoOFVZNEMzTTlISV9rbjdORnRfbm5ySldEZlZuN3RQTlhwREdQVVhuT1JKdGt1U040WTV6UlBMRGlZV1FGWk5vQUFKNHJ1RVFBWXhHRGJGblNPMVE?oc=5",
+      "published": "2026-07-31T17:00:21Z",
+      "source": "dealmoon.ca",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:34:46.562227Z",
+      "section": "platform",
+      "entity": "拼多多",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "Temu retail",
+      "matched_keywords": [
+        "Temu"
+      ],
+      "importance": 1,
+      "display_title": "TemuSiliconeNoseClipEarplugsSet3pcsT",
+      "brief_body": "Temu Silicone Nose Clip Earplugs Set 3pcs Temu 硅胶鼻夹耳塞套装3件 5035.03 超值好货| 北美省钱快报 - dealmoon.ca",
+      "insight_type": "关注",
+      "insight_motive": "拼多多的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：Temu。",
       "analysis_mode": "rule_based"
     },
     {
@@ -2824,6 +3022,42 @@
       "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
       "hot_keywords": [],
       "reason": "关键词与分类信号指向「其他」；参考词：沃尔玛。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "142fd11866d546f6",
+      "title": "A股“捡便宜”机会：继贵州茅台后，如何一次选出足以养家糊口的长线牛股，能5年翻10倍值得一直持有？ - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBzS1Yxc2VqeDlzV3VnWEh2dFExUEF2bURMUkZua0Q4emZ5X3RiaVdZOGtTYlZKcFQ3Ui1xb2lFc3NGUnRhYXpFY1IyQmt5VjdJUUZvN2hDZkZLc2tyb21ucnhxQXNCS21ac3hXTU9xVEZ1QUZ5Z2JxSw?oc=5",
+      "published": "2026-07-31T08:09:00Z",
+      "source": "新浪财经",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:36:03.885089Z",
+      "section": "category",
+      "entity": "贵州茅台",
+      "entity_type": "brand",
+      "category_group": "酒类",
+      "category": "其他",
+      "subcategory": "重点品牌动态",
+      "matched_query": "贵州茅台 财报",
+      "matched_keywords": [
+        "贵州茅台",
+        "茅台"
+      ],
+      "importance": 1,
+      "display_title": "A股“捡便宜”机会：继贵州茅台后，如何一次选出足以养家糊口的长线牛股",
+      "brief_body": "A股“捡便宜”机会：继贵州茅台后，如何一次选出足以养家糊口的长线牛股，能5年翻10倍值得一直持有？ - 新浪财经",
+      "insight_type": "关注",
+      "insight_motive": "贵州茅台的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "重点品牌",
+        "渠道动作"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：贵州茅台、茅台。",
       "analysis_mode": "rule_based"
     },
     {
@@ -4282,6 +4516,38 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "0471d93b2a79864a",
+      "title": "A股开盘：超3300只个股飘红，三大指数集体高开；半导体、通信设备板块大爆发；饮料、酒类、油气等下跌 - 东方财富",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5uTHdqREVjQllqdVVVRGlpM1NIUERGVnpmV1h3Q080UW5fN2c3ckRfa1RiMWFhZUFwbnZFR1hQWThBUGtIbGg0NnBiSlFFbi12dFR1ekhoRUQwREVDeEQ4bWtR?oc=5",
+      "published": "2026-07-31T01:44:09Z",
+      "source": "东方财富",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:36:05.659699Z",
+      "section": "category",
+      "entity": "酒类",
+      "entity_type": "category",
+      "category_group": "酒类",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "酒类",
+      "matched_keywords": [
+        "酒类"
+      ],
+      "importance": 1,
+      "display_title": "A股开盘：超3300只个股飘红，三大指数集体高开；半导体、通信设备板块大",
+      "brief_body": "A股开盘：超3300只个股飘红，三大指数集体高开；半导体、通信设备板块大爆发；饮料、酒类、油气等下跌 - 东方财富",
+      "insight_type": "关注",
+      "insight_motive": "酒类的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：酒类。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "247f99eed4d1d497",
       "title": "TikTok Shop英国直播销售额年增55% 日均开播超过6000场 - 亿邦动力网",
       "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1ha3M3NEZBN1dCRWFpVkNTaUEzaWdVZlV4bnp5dFBuREdiTlpmczh3V3pmS2JwaWM5YV85QzZBRHVJQ2YzVjRoRGZMMmpLNmdhZnRXekhn?oc=5",
@@ -5062,6 +5328,41 @@
       "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
       "hot_keywords": [],
       "reason": "关键词与分类信号指向「其他」；参考词：拼多多。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "82c29f2d41f7d548",
+      "title": "中国潮玩 海外破圈 - 人民日报",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1kdWQtWURpNE9UQmpsRm5qR180dXNOdHFIc2NCdnc1ZzA3d1BPMXl5bGVDaE92R2MwT00yWWhlYlA4ZFBfc3BrRkdoVFNBU2hBY1ZkODZmaURUUDQzeTBwdHVmZ1M1ZHpHUW82aGNmWVJ4VmJKRWZON3RrakhEY1E?oc=5",
+      "published": "2026-07-30T23:08:20Z",
+      "source": "人民日报",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:37:02.345236Z",
+      "section": "category",
+      "entity": "玩具乐器",
+      "entity_type": "category",
+      "category_group": "玩具乐器",
+      "category": "其他",
+      "subcategory": "行业政策",
+      "matched_query": "名创优品 潮玩",
+      "matched_keywords": [
+        "潮玩"
+      ],
+      "importance": 1,
+      "display_title": "玩具乐器监管变化影响品类经营",
+      "brief_body": "中国潮玩 海外破圈 - 人民日报",
+      "insight_type": "关注",
+      "insight_motive": "玩具乐器的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "行业政策",
+        "监管合规"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：潮玩。",
       "analysis_mode": "rule_based"
     },
     {
@@ -6554,6 +6855,38 @@
         "利润承压"
       ],
       "reason": "关键词与分类信号指向「财报业绩」；参考词：良品铺子。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "3b9492056ec1ee02",
+      "title": "朴朴与阿里，实锤了！ - Sohu",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPcXo3dVd3Q1J0VmR3a0ZUcnZYUjhpZnB0VVNJN1NJc1FCMFdmMkp2S1Y0dXljSFFEa09OZ25YT3hlX3VrV2c4RFdkRjBYVDJWWFNSVkVaYmJua2ZTcTlncWkyUDgwUUZxdUtCeF9BRW5mUkR5Y0VTTC1CWnBNSWJ6ZGI3TEtHclM4?oc=5",
+      "published": "2026-07-30T10:33:57Z",
+      "source": "Sohu",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:35:54.777390Z",
+      "section": "retailer",
+      "entity": "朴朴超市",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "朴朴 区域扩张",
+      "matched_keywords": [
+        "朴朴"
+      ],
+      "importance": 1,
+      "display_title": "朴朴超市朴朴动态值得关注",
+      "brief_body": "朴朴与阿里，实锤了！ - Sohu",
+      "insight_type": "关注",
+      "insight_motive": "朴朴超市的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：朴朴。",
       "analysis_mode": "rule_based"
     },
     {
@@ -9735,6 +10068,38 @@
       "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
       "hot_keywords": [],
       "reason": "关键词与分类信号指向「其他」；参考词：Temu。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "1d7ee34e13fda4bf",
+      "title": "“给我恶心死了”消费者在山姆购买泸溪河桃酥吃出疑似金属牙冠异物，山姆紧急下架，泸溪河称均经金属探测等多道品控 - 财富号",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE42bTdCUmdHS0U2aHNCSngteGxRYjRXd0Y0XzFSdnNrdFloMXdnSDhVR1c4MzZqSXducXA3TUE2RWpUSjYtaDRMZjlRQ3Y3blBReDRwSHBMeDBQbXFyT2xYVUNBcFlYNzRSTGVv?oc=5",
+      "published": "2026-07-29T13:37:00Z",
+      "source": "财富号",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:35:09.133428Z",
+      "section": "retailer",
+      "entity": "山姆",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "山姆 爆品",
+      "matched_keywords": [
+        "山姆"
+      ],
+      "importance": 1,
+      "display_title": "“给我恶心死了”消费者在山姆购买泸溪河桃酥吃出疑似金属牙冠异物，山姆",
+      "brief_body": "“给我恶心死了”消费者在山姆购买泸溪河桃酥吃出疑似金属牙冠异物，山姆紧急下架，泸溪河称均经金属探测等多道品控 - 财富号",
+      "insight_type": "关注",
+      "insight_motive": "山姆的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：山姆。",
       "analysis_mode": "rule_based"
     },
     {
@@ -13704,6 +14069,42 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "00a341c8948fbdbe",
+      "title": "Costco Shares Climb Ahead of Fiscal Q4 Earnings on Solid Growth and Analyst Optimism - StockInvest.us",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQYi1aUUotcEhsbEpvNDJmTTA4TTZtbHZqZ2FLQzZILTIza2prZjVEVFpFdHpQekJEV2R6V0J5cnhXeGR6VlZKS3g2TzRReEFnU3dxN1RTc1FKNnhBdm5VcFdPTVRSd2FleGw0VmVnSWRTQjREXzYwU1ZWNTdnSmlzbE04MXQ2MGROTjM4YlBYUFhJUVpEUnRnREFPQnl6dEw0VHRhSTRyWVpPRDBya2Nhc2RoaTc?oc=5",
+      "published": "2026-07-28T13:03:56Z",
+      "source": "StockInvest.us",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:35:00.289933Z",
+      "section": "retailer",
+      "entity": "Costco",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "财报业绩",
+      "subcategory": "",
+      "matched_query": "Costco earnings",
+      "matched_keywords": [
+        "Costco"
+      ],
+      "importance": 5,
+      "display_title": "Costco营收利润表现释放经营信号",
+      "brief_body": "Costco Shares Climb Ahead of Fiscal Q4 Earnings on Solid Growth and Analyst Optimism - StockInvest.us",
+      "insight_type": "预警",
+      "insight_motive": "Costco披露经营表现，背后通常反映增长、利润和投入强度的取舍。",
+      "insight_impact": "财务信号会影响竞对补贴力度、商家资源投放和品类扩张节奏。",
+      "insight_jd_action": "京东商超可跟踪其核心品类投入、价格补贴和履约成本是否同步变化。",
+      "ai_insight": "财务信号会影响竞对补贴力度、商家资源投放和品类扩张节奏。京东商超可跟踪其核心品类投入、价格补贴和履约成本是否同步变化。",
+      "hot_keywords": [
+        "财报业绩",
+        "营收利润",
+        "利润承压"
+      ],
+      "reason": "关键词与分类信号指向「财报业绩」；参考词：Costco。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "a1575004ecbec91e",
       "title": "永辉超市：今年不再大范围“胖改”！去年亏损25.5亿元，闭店381家 - 财经号",
       "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFAtVmpLUzR3QkdUdl91alN4cTY1VHJrenlKaUIxXzU5dk1hSEZiMjQyVmd5MWNkYWtvLUxfZTRlZ2VQeEdDcFB0MHRBa0JnYTFBY3d0QUJyOEFkSHZaMXE5TFpZWmZ2enE2RG1v?oc=5",
@@ -15698,6 +16099,41 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "03823f8ecbb57f4a",
+      "title": "两年疯狂吸金超6亿元，“盲盒游戏”异化为赌博工具！多名核心人员主动投案，54名涉案人员被分层处置 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOYlk0VVlpNlhrYnUyT3FDWUVTSUs1MFNxQjNLQzFiMjRNakRYRGdqT2hmQmNGdVNRZlFjZlVqZzhmd0ZZNGtLanUzMXJMbEVCMnMxSXpMbUthWk5CWGlUY1RvSFVkeHVDdk1ldlpFbDVJWV9yY3VpazdmQmNTeGw4R1NPcDM?oc=5",
+      "published": "2026-07-28T03:18:00Z",
+      "source": "新浪财经",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:37:01.283882Z",
+      "section": "category",
+      "entity": "玩具乐器",
+      "entity_type": "category",
+      "category_group": "玩具乐器",
+      "category": "其他",
+      "subcategory": "行业热点 / 新品趋势",
+      "matched_query": "盲盒 监管",
+      "matched_keywords": [
+        "盲盒"
+      ],
+      "importance": 1,
+      "display_title": "两年疯狂吸金超6亿元，“盲盒游戏”异化为赌博工具！多名核心人员主动投",
+      "brief_body": "两年疯狂吸金超6亿元，“盲盒游戏”异化为赌博工具！多名核心人员主动投案，54名涉案人员被分层处置 - 新浪财经",
+      "insight_type": "关注",
+      "insight_motive": "玩具乐器的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "新品趋势",
+        "趋势货盘"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：盲盒。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "68b74561d66820e1",
       "title": "三倍价差只是开始？拼多多“打”入马来西亚引发价格慌 - 白鲸出海",
       "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFBXcmE4YmNJVVkyZjJPTHp6dVdDRk1uTEtMT3FpYVVoaTRPSkZNN3hLM3RiQ1RjRzlCR3VVaEh2d25pRkZuTWVQb0hfSTU?oc=5",
@@ -16842,6 +17278,41 @@
         "GMV"
       ],
       "reason": "关键词与分类信号指向「财报业绩」；参考词：叮咚买菜。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "191bc74ab14cbd99",
+      "title": "2026年婴幼儿纸尿裤选购全攻略：从安全焦虑到科学护敏，一篇讲透 - 邢台网",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1JdF9qUmlnenpGdEFlNHBQbzloTllDbndmb2lNakI0X3owUTJGQS0wcmE4SjA5SU9iWTJGdlAtLTNXYnBZbEw1eWZvYjExWEFyVWFXWUJXd3hNNHlyNHVYVDhJaG8?oc=5",
+      "published": "2026-07-27T16:00:00Z",
+      "source": "邢台网",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:36:13.998074Z",
+      "section": "category",
+      "entity": "母婴",
+      "entity_type": "category",
+      "category_group": "母婴",
+      "category": "其他",
+      "subcategory": "行业政策",
+      "matched_query": "纸尿裤 升级",
+      "matched_keywords": [
+        "纸尿裤"
+      ],
+      "importance": 1,
+      "display_title": "2026年婴幼儿纸尿裤选购全攻略：从安全焦虑到科学护敏，一篇讲透",
+      "brief_body": "2026年婴幼儿纸尿裤选购全攻略：从安全焦虑到科学护敏，一篇讲透 - 邢台网",
+      "insight_type": "关注",
+      "insight_motive": "母婴的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "行业政策",
+        "监管合规"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：纸尿裤。",
       "analysis_mode": "rule_based"
     },
     {
@@ -22201,6 +22672,41 @@
         "经营规则"
       ],
       "reason": "关键词与分类信号指向「平台政策」；参考词：Temu。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "8c44263586985a81",
+      "title": "代工产能过剩，饮料品牌为什么还在自建灌装线 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBPS2xVQ1F0aEZvOVRDWUNzLTlpcjlKLXV1ZWtWcTA5UGhQUUVkeU9ZYlVvYUo5TklxOWhFY3VtV0g0dmVQRi1kYWFlSFczTXJOWjhyWERNYTBERFdsU1lhb3I4VGFxRDlkZFYwZHc1QmVwVDAyT2c?oc=5",
+      "published": "2026-07-25T10:08:00Z",
+      "source": "新浪财经",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:36:25.454753Z",
+      "section": "category",
+      "entity": "水饮冲调",
+      "entity_type": "category",
+      "category_group": "水饮冲调",
+      "category": "其他",
+      "subcategory": "行业政策",
+      "matched_query": "康师傅 饮料",
+      "matched_keywords": [
+        "饮料"
+      ],
+      "importance": 1,
+      "display_title": "代工产能过剩，饮料品牌为什么还在自建灌装线",
+      "brief_body": "代工产能过剩，饮料品牌为什么还在自建灌装线 - 新浪财经",
+      "insight_type": "关注",
+      "insight_motive": "水饮冲调的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "行业政策",
+        "监管合规"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：饮料。",
       "analysis_mode": "rule_based"
     },
     {
@@ -29360,6 +29866,41 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "fb4d8f9176795e0c",
+      "title": "破局存量竞争，这场座谈会为湖南休闲食品发展“出招”：告别价格战，转向价值战 - 手机网易网",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE8zbUNTb1ZWTmh1bDNUdEE2Vk4xSGl5WklpeWhaMlBwaUNDeHlJRGltOThZeDU0VmNXNVNSakJLNGNXeVRucjlRaldaME1QRGRQa1BIU0RadExCNS1od2JYX2V3?oc=5",
+      "published": "2026-07-23T09:57:20Z",
+      "source": "手机网易网",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:37:13.681622Z",
+      "section": "category",
+      "entity": "休闲食品",
+      "entity_type": "category",
+      "category_group": "休闲食品",
+      "category": "价格变化",
+      "subcategory": "",
+      "matched_query": "休闲食品 行业政策",
+      "matched_keywords": [
+        "休闲食品"
+      ],
+      "importance": 2,
+      "display_title": "破局存量竞争，这场座谈会为湖南休闲食品发展“出招”：告别价格战，转向",
+      "brief_body": "破局存量竞争，这场座谈会为湖南休闲食品发展“出招”：告别价格战，转向价值战 - 手机网易网",
+      "insight_type": "预警",
+      "insight_motive": "休闲食品强化价格动作，通常对应流量争夺、转化效率压力和用户低价心智竞争。",
+      "insight_impact": "低价信号会放大用户比价行为，并压缩同类核心 SKU 的毛利空间。",
+      "insight_jd_action": "京东商超可对比核心 SKU 价格带、促销强度和履约体验，判断是否强化低价爆品池。",
+      "ai_insight": "低价信号会放大用户比价行为，并压缩同类核心 SKU 的毛利空间。京东商超可对比核心 SKU 价格带、促销强度和履约体验，判断是否强化低价爆品池。",
+      "hot_keywords": [
+        "价格力",
+        "价格波动"
+      ],
+      "reason": "关键词与分类信号指向「价格变化」；参考词：休闲食品。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "fcb90439778d207e",
       "title": "盒马开启新疆美食节，老汉瓜、鲜巴旦木陆续上架 - 国际果蔬",
       "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE90UmNhd055WFJqRHBuZEg2WGFqMDRwQXdNT3NiZG1CeGIwNnBkS2xDVkZsT3NQVVRCWkswTmE3ejZsYlRGdU41TnFiaXdXMjZO?oc=5",
@@ -35566,6 +36107,41 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "ab41bb555954a540",
+      "title": "科技引领，全家护航 澳优亮相中国乳业盛会，斩获多项权威认可 - 新浪财经",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5GNFJ2V3ZWTGExXzRsUUZfX0U1TWdka2w3SnJ1TXVWejRJT19SbVZBb2RSS1NVeTdnTjh0VVQtX2tvOWIxZ1p0T0tISnNOX05IRUljQ2NJUXA0dk9UanRITXVjbWktLXJqdWFvOGx4SHN4OXJndmdISQ?oc=5",
+      "published": "2026-07-22T07:00:00Z",
+      "source": "新浪财经",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:36:13.694054Z",
+      "section": "category",
+      "entity": "澳优",
+      "entity_type": "brand",
+      "category_group": "母婴",
+      "category": "其他",
+      "subcategory": "重点品牌动态",
+      "matched_query": "儿童营养 新品",
+      "matched_keywords": [
+        "澳优"
+      ],
+      "importance": 1,
+      "display_title": "科技引领，全家护航澳优亮相中国乳业盛会，斩获多项权威认可",
+      "brief_body": "科技引领，全家护航 澳优亮相中国乳业盛会，斩获多项权威认可 - 新浪财经",
+      "insight_type": "关注",
+      "insight_motive": "澳优的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "重点品牌",
+        "渠道动作"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：澳优。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "78252401755f2d57",
       "title": "第三方数据：英国近五成Z世代及千禧群体使用TikTok Shop购物 - 亿邦动力网",
       "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5ZVTQwZkZwYlBXZFZGWGVtaHRXNWpfOWJiejFiVlRMWmpLS0hPQmI1Y1ItWk14dVQyN0JmR1h1RHNDN3Z2U3RlVExYMVhsN3BEaXFkdmFB?oc=5",
@@ -39929,6 +40505,38 @@
         "食品安全"
       ],
       "reason": "关键词与分类信号指向「行业政策」；参考词：食品安全。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "4c40242cedd85c08",
+      "title": "盒马藿香饮多地卖断货！商超里的饮料真的比奶茶还抢手？ - 手机网易网",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBpSHVYU3g3Xy0yOWNsVFRLSUdYRkQ0bkZNV1dGdzRxY2VGRURzelZvZ25XTHo4cUdKSnVIVDdYN0R2UVlaaUJkOUpCYzBzeS1MMFN0TWY1TU8zZjIwT0ZKbU1R?oc=5",
+      "published": "2026-07-21T07:00:00Z",
+      "source": "手机网易网",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:35:19.335528Z",
+      "section": "retailer",
+      "entity": "盒马",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "盒马 新品",
+      "matched_keywords": [
+        "盒马"
+      ],
+      "importance": 1,
+      "display_title": "盒马藿香饮多地卖断货！商超里的饮料真的比奶茶还抢手？",
+      "brief_body": "盒马藿香饮多地卖断货！商超里的饮料真的比奶茶还抢手？ - 手机网易网",
+      "insight_type": "关注",
+      "insight_motive": "盒马的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：盒马。",
       "analysis_mode": "rule_based"
     },
     {
@@ -48180,6 +48788,41 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "7c38120b4e115266",
+      "title": "2026苏州成人纸尿裤老人用质量深度调研白皮书 - 手机网易网",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE0ybU9QZWtWb0pIN2gyZXplNTkyMktOME9fOWtra0ppZURpQXB2M3p4VFNkVEJVRUNDREZ2MEtDRWVyLWpVMUI2X0RjSjRVQ0liblpta2JoN0xqWUc3Z2syT25B?oc=5",
+      "published": "2026-07-18T10:03:06Z",
+      "source": "手机网易网",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:36:13.997946Z",
+      "section": "category",
+      "entity": "母婴",
+      "entity_type": "category",
+      "category_group": "母婴",
+      "category": "其他",
+      "subcategory": "行业政策",
+      "matched_query": "纸尿裤 升级",
+      "matched_keywords": [
+        "纸尿裤"
+      ],
+      "importance": 1,
+      "display_title": "2026苏州成人纸尿裤老人用质量深度调研白皮书",
+      "brief_body": "2026苏州成人纸尿裤老人用质量深度调研白皮书 - 手机网易网",
+      "insight_type": "关注",
+      "insight_motive": "母婴的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [
+        "行业政策",
+        "监管合规"
+      ],
+      "reason": "关键词与分类信号指向「其他」；参考词：纸尿裤。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "57083571c0cc1f72",
       "title": "盒马上市“巨无霸”重瓣荷花 市民可解锁夏日养花新体验 - 温州新闻网",
       "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBiVUFCWlB4RTVYUXlKOVF2U0N0M1hHclUyZGllRU1XWXczQmJXdW5FNUNsRHl6Nmw1NnQ3eDRoRlFCaWYwOS1iV2hkYTJiNldUVlBiNWxBT1NhRVdQYnJnYXlja3FiUQ?oc=5",
@@ -49003,6 +49646,39 @@
         "食品安全"
       ],
       "reason": "关键词与分类信号指向「行业政策」；参考词：食品安全。",
+      "analysis_mode": "rule_based"
+    },
+    {
+      "id": "c737de4517c34ef9",
+      "title": "零售一周报｜于东来登上《央视新闻》引发关注、奥乐齐入驻安徽首店、永辉超市内蒙古首店开业…… - 手机网易网",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5KX1NEdmVoY3ctZ20yY1BFRVFRLVJIOWpaajJPUHBWeXhfV3NGcmlhZWppOHFPQmdiNy1xWUVaTWRLRElIVno4REdFN015a1pqeVJWdmVOdEVhcVRzcDdCRmtB?oc=5",
+      "published": "2026-07-18T04:11:50Z",
+      "source": "手机网易网",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:35:41.901240Z",
+      "section": "retailer",
+      "entity": "永辉",
+      "entity_type": "retailer",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "永辉 即时零售",
+      "matched_keywords": [
+        "永辉",
+        "永辉超市"
+      ],
+      "importance": 1,
+      "display_title": "永辉永辉超市动态值得关注",
+      "brief_body": "零售一周报｜于东来登上《央视新闻》引发关注、奥乐齐入驻安徽首店、永辉超市内蒙古首店开业…… - 手机网易网",
+      "insight_type": "关注",
+      "insight_motive": "永辉的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：永辉、永辉超市。",
       "analysis_mode": "rule_based"
     },
     {
@@ -50447,6 +51123,38 @@
       "analysis_mode": "rule_based"
     },
     {
+      "id": "8bc5490a0a5ccacd",
+      "title": "美团试点骑手“等灯停表”，已联合苏州进行数据对接与测试 - 美团",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE11M085YzM0eFNMUFoxdmpUVnRZM0FFMHFwd000WUVNMEhfYjlxTWprV2o5YmFVR3N6aVZIb3Z6UkxyNVZqSlpIQmJndEE0aVVCcUFGQlY0MHBYZw?oc=5",
+      "published": "2026-07-17T14:16:04Z",
+      "source": "美团",
+      "summary": "",
+      "article_excerpt": "",
+      "source_excerpt": "",
+      "fetched_at": "2026-08-02T11:34:51.466147Z",
+      "section": "platform",
+      "entity": "美团",
+      "entity_type": "platform",
+      "category_group": "",
+      "category": "其他",
+      "subcategory": "",
+      "matched_query": "美团 履约",
+      "matched_keywords": [
+        "美团"
+      ],
+      "importance": 2,
+      "display_title": "美团试点骑手“等灯停表”，已联合苏州进行数据对接与测试",
+      "brief_body": "美团试点骑手“等灯停表”，已联合苏州进行数据对接与测试 - 美团",
+      "insight_type": "关注",
+      "insight_motive": "美团的外部动作反映其在增长、供给或用户心智上的经营调整。",
+      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
+      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
+      "hot_keywords": [],
+      "reason": "关键词与分类信号指向「其他」；参考词：美团。",
+      "analysis_mode": "rule_based"
+    },
+    {
       "id": "30b7ac041f80d120",
       "title": "美团717骑士节荣誉盛典在京举办，升级“等灯停表”、医疗保障扩容等多项举措 - 美团",
       "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1xbGpneGFXZjBSZC16dDkxb0FhWlFzR05QdHpVd2VIUEdfbVpFcEpSZDZhRUhQaC1Femk4MF9Pc0tmbGlGYURxVGIweC0yQmp6blJZWGY4Z2V6UQ?oc=5",
@@ -51446,734 +52154,6 @@
       "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
       "hot_keywords": [],
       "reason": "关键词与分类信号指向「其他」；参考词：美团。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "eca018729e59a8a7",
-      "title": "“看起来便宜”的量贩零食，经得起细算吗？ - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBkWWtRZW1ISDM3bFcwc1dUb3BBM1pCdU1jRHhTM2hqcFo0OEVuLW9MMlRzUVdFWVc4WTNMU0ZIQjhQcnY1bDQtOFpBbTNsWXpNZ2R5YnZldU01clk2QlZ5UXJB?oc=5",
-      "published": "2026-07-17T10:40:55Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:44:31.438466Z",
-      "section": "category",
-      "entity": "休闲食品",
-      "entity_type": "category",
-      "category_group": "休闲食品",
-      "category": "其他",
-      "subcategory": "行业政策",
-      "matched_query": "量贩零食 渠道",
-      "matched_keywords": [
-        "零食"
-      ],
-      "importance": 1,
-      "display_title": "“看起来便宜”的量贩零食，经得起细算吗？",
-      "brief_body": "“看起来便宜”的量贩零食，经得起细算吗？ - 手机网易网",
-      "insight_type": "关注",
-      "insight_motive": "休闲食品的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规",
-        "量贩零食"
-      ],
-      "reason": "关键词与分类信号指向「其他」；参考词：零食。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "30e5c1c95c3fe379",
-      "title": "碳酸饮料没人要，背后隐藏着哪些关键信息？ - 新浪财经",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOM1B3Wk1pVlJ2cVMxbnRjRVlBajZSUUQ5a2wxM1pPelplZG9KeFhRbDBYZ19OWXQ1Y1o0R2RNNjNoRDhBdVZaV3dTS1diWlN5bW4yNC1PY3MwRHZSRmpEajBoV2dWTmdTaDFtUTBmSlB6Y1NrRHlJVG84OXpjSkdJbUc3U2R2ZFE0cTJid255eFpPbFFIUk5NNGRLYTA?oc=5",
-      "published": "2026-07-17T10:23:14Z",
-      "source": "新浪财经",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-19T03:59:35.107672Z",
-      "section": "category",
-      "entity": "水饮冲调",
-      "entity_type": "category",
-      "category_group": "水饮冲调",
-      "category": "其他",
-      "subcategory": "行业政策",
-      "matched_query": "无糖茶 新品",
-      "matched_keywords": [
-        "饮料"
-      ],
-      "importance": 1,
-      "display_title": "碳酸饮料没人要，背后隐藏着哪些关键信息？",
-      "brief_body": "碳酸饮料没人要，背后隐藏着哪些关键信息？ - 新浪财经",
-      "insight_type": "关注",
-      "insight_motive": "水饮冲调的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规"
-      ],
-      "reason": "关键词与分类信号指向「其他」；参考词：饮料。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "3bd1b0a927cfe0bf",
-      "title": "7月17日贵州茅台发生3笔大宗交易 成交金额2.11亿元 - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBIMVRfd0VXLXFsSmo2dl9jLXlPQnB3cU9oVm5DMWJ5OThLUGhmWEhfX1lPNkpUZGM2a3VLaExIU1VpRVpCVlRXaXpuSTV6OEx2bnlzaGNtYkZqaXoyaGZGUFpn?oc=5",
-      "published": "2026-07-17T10:06:49Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-18T11:20:33.990311Z",
-      "section": "category",
-      "entity": "贵州茅台",
-      "entity_type": "brand",
-      "category_group": "酒类",
-      "category": "其他",
-      "subcategory": "重点品牌动态",
-      "matched_query": "贵州茅台 财报",
-      "matched_keywords": [
-        "贵州茅台",
-        "茅台"
-      ],
-      "importance": 1,
-      "display_title": "7月17日贵州茅台发生3笔大宗交易成交金额2.11亿元",
-      "brief_body": "7月17日贵州茅台发生3笔大宗交易 成交金额2.11亿元 - 手机网易网",
-      "insight_type": "关注",
-      "insight_motive": "贵州茅台的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [
-        "重点品牌",
-        "渠道动作"
-      ],
-      "reason": "关键词与分类信号指向「其他」；参考词：贵州茅台、茅台。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "a054a1e8d19b4fab",
-      "title": "美团升级骑手“等红灯停表”、医疗保障扩容等多项举措 - 新京报",
-      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE03c202OXY3ZmlDakY5Y3FYa0pNZTh2MVRCVDF1aDRlZGtrcS1lbUJkOXY2Q0NBc1kweTBFUjZYZDR1d0d6aWdIYk1Da2F3THJvTUdESnozUUNWOFEzRUxETHlFVC0?oc=5",
-      "published": "2026-07-17T09:59:00Z",
-      "source": "新京报",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:41:48.958331Z",
-      "section": "platform",
-      "entity": "美团",
-      "entity_type": "platform",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "美团 履约",
-      "matched_keywords": [
-        "美团"
-      ],
-      "importance": 1,
-      "display_title": "美团升级骑手“等红灯停表”、医疗保障扩容等多项举措",
-      "brief_body": "美团升级骑手“等红灯停表”、医疗保障扩容等多项举措 - 新京报",
-      "insight_type": "关注",
-      "insight_motive": "美团的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：美团。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "4814f6b86d5c5d28",
-      "title": "开启舌尖上的“三伏天” 南昌第八家盒马鲜生开业首日火爆 - 凤凰网江西",
-      "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE8zRnpSY0lONHpZcFk3QmduQkR0LXl4bm12MTRWQ3dSX25vUjNVeHg3dTl4ZW52Z0pLQllfSUU2cm05Nmk4bExpMjVR?oc=5",
-      "published": "2026-07-17T09:51:25Z",
-      "source": "凤凰网江西",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:42:22.735817Z",
-      "section": "retailer",
-      "entity": "盒马",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "盒马鲜生",
-      "matched_keywords": [
-        "盒马",
-        "盒马鲜生"
-      ],
-      "importance": 1,
-      "display_title": "开启舌尖上的“三伏天”南昌第八家盒马鲜生开业首日火爆",
-      "brief_body": "开启舌尖上的“三伏天” 南昌第八家盒马鲜生开业首日火爆 - 凤凰网江西",
-      "insight_type": "关注",
-      "insight_motive": "盒马的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：盒马、盒马鲜生。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "eb33cf5e9e6548d1",
-      "title": "“零食有鸣”被约谈！6500家门店背后食品安全问题频发-视频中心 - 齐鲁晚报",
-      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBJa2xubklaYlFPRjZ5cVdKZ2NhWWxfaktWRTZ6RzcxV2Y2c1ZtcWtWaVM2RjEyZndaVFFYaGVHejZLMmVVMXRLZVZicDhmbkJFNkNpX1ZrT0pLdXVHS3c?oc=5",
-      "published": "2026-07-17T09:49:59Z",
-      "source": "齐鲁晚报",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-19T11:34:04.320613Z",
-      "section": "category",
-      "entity": "休闲食品",
-      "entity_type": "category",
-      "category_group": "休闲食品",
-      "category": "行业政策",
-      "subcategory": "行业政策",
-      "matched_query": "休闲食品 食品安全",
-      "matched_keywords": [
-        "零食",
-        "食品安全"
-      ],
-      "importance": 5,
-      "display_title": "“零食有鸣”被约谈！6500家门店背后食品安全问题频发-视频中心",
-      "brief_body": "“零食有鸣”被约谈！6500家门店背后食品安全问题频发-视频中心 - 齐鲁晚报",
-      "insight_type": "预警",
-      "insight_motive": "行业政策信号通常来自监管要求、平台治理或行业准入标准变化。",
-      "insight_impact": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。",
-      "insight_jd_action": "京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "ai_insight": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规",
-        "食品安全"
-      ],
-      "reason": "关键词与分类信号指向「行业政策」；参考词：零食、食品安全。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "ec343014347f279c",
-      "title": "永辉717好吃节迎来自有品牌专属周：认准小黑标，让品质回归日常 - 中华网生活",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFB2Sjg5SExadW9mMERUYzFRTVZ2MWdRbnl5OXhsbXJxX2dhRUZaVldzTXJDREhYUE1iQ3hXZmtFRGJjSDFZNXk1d1cya2QzSVdmYVpHQXlOdHptMlRFcFVVU2piQQ?oc=5",
-      "published": "2026-07-17T09:49:21Z",
-      "source": "中华网生活",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:42:46.960421Z",
-      "section": "retailer",
-      "entity": "永辉",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "自有品牌",
-      "subcategory": "",
-      "matched_query": "永辉 自有品牌",
-      "matched_keywords": [
-        "永辉",
-        "自有品牌"
-      ],
-      "importance": 4,
-      "display_title": "永辉717好吃节迎来自有品牌专属周：认准小黑标，让品质回归日常",
-      "brief_body": "永辉717好吃节迎来自有品牌专属周：认准小黑标，让品质回归日常 - 中华网生活",
-      "insight_type": "机会",
-      "insight_motive": "永辉强化自有品牌，多数是为了提升差异化供给和毛利控制能力。",
-      "insight_impact": "自有品牌扩张会提高用户对独家商品、会员专属商品和稳定品质的期待。",
-      "insight_jd_action": "京东商超可梳理大包装、家庭囤货和高复购品类的自营定制机会。",
-      "ai_insight": "自有品牌扩张会提高用户对独家商品、会员专属商品和稳定品质的期待。京东商超可梳理大包装、家庭囤货和高复购品类的自营定制机会。",
-      "hot_keywords": [
-        "自有品牌",
-        "差异化货盘"
-      ],
-      "reason": "关键词与分类信号指向「自有品牌」；参考词：永辉、自有品牌。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "9d6891c7a3f33c6a",
-      "title": "沃尔玛要把药食同源做成日常 - CBNData-第一财经商业数据中心",
-      "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBWNWx1aWt0aW9fT3ByYVhGUmlZb3lrU29RM0JBVVRVcEEtYkN3MEYyVDVid3VWWC1UdXMtaElBR19sUmlJZlowSUxVRlBKbHBST3c?oc=5",
-      "published": "2026-07-17T09:49:05Z",
-      "source": "CBNData-第一财经商业数据中心",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-18T11:19:35.173823Z",
-      "section": "retailer",
-      "entity": "沃尔玛",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "沃尔玛 自有品牌",
-      "matched_keywords": [
-        "沃尔玛"
-      ],
-      "importance": 1,
-      "display_title": "沃尔玛要把药食同源做成日常-CBNData",
-      "brief_body": "沃尔玛要把药食同源做成日常 - CBNData-第一财经商业数据中心",
-      "insight_type": "关注",
-      "insight_motive": "沃尔玛的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：沃尔玛。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "e5847cefb9057a17",
-      "title": "2026全球母婴大会“分段喂养×SNPC为爱把关每一口”不二宝贝主题专场举行 - 新浪财经",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPZHFmeFFtbjZqaEFJMEJSMUFaaHdVVnFEUzlMTTRER19yOTJpRndsYUotYVVwNTh1MnZlcHc0ZHBIRG9hbEwxakMzY21xa3FtNjIwYXdONHdxMzRMZFhHM19fNE93UlZWQ0xHZVM5b1RzU25uS1UzVjczOXhyVG5IdlgwZXZiTlU?oc=5",
-      "published": "2026-07-17T09:34:00Z",
-      "source": "新浪财经",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-19T03:59:29.167678Z",
-      "section": "category",
-      "entity": "母婴",
-      "entity_type": "category",
-      "category_group": "母婴",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "母婴 食品安全",
-      "matched_keywords": [
-        "母婴"
-      ],
-      "importance": 1,
-      "display_title": "2026全球母婴大会“分段喂养×SNPC为爱把关每一口”不二宝贝主题",
-      "brief_body": "2026全球母婴大会“分段喂养×SNPC为爱把关每一口”不二宝贝主题专场举行 - 新浪财经",
-      "insight_type": "关注",
-      "insight_motive": "母婴的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：母婴。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "817bac94172de2ad",
-      "title": "永辉自有品牌节，40余款新品首发 - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBCN0ZxX3lQY05jSTdqeEtzV2g5ZUp1VmxyclZrdEM5Qy0ySWE1bkE5Y2xvdXhmV05nYjdlZnNlMnJkMFc1bWJMWi1YREtkQUJ1V3dBdUVQLUZpaGx5cFYwLU1R?oc=5",
-      "published": "2026-07-17T09:33:34Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-24T03:47:40.440147Z",
-      "section": "retailer",
-      "entity": "永辉",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "自有品牌",
-      "subcategory": "",
-      "matched_query": "永辉 自有品牌",
-      "matched_keywords": [
-        "永辉",
-        "自有品牌"
-      ],
-      "importance": 4,
-      "display_title": "永辉自有品牌节，40余款新品首发",
-      "brief_body": "永辉自有品牌节，40余款新品首发 - 手机网易网",
-      "insight_type": "机会",
-      "insight_motive": "永辉强化自有品牌，多数是为了提升差异化供给和毛利控制能力。",
-      "insight_impact": "自有品牌扩张会提高用户对独家商品、会员专属商品和稳定品质的期待。",
-      "insight_jd_action": "京东商超可梳理大包装、家庭囤货和高复购品类的自营定制机会。",
-      "ai_insight": "自有品牌扩张会提高用户对独家商品、会员专属商品和稳定品质的期待。京东商超可梳理大包装、家庭囤货和高复购品类的自营定制机会。",
-      "hot_keywords": [
-        "自有品牌",
-        "差异化货盘"
-      ],
-      "reason": "关键词与分类信号指向「自有品牌」；参考词：永辉、自有品牌。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "6b9d76e0575d97d7",
-      "title": "上海家化(SH600315)股票股价_股价行情_讨论_资讯_财报_数据报告 - 雪球",
-      "link": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE4zTkc1Q3J0WGpzNURtV1BaRDVCOS1wLXZRNHZLSHYyMDFTakQ2TFpobl9KOXAwVktrRkZ0eG56djYzbFk?oc=5",
-      "published": "2026-07-17T09:28:51Z",
-      "source": "雪球",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:43:59.414679Z",
-      "section": "category",
-      "entity": "上海家化",
-      "entity_type": "brand",
-      "category_group": "个人护理",
-      "category": "财报业绩",
-      "subcategory": "重点品牌动态",
-      "matched_query": "上海家化 财报",
-      "matched_keywords": [
-        "上海家化"
-      ],
-      "importance": 5,
-      "display_title": "上海家化(SH600315)股票股价_股价行情_讨论_资讯_财报_数",
-      "brief_body": "上海家化(SH600315)股票股价_股价行情_讨论_资讯_财报_数据报告 - 雪球",
-      "insight_type": "预警",
-      "insight_motive": "上海家化披露经营表现，背后通常反映增长、利润和投入强度的取舍。",
-      "insight_impact": "财务信号会影响竞对补贴力度、商家资源投放和品类扩张节奏。",
-      "insight_jd_action": "京东商超可跟踪其核心品类投入、价格补贴和履约成本是否同步变化。",
-      "ai_insight": "财务信号会影响竞对补贴力度、商家资源投放和品类扩张节奏。京东商超可跟踪其核心品类投入、价格补贴和履约成本是否同步变化。",
-      "hot_keywords": [
-        "重点品牌",
-        "渠道动作",
-        "财报业绩",
-        "营收利润",
-        "利润承压"
-      ],
-      "reason": "关键词与分类信号指向「财报业绩」；参考词：上海家化。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "d507c679ce3f97e4",
-      "title": "山姆亲兄弟，火成了盒马“劲敌” - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5Xdi14N21uWmpIa243VlhiMmtMeU1hSnRhTXhnc3E5VGMycEdqWTRoWDQxNURLSUs2bnYxLUE2enJQRlJSMUZIQVV1bzhEaDNsLTdWOG5faEhscDF4TUdWeXhB?oc=5",
-      "published": "2026-07-17T09:21:16Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-19T03:58:25.473814Z",
-      "section": "retailer",
-      "entity": "盒马",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "盒马 开店",
-      "matched_keywords": [
-        "盒马"
-      ],
-      "importance": 1,
-      "display_title": "山姆亲兄弟，火成了盒马“劲敌”",
-      "brief_body": "山姆亲兄弟，火成了盒马“劲敌” - 手机网易网",
-      "insight_type": "关注",
-      "insight_motive": "盒马的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：盒马。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "0f70681283c9730d",
-      "title": "一手预亏9000万，一手押注新店型，“新鲜零食”能助来伊份扳回一城吗？ - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBnOVlCNmlNcDM3eVc4bUFhR05aVWI4OGtUa2ZHZFpjSVdxSGJ0YmJJcUlReFF5ZHIxWmtmVUJMTzFtMmtJdE9nUTdHRE5xeEVUUkdKYWEwYUlhcWVqWDQ3ZDdB?oc=5",
-      "published": "2026-07-17T09:17:06Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-23T12:06:22.755147Z",
-      "section": "category",
-      "entity": "休闲食品",
-      "entity_type": "category",
-      "category_group": "休闲食品",
-      "category": "开店 / 拓店",
-      "subcategory": "行业政策",
-      "matched_query": "三只松鼠 财报",
-      "matched_keywords": [
-        "零食"
-      ],
-      "importance": 2,
-      "display_title": "一手预亏9000万，一手押注新店型，“新鲜零食”能助来伊份扳回一城吗",
-      "brief_body": "一手预亏9000万，一手押注新店型，“新鲜零食”能助来伊份扳回一城吗？ - 手机网易网",
-      "insight_type": "动作",
-      "insight_motive": "休闲食品拓店或调改通常指向区域覆盖、服务体验和规模效率优化。",
-      "insight_impact": "门店布局会改变区域竞争半径，也会影响用户对即时购买和线下体验的选择。",
-      "insight_jd_action": "京东商超可观察相关城市的用户价格敏感度、到家需求和家庭囤货场景变化。",
-      "ai_insight": "门店布局会改变区域竞争半径，也会影响用户对即时购买和线下体验的选择。京东商超可观察相关城市的用户价格敏感度、到家需求和家庭囤货场景变化。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规",
-        "开店拓店",
-        "区域竞争"
-      ],
-      "reason": "关键词与分类信号指向「开店 / 拓店」；参考词：零食。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "a8f35e557413f6a1",
-      "title": "【零售】百亿落子朴朴超市，阿里补齐即时零售全场景供应链布局 - 快消品网",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE53VDQ2Q3Jwb0JmMWJiUjdQNTFPcTZYZHB6UW9BOWZpX1AwLWFQQXNhYzQ1R1Mxc1h3U3Z0eWtESmpaaC1QQXdtT3RxUmVNcDhKUVpQTVd0b3RlSFU?oc=5",
-      "published": "2026-07-17T08:52:00Z",
-      "source": "快消品网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:42:19.973487Z",
-      "section": "retailer",
-      "entity": "盒马",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "即时零售",
-      "subcategory": "",
-      "matched_query": "盒马 即时零售",
-      "matched_keywords": [
-        "即时零售"
-      ],
-      "importance": 4,
-      "display_title": "【零售】百亿落子朴朴超市，阿里补齐即时零售全场景供应链布局",
-      "brief_body": "【零售】百亿落子朴朴超市，阿里补齐即时零售全场景供应链布局 - 快消品网",
-      "insight_type": "动作",
-      "insight_motive": "盒马强化履约或供应链，多数指向时效体验、库存周转和区域覆盖能力。",
-      "insight_impact": "履约能力提升会改变用户对到家速度、缺货率和服务稳定性的比较标准。",
-      "insight_jd_action": "京东商超可对照小时达、前置仓、仓配协同和履约成本，识别需要补强的场景。",
-      "ai_insight": "履约能力提升会改变用户对到家速度、缺货率和服务稳定性的比较标准。京东商超可对照小时达、前置仓、仓配协同和履约成本，识别需要补强的场景。",
-      "hot_keywords": [
-        "即时零售",
-        "履约成本",
-        "供应链"
-      ],
-      "reason": "关键词与分类信号指向「即时零售」；参考词：即时零售。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "66e6e6f50e7a991a",
-      "title": "叮咚买菜落地合肥，600仓日单60万，亏损战谁先熬到头？ - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1SdjU5Tk9VRXBoMk1HSkNLN3QweV9vTlJWRWlKc3RzQkVxc29lYkRoeGJXaU5UdndFWEotbFI2ODR2anRxTXFrT1RIOG9JYnpmenpPTVJNbDl1VU5LRFBxdjl3?oc=5",
-      "published": "2026-07-17T08:48:17Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-18T11:20:23.829756Z",
-      "section": "retailer",
-      "entity": "叮咚买菜",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "叮咚买菜 前置仓",
-      "matched_keywords": [
-        "叮咚买菜"
-      ],
-      "importance": 1,
-      "display_title": "叮咚买菜落地合肥，600仓日单60万，亏损战谁先熬到头？",
-      "brief_body": "叮咚买菜落地合肥，600仓日单60万，亏损战谁先熬到头？ - 手机网易网",
-      "insight_type": "关注",
-      "insight_motive": "叮咚买菜的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：叮咚买菜。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "7f793f3a4cf3a90e",
-      "title": "四川省​广安市市场监督管理局发布食品安全监督抽检信息通告（2026年第4号） - 新浪财经",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPVTkzSnh3VDh4Z3c2UHl4bUVzSGVDZDdiWkl2Ym9Xd29NTlFzWjRZYzN4ZmEwVjR5R3JDM1JtNGpsYUlNSWpLQmNFQTd6Q0ZwWVprZDFIeEFkdDlxdE5QazRJQUFGcFZELXpiN3NhNnJWcWR5UFoybVFSWWVkbHNjU1d0NWFPVTl4VmIzb2NBaThvN19RQW5CamFCNUFTVVRUYnJmZDd0akRDN2hfQmprVDh2cGw?oc=5",
-      "published": "2026-07-17T08:31:04Z",
-      "source": "新浪财经",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-20T04:08:43.421273Z",
-      "section": "category",
-      "entity": "酒类",
-      "entity_type": "category",
-      "category_group": "酒类",
-      "category": "行业政策",
-      "subcategory": "行业政策",
-      "matched_query": "酒类 食品安全",
-      "matched_keywords": [
-        "食品安全"
-      ],
-      "importance": 5,
-      "display_title": "四川省​广安市市场监督管理局发布食品安全监督抽检信息通告（2026年",
-      "brief_body": "四川省​广安市市场监督管理局发布食品安全监督抽检信息通告（2026年第4号） - 新浪财经",
-      "insight_type": "预警",
-      "insight_motive": "行业政策信号通常来自监管要求、平台治理或行业准入标准变化。",
-      "insight_impact": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。",
-      "insight_jd_action": "京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "ai_insight": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规",
-        "食品安全"
-      ],
-      "reason": "关键词与分类信号指向「行业政策」；参考词：食品安全。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "c3c99427d9599736",
-      "title": "深圳市市场监督管理局关于公布一批食品安全专项整治典型案例的公告 - sz.gov.cn",
-      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9wUnRYOGxFdmtUa19JQkVSdDZZeXBqVElJLWhUZV9MTzY2V01lZDJzZHhGdWdpaUVmMVp6cjlfamN5dG1fSEFINjhJZzlSZmRtbXlWd1ItZ01qaXFMMmFVNXdlN2hwbFdCRTV3UEpRcURvOVZMcUFB?oc=5",
-      "published": "2026-07-17T08:29:00Z",
-      "source": "sz.gov.cn",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:43:16.582050Z",
-      "section": "category",
-      "entity": "酒类",
-      "entity_type": "category",
-      "category_group": "酒类",
-      "category": "行业政策",
-      "subcategory": "行业政策",
-      "matched_query": "酒类 监管",
-      "matched_keywords": [
-        "食品安全"
-      ],
-      "importance": 5,
-      "display_title": "深圳市市场监督管理局关于公布一批食品安全专项整治典型案例的公告",
-      "brief_body": "深圳市市场监督管理局关于公布一批食品安全专项整治典型案例的公告 - sz.gov.cn",
-      "insight_type": "预警",
-      "insight_motive": "行业政策信号通常来自监管要求、平台治理或行业准入标准变化。",
-      "insight_impact": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。",
-      "insight_jd_action": "京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "ai_insight": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规",
-        "食品安全"
-      ],
-      "reason": "关键词与分类信号指向「行业政策」；参考词：食品安全。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "dcd6f6d2c46f64e5",
-      "title": "美团，不够性感 - 手机网易网",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5VcXdzRnhWZjJlYUxJT1VJdTF3eEFtWlhxaHJwWlpnUTFQYVp2VDN2UUVFWUx1SUk4VjBqdnN3ZF9tWW1ULUMyMUh2bWl3MHpoR2h0bHVMdVlsZnpqNjNER1dn?oc=5",
-      "published": "2026-07-17T08:25:08Z",
-      "source": "手机网易网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-27T13:22:42.448535Z",
-      "section": "platform",
-      "entity": "美团",
-      "entity_type": "platform",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "美团 本地生活",
-      "matched_keywords": [
-        "美团"
-      ],
-      "importance": 1,
-      "display_title": "美团，不够性感",
-      "brief_body": "美团，不够性感 - 手机网易网",
-      "insight_type": "关注",
-      "insight_motive": "美团的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：美团。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "fce8c70f77ca7d37",
-      "title": "五粮液成了白酒里的“矮子将军”？ - 新浪财经",
-      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOckFoYlE3ZlQyc0hiQ3VoZHhqNlZpNzhvb2dLODNmeEdndXpXWWl0dC0xSFk5UEJ5S2RXNjVablJQQ2JHaEVlQlRFUVVpVV9ObldQMjZlWkdiS1lUYmFHZXE3dnBxTTZ4YUNNaEY4Q0tNaFpUVWtJVk9vMDFrRnd0M0xJZFZ3bE9ERlE?oc=5",
-      "published": "2026-07-17T08:16:28Z",
-      "source": "新浪财经",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:43:13.676383Z",
-      "section": "category",
-      "entity": "五粮液",
-      "entity_type": "brand",
-      "category_group": "酒类",
-      "category": "其他",
-      "subcategory": "行业政策",
-      "matched_query": "五粮液 渠道",
-      "matched_keywords": [
-        "白酒",
-        "五粮液"
-      ],
-      "importance": 1,
-      "display_title": "五粮液成了白酒里的“矮子将军”？",
-      "brief_body": "五粮液成了白酒里的“矮子将军”？ - 新浪财经",
-      "insight_type": "关注",
-      "insight_motive": "五粮液的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规"
-      ],
-      "reason": "关键词与分类信号指向「其他」；参考词：白酒、五粮液。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "20c69c57373638e9",
-      "title": "盒马遵义国贸店开业 首店经济点燃“黔北门户”消费热情 - 搜狐网",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPMGJ3al8wR2RPazhDRC1XWTNRM1pfLS16NWIzMmdSRWItQmJ0bFNVTzdDeUFVbjZJWXdzVEdRSlpIN184SGtjUlhPMjlsWUNBM1UxLWFvYVJwZWFQTkdqN0Ezb0VhaDVrRVVoMVY4X3hUUXBab0t6VmEzQVBHTFcxcWVFUVkwclppeWVIWnU4cw?oc=5",
-      "published": "2026-07-17T08:04:21Z",
-      "source": "搜狐网",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-17T11:42:22.736432Z",
-      "section": "retailer",
-      "entity": "盒马",
-      "entity_type": "retailer",
-      "category_group": "",
-      "category": "其他",
-      "subcategory": "",
-      "matched_query": "盒马鲜生",
-      "matched_keywords": [
-        "盒马"
-      ],
-      "importance": 1,
-      "display_title": "盒马遵义国贸店开业首店经济点燃“黔北门户”消费热情",
-      "brief_body": "盒马遵义国贸店开业 首店经济点燃“黔北门户”消费热情 - 搜狐网",
-      "insight_type": "关注",
-      "insight_motive": "盒马的外部动作反映其在增长、供给或用户心智上的经营调整。",
-      "insight_impact": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。",
-      "insight_jd_action": "京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "ai_insight": "连续出现的同类信号可能改变竞对资源投入、品牌合作和品类经营节奏。京东商超可结合价格、供给、履约和用户反馈，判断是否需要调整对应策略。",
-      "hot_keywords": [],
-      "reason": "关键词与分类信号指向「其他」；参考词：盒马。",
-      "analysis_mode": "rule_based"
-    },
-    {
-      "id": "d9a7655dd2e6cffa",
-      "title": "湖北省恩施州市场监督管理局食品安全监督抽检信息公告（2026年第5期） - 新浪财经",
-      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1uTnFKOFo1QjVXcXB4YnR5NGN2WC1iMlNSVnFyRXlRb0o1QVNUdVFCMUVQMUYwM0ZWYmRtSm5ZQ0dGYWpMWEJ2UHFVQ2J2N29LUTNKZkJmclhWejB1bHpiN0JWal81Mm9yUUt5QXE1djZwNWl5QWJINw?oc=5",
-      "published": "2026-07-17T08:02:00Z",
-      "source": "新浪财经",
-      "summary": "",
-      "article_excerpt": "",
-      "source_excerpt": "",
-      "fetched_at": "2026-07-19T11:32:49.273491Z",
-      "section": "category",
-      "entity": "酒类",
-      "entity_type": "category",
-      "category_group": "酒类",
-      "category": "行业政策",
-      "subcategory": "行业政策",
-      "matched_query": "酒类 食品安全",
-      "matched_keywords": [
-        "食品安全"
-      ],
-      "importance": 5,
-      "display_title": "湖北省恩施州市场监督管理局食品安全监督抽检信息公告（2026年第5期",
-      "brief_body": "湖北省恩施州市场监督管理局食品安全监督抽检信息公告（2026年第5期） - 新浪财经",
-      "insight_type": "预警",
-      "insight_motive": "行业政策信号通常来自监管要求、平台治理或行业准入标准变化。",
-      "insight_impact": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。",
-      "insight_jd_action": "京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "ai_insight": "规则收紧会影响商家准入、营销表达、商品资质和供应链履约标准。京东商超可同步核查品类合规、商家资质和重点商品页面表达，降低经营风险。",
-      "hot_keywords": [
-        "行业政策",
-        "监管合规",
-        "食品安全"
-      ],
-      "reason": "关键词与分类信号指向「行业政策」；参考词：食品安全。",
       "analysis_mode": "rule_based"
     }
   ]
