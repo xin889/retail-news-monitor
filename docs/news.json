@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "generated_at": "2026-08-15T10:43:20.688843Z",
+    "generated_at": "2026-08-16T03:15:42.455218Z",
     "total": 1500,
-    "today_count": 24,
-    "last_7_days_count": 688,
+    "today_count": 0,
+    "last_7_days_count": 653,
     "ai_mode": "rule_based",
     "ai_provider": "rule_based",
     "ai_model": "",
@@ -12,7 +12,7 @@
   "summaries": {
     "platform": {
       "title": "诸葛参谋",
-      "updated_at": "2026-08-15T10:43:19.071383Z",
+      "updated_at": "2026-08-16T03:15:40.977907Z",
       "analysis_mode": "rule_based",
       "bullets": [
         {
@@ -35,7 +35,7 @@
     },
     "retailer": {
       "title": "诸葛参谋",
-      "updated_at": "2026-08-15T10:43:19.857274Z",
+      "updated_at": "2026-08-16T03:15:41.692176Z",
       "analysis_mode": "rule_based",
       "bullets": [
         {
@@ -58,7 +58,7 @@
     },
     "category": {
       "title": "诸葛参谋",
-      "updated_at": "2026-08-15T10:43:20.649067Z",
+      "updated_at": "2026-08-16T03:15:42.415629Z",
       "analysis_mode": "rule_based",
       "bullets": [
         {
@@ -83,7 +83,7 @@
   "briefings": {
     "platform": {
       "title": "今日快讯",
-      "updated_at": "2026-08-15T10:43:20.663585Z",
+      "updated_at": "2026-08-16T03:15:42.431191Z",
       "items": [
         {
           "entity": "拼多多",
@@ -185,7 +185,7 @@
     },
     "retailer": {
       "title": "今日快讯",
-      "updated_at": "2026-08-15T10:43:20.675766Z",
+      "updated_at": "2026-08-16T03:15:42.442764Z",
       "items": [
         {
           "entity": "沃尔玛",
@@ -287,7 +287,7 @@
     },
     "category": {
       "title": "今日快讯",
-      "updated_at": "2026-08-15T10:43:20.688821Z",
+      "updated_at": "2026-08-16T03:15:42.455199Z",
       "items": [
         {
           "entity": "卫龙",
